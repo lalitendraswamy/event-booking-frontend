@@ -1,0 +1,122 @@
+/* carousel.css */
+.carousel-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.carousel-item {
+    padding: 10px;
+    text-align: center;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.event-image{
+    height: 380px;
+    width: 250px;
+}
+
+/* events.css */
+.events-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.events-item {
+    padding: 10px;
+    text-align: center;
+}
+
+.events-item img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.slick-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.slick-button:hover {
+    background-color: #0056b3;
+}
+
+/* .previous-btn{
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    border-radius: 20px solid white;
+    border-color: #0056b3 !important;
+} */
+
+.previous-btn {
+    height: 40px;
+    width: 100px;
+    border-radius: 20px; /* Only need to set this once */
+    border: 2px solid transparent; /* Set border to transparent initially */
+    background-color: white; /* Set the background color to white */
+    color: #0056b3; /* Set the text color to blue */
+    font-weight: bold; /* Optional: makes the text bold */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+/* Optional: Add a hover effect */
+.previous-btn:hover {
+    background-color: #0056b3; /* Change background on hover */
+    color: white; /* Change text color on hover */
+    border-color: #0056b3; /* Optional: change border color on hover */
+}
+
+.next-btn{
+    height: 40px;
+    width: 100px;
+    border-radius: 20px; /* Only need to set this once */
+    border: 2px solid transparent; /* Set border to transparent initially */
+    background-color: white; /* Set the background color to white */
+    color: #0056b3; /* Set the text color to blue */
+    font-weight: bold; /* Optional: makes the text bold */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.next-btn:hover {
+    background-color: #0056b3; /* Change background on hover */
+    color: white; /* Change text color on hover */
+    border-color: #0056b3; /* Optional: change border color on hover */
+}
+
+.prev-next-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+
+/* events.css */
+
+
+.events-item {
+    margin: 10px;
+    transition: transform 0.3s; /* Smooth scale transition */
+}
+
+.events-item:hover {
+    animation: fadeIn 1s forwards; /* Use animate.css fadeIn */
+    transform: scale(1.05); /* Optional: slightly scale up on hover */
+}
+
+

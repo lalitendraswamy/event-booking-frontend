@@ -1,0 +1,17 @@
+/* categories.css */
+.categories-container {
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+.category-item {
+    color: #0056b3;
+    padding: 10px 20px;
+    margin: 0 15px; /* Space between items */
+    display: inline-block; /* Keeps the items inline */
+}
+
+.category-item:hover { /* Darker shade on hover */
+   color: #333; 
+}
