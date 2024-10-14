@@ -1,14 +1,6 @@
 /* Add this to your CSS file or import in your component */
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
-
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-  }
   
   h2 {
     text-align: center;

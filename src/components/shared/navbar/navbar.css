@@ -53,3 +53,29 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.profile-container{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.orders-container{
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.order-icon{
+    height: 32px;
+    width: 32px;
+    color: #0056b3;
+    margin-right: 6px;
+}
+
+.order-heading{
+    color: #0056b3;
+}
+
+.order-text{
+  font-size: 12px;
+}

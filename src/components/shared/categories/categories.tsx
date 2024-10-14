@@ -16,7 +16,7 @@ const categories = [
     "Gift Cards",
 ];
 
-const Categories: React.FC = () => {
+const Categories= () => {
     return (
         <div className="categories-container mt-5 mb-5">
             <Marquee speed={50} gradient={false}>
