@@ -159,6 +159,11 @@
 .events-item {
     margin: 10px;
     transition: transform 0.3s; /* Smooth scale transition */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    text-align: center;
 }
 
 .events-item:hover {
@@ -166,4 +171,20 @@
     transform: scale(1.05); /* Optional: slightly scale up on hover */
 }
 
+.underline-none{
+    text-decoration: none;
+}
 
+.algin-text{
+    text-align: center;
+}
+
+.title-headeing{
+    color: #0056b3;
+    animation: bounce 2s forwards;
+}
+
+.title-headeing:hover{
+    color: #333;
+    
+}

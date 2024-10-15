@@ -1,10 +1,9 @@
-// src/routes/AppRoutes.tsx
+
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../components/HomePage/HomePage';
 import LoginPage from '../components/authentication/LoginPage';
 import Runway from '../components/authentication/Runaway';
-import ProtectedRoute from './ProtectedRoute';
 import Events from '../components/shared/events/events';
 import Categories from '../components/shared/categories/categories';
 import MovieList from '../components/shared/moviesList/moviesList';
@@ -14,7 +13,7 @@ import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 
 
-const movies:any = [
+const event:any = [
   {
     id: 1,
     title: "Pushpa: The Rule",
@@ -126,6 +125,7 @@ const movies:any = [
   }
 ];
 
+
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -138,10 +138,10 @@ const AppRoutes: React.FC = () => {
       <Route path="/my-orders" element={<MyOrdersPage/>} />
       
       <Route path="/categories" element={<Categories />}/> 
-      <Route path="/movies" element={<MovieList  movies={movies} titleLength={6} />} />
+      <Route path="/movies" element={<MovieList  events={event} titleLength={6} />} />
       <Route path="/not-found" element={<PageNotFound />} />
-        <Route path="*" element={<Navigate to="/not-found" replace />} />
-      
+      <Route path="*" element={<Navigate to="/not-found" replace />} />
+      <Route path="/events/:id" element={<MovieList  events={event} />} />
       {/* Add more protected routes as needed */}
     </Routes>
   );

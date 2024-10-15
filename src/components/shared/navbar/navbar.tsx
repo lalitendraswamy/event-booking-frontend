@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
+import { GiSelfLove } from "react-icons/gi";
 import './navbar.css';
 
 const EventNavbar: React.FC = () => {
@@ -21,7 +22,9 @@ const EventNavbar: React.FC = () => {
                     <Nav className="ml-auto navbar-items" >
                         <Nav.Link href="/"  style={{color:"whitesmoke"}}>Home</Nav.Link>
                         <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>                      
-                        <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My orders</Nav.Link>
+                        <Nav.Link href="/about"  style={{color:"whitesmoke"}}>About</Nav.Link>
+                        <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
+                        <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
                         <Nav.Link href="/contact"  style={{color:"whitesmoke"}}>Contact</Nav.Link>
                         <Nav.Link href="/add-event"  style={{color:"whitesmoke"}}>Add Event</Nav.Link>
                         <Nav.Link href="/add-user"  style={{color:"whitesmoke"}}>Add User</Nav.Link>
@@ -33,7 +36,7 @@ const EventNavbar: React.FC = () => {
                 </Nav.Link>
             </Navbar>
 
-        {/* Sidebar for Profile Information */}
+        {/* Sidebar for Profile Information */}   
             <div className={`sidebar ${showModal ? 'show' : ''}`}>
                 <div className="sidebar-content">
                     <div className='profile-container'>
@@ -59,6 +62,13 @@ const EventNavbar: React.FC = () => {
                         <div>
                             <h5 className='order-heading'>Help & Support</h5>
                             <p className='order-text'>We will get back to you</p>
+                        </div>
+                    </div>
+                    <div className='orders-container'>
+                        <GiSelfLove className='order-icon' />
+                        <div>
+                            <h5 className='order-heading'>Favourites</h5>
+                            <p className='order-text'>My Fovourie Events</p>
                         </div>
                     </div>
                     <div className='profile-container'>
