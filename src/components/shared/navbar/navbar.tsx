@@ -22,9 +22,9 @@ const EventNavbar: React.FC = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
                         <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
-                        <Nav.Link href="/add-event"  style={{color:"whitesmoke"}}>Add Event</Nav.Link>
-                        <Nav.Link href="/add-user"  style={{color:"whitesmoke"}}>Add User</Nav.Link>
                         <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
+                        <Nav.Link href="/add-user"  style={{color:"whitesmoke"}}>Add User</Nav.Link>
+                        <Nav.Link href="/add-event"  style={{color:"whitesmoke"}}>Add Event</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 </div>
