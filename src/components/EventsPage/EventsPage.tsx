@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from '../shared/navbar/navbar'
-import Footer from '../shared/footer/eventsFooter'
+import Navbar from '../shared/navbar/navbar';
+import Footer from '../shared/footer/eventsFooter';
 import "./events-page.css";
 
 const defaultFiltersData = [
