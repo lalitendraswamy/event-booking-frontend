@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
-interface Event {
+export interface Event {
     id: number;
     title: string;
     image: string;
 }
 
-interface EventState {
+export interface EventState {
     events: Event[];
     loading: boolean;
     error: string | null;
