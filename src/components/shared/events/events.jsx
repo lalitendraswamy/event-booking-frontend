@@ -102,7 +102,7 @@ const Events = () => {
                 {events.map((event, index) => (
                     <Link to={`/events/${event.id}`} className='underline-none' key={index}><div  className="events-item" >
                         <img src={event.image} alt={event.title} className='event-image'/>
-                        <h3 className='title-headeing'>{event.title}</h3>
+                        <h3 className='event-title-heading'>{event.title}</h3>
                     </div></Link>
                 ))}
             </Slider>

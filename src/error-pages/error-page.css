@@ -1,0 +1,45 @@
+/* ErrorPage.css */
+.error-page {
+    text-align: center;
+    padding: 50px;
+    color: red;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        height: 50vh;
+        width: 35vw;
+    }
+
+}
+
+.error-page h1 {
+    font-size: 2em;
+  
+}
+
+.error-page p {
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
+.error-page ul {
+    list-style: none;
+    padding: 0;
+}
+
+.error-page button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.error-page button:hover {
+    background-color:#007bff ;
+}

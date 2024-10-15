@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../components/HomePage/HomePage';
 import LoginPage from '../components/authentication/LoginPage';
 import Runway from '../components/authentication/Runaway';
@@ -10,22 +10,9 @@ import MovieList from '../components/shared/moviesList/moviesList';
 import Navbar from '../components/shared/navbar/navbar';
 import Footer from '../components/shared/footer/eventsFooter';
 import EventsPage from "../components/EventsPage/EventsPage";
+import PageNotFound from '../error-pages/PageNotFound';
+import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 
-// const event:any = [
-//   {
-//     id: 1,
-//     title: "Pushpa: The Rule",
-//     releaseDate: "2024-12-22",
-//     image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/pushpa-the-rule--part-2-et00356724-1712566690.jpg",
-//     reviewsCount: 1500,
-//     reviews: [
-//       { user: "Rajesh Kumar", rating: 5, comment: "Amazing movie! A must-watch!" },
-//       { user: "Priya", rating: 4, comment: "Great action sequences." }
-//     ],
-//     ticketsCount: 800
-//   }
-
-// ];
   const event = [
     {   
         id: '1',
@@ -110,14 +97,17 @@ const AppRoutes: React.FC = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/runway" element={<Runway/>} />
       <Route path="/home" element={<Events/>} />
+
       <Route path="/events" element={<EventsPage/>} />
       <Route path="/navbar" element={<Navbar/>} />
       <Route path="/footer" element={<Footer/>} />
       <Route path="/categories" element={<Categories />}/> 
       <Route path="/events/:id" element={<MovieList  events={event} />} />
-
+      <Route path="/my-orders" element={<MyOrdersPage/>} />
+      <Route path="/not-found" element={<PageNotFound />} />
+      <Route path="*" element={<Navigate to="/not-found" replace />} />
       
-      {/* Add more protected routes as needed */}
+    
     </Routes>
   );
 };

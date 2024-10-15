@@ -1,0 +1,68 @@
+.order-item-card{
+    width: 75%;
+    height: 50vh;
+    text-align: left;
+    color: #0056B3;
+
+    display: flex;
+   background-color: #f6f4f4;
+    background-size: cover;
+    margin-bottom: 10px;
+   
+    
+
+
+}
+
+
+.order-info {
+
+    width: 70%;
+    display: flex;
+    
+
+    img{
+        height: 100%;
+        width: 30%;
+
+    }
+
+    div{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 70%;
+
+
+        button{
+            align-self: flex-end;
+            margin-right: 15px;
+        }
+        
+
+    }
+
+
+}
+
+.order-ticket{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px dashed #333;
+   
+    
+
+    img{
+        height: 200px;
+        width: 200px;
+    }
+
+    p{
+        color: #0056B3;
+    }
+
+}

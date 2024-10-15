@@ -22,10 +22,10 @@ const navigate=useNavigate();
       const exchangeCodeForTokens = async () => {
         try {
           console.log('code',code)
-          const response = await axios.post("http://localhost:5000", { code });
-          console.log("user data", response.data.toString());
+          const response = await axios.post("http://localhost:5000/auth/callback", { code });
+          console.log("user data", response.data);
          
-          setCookie('token',response.data.toString(),3);
+          setCookie('token',response.data,3);
           setCookie('role','user',3);
           navigate('/');
         

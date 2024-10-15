@@ -1,0 +1,11 @@
+.my-orders-page{
+    text-align: center;
+    min-height: 95vh;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}

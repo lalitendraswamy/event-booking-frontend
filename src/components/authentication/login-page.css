@@ -13,4 +13,68 @@
     width: 80vw;
     display: flex;
     
+
+
+
+    img{
+        height: 100%;
+        width: 100%;
+        border-radius:0px;
+      
+        
+    }
+    
+}
+
+.login-content{
+    color: #0056B3;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+    h4{
+        font-size: 30px;
+        font-weight: 300;
+        font-style: roboto;
+
+    }
+
+    h2{
+        font-size: 50px;
+        font-weight: bolder;
+    }
+
+    button{
+        width: 100%;
+        border: 1px solid #0056B3;
+        
+        .login-btn-content{
+            height: 100%;
+            width: 100%;  
+            display: flex;          
+            align-items: center;
+            justify-content: center;
+
+            p{
+                text-align: left;
+                font-size: 25px;
+                padding-left: 20px;
+                margin: 0px;
+                height: 100%;
+                margin-top: 10px;
+            }
+          
+        }
+
+        img{
+            height: 50px;
+            width: 50px;
+            margin: 0px;
+        }
+
+    }
+    
 }

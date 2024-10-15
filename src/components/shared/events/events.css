@@ -24,6 +24,53 @@
     width: 80%;
     margin: 0 auto;
     text-align: center;
+
+    /* default styles in events */
+    h2 {
+        text-align: center;
+        color: #333;
+      }
+      
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      
+      li {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 15px 0;
+        padding: 15px;
+        transition: transform 0.2s;
+      }
+      
+      li:hover {
+        transform: scale(1.02);
+      }
+      
+      img {
+        border-radius: 5px;
+        display: block;
+        margin: 0 auto 10px auto;
+      }
+      
+      h3 {
+        font-size: 1.2em;
+        margin: 10px 0;
+        color: #444;
+      }
+      
+      p {
+        margin: 5px 0;
+        color: #555;
+      }
+      
+      strong {
+        color: #000;
+      }
+  
+
 }
 
 .events-item {
@@ -51,14 +98,6 @@
 .slick-button:hover {
     background-color: #0056b3;
 }
-
-/* .previous-btn{
-    height: 40px;
-    width: 100px;
-    border-radius: 20px;
-    border-radius: 20px solid white;
-    border-color: #0056b3 !important;
-} */
 
 .previous-btn {
     height: 40px;
@@ -104,11 +143,6 @@
 
 
 
-
-
-/* events.css */
-
-
 .events-item {
     margin: 10px;
     transition: transform 0.3s; /* Smooth scale transition */
@@ -132,12 +166,12 @@
     text-align: center;
 }
 
-.title-headeing{
-    color: #0056b3;
+.event-title-heading{
+    color: #0056b3 !important;
     animation: bounce 2s forwards;
 }
 
-.title-headeing:hover{
-    color: #333;
+.event-title-heading:hover{
+    color: #333 !important;
     
 }

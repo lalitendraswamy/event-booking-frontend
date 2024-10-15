@@ -30,10 +30,9 @@
   strong {
     color: #0056b3;
   }
-  
 }
 
-   .movies-list {
+.movies-list {
     border: 1px solid #ddd; /* Light gray border */
     border-radius: 8px; /* Rounded corners */
     padding: 16px; /* Padding around the content */

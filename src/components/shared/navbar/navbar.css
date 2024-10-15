@@ -16,7 +16,7 @@
 }
 
 .navbar {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .sidebar {
@@ -78,4 +78,9 @@
 
 .order-text{
   font-size: 12px;
+}
+
+.text-underline{
+    text-decoration: none;
+    color: #fff;
 }
