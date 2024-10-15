@@ -74,6 +74,8 @@
 
 .order-heading{
     color: #0056b3;
+    cursor: pointer;
+    
 }
 
 .order-text{
