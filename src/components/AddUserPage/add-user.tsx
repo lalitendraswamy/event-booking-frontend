@@ -1,5 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Navbar from '../shared/navbar/navbar'
+import Footer from '../shared/footer/eventsFooter'
 import './add-user.css'; 
 
 const UserForm = () => {
@@ -24,6 +26,8 @@ const UserForm = () => {
 
   return (
     <div className='user-form-data'>
+      <Navbar/>
+      <h2>Add a User</h2>
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
@@ -63,6 +67,7 @@ const UserForm = () => {
         </Form>
       )}
     </Formik>
+    <Footer/>
     </div>
   );
 };

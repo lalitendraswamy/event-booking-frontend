@@ -1,17 +1,25 @@
 
 import React, { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { clearAllCookies } from '../../../utils/cookieUtils';
+
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+
 import './navbar.css';
 
 const EventNavbar = () => {
     const [showModal, setShowModal] = useState(false);
-
+    const navigate=useNavigate();
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
+    const handleLogout=()=> {
+        clearAllCookies();
+        console.log("cookies cleared")
+        navigate('/login')
+    }
 
     return (
         <>
@@ -50,7 +58,7 @@ const EventNavbar = () => {
                     <div className='orders-container'>
                         <IoBagHandle className='order-icon'/>
                         <div>
-                            <h5 className='order-heading'>Your Orders</h5>
+                            <h5 onClick={()=>navigate('/my-orders')} className='order-heading'>Your Orders</h5>
                             <p className='order-text'>View all your booking & purchese</p>
                         </div>
                     </div>
@@ -69,7 +77,7 @@ const EventNavbar = () => {
                         </div>
                     </div>
                     <div className='profile-container'>
-                       <button className='btn btn-primary'>Sigout</button>
+                       <button className='btn btn-primary' onClick={handleLogout}>Logout</button>
                        <Button variant="secondary" onClick={handleClose}>Close</Button>
                     </div>
                 </div>
