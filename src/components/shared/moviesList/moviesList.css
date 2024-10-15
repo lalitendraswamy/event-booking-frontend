@@ -1,6 +1,8 @@
 /* Add this to your CSS file or import in your component */
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+
+
 @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
 .movies-list{
@@ -29,6 +31,7 @@
   
   strong {
     color: #0056b3;
+
   }
 }
 

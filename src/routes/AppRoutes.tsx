@@ -86,6 +86,7 @@ import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
         ],
         ticketsCount: 350,
     }
+
 ];
 
 
@@ -98,6 +99,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/runway" element={<Runway/>} />
       <Route path="/home" element={<Events/>} />
 
+      
+
+
       <Route path="/events" element={<EventsPage/>} />
       <Route path="/navbar" element={<Navbar/>} />
       <Route path="/footer" element={<Footer/>} />
@@ -108,6 +112,7 @@ const AppRoutes: React.FC = () => {
       <Route path="*" element={<Navigate to="/not-found" replace />} />
       
     
+
     </Routes>
   );
 };
