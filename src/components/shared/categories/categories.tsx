@@ -1,5 +1,3 @@
-// Categories.tsx
-import React from 'react';
 import Marquee from 'react-fast-marquee';
 import './categories.css';
 

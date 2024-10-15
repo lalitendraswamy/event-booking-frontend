@@ -1,6 +1,4 @@
-import React from 'react'
 import Navbar from '../shared/navbar/navbar'
-
 import Events from '../shared/events/events'
 import Categories from '../shared/categories/categories'
 import Footer from '../shared/footer/eventsFooter'
