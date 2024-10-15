@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import './add-user.css'; // Import your CSS file
+import './add-user.css'; 
 
 const UserForm = () => {
   const initialValues = {
@@ -19,7 +19,7 @@ const UserForm = () => {
 
   const handleSubmit = (values:any) => {
     console.log('Form data:', values);
-    // Handle form submission (e.g., API call)
+   
   };
 
   return (

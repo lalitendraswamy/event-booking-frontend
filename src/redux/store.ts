@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from './UserSlice'; 
-import eventSlice from "./EventSlice";
+import userSlice from './features/authentication/UserSlice'; 
+import eventSlice from "./features/authentication/EventSlice";
 
 const store = configureStore({
     reducer: {

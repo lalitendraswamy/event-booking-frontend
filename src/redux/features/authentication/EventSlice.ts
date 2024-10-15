@@ -29,7 +29,10 @@ const initialState: EventState = {
 const eventSlice = createSlice({
     name: 'events',
     initialState,
-    reducers: {},
+    reducers: {
+       
+    },
+
     // extraReducers: (builder) => {
     //     builder
     //         .addCase(fetchEvents.fulfilled, (state, action:any) => {
