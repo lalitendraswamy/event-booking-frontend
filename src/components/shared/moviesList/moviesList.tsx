@@ -27,7 +27,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, titleLength }) => {
     const filteredMovies = movies.filter(movie => movie.title.length === titleLength);
 
     return (
-        <div>
+        <div className='movies-list'>
             <h2>Movies with Title Length {titleLength}</h2>
             {filteredMovies.length > 0 ? (
                 <ul>

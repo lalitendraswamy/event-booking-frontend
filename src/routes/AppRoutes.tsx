@@ -1,6 +1,6 @@
 // src/routes/AppRoutes.tsx
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../components/HomePage/HomePage';
 import LoginPage from '../components/authentication/LoginPage';
 import Runway from '../components/authentication/Runaway';
@@ -10,6 +10,8 @@ import Categories from '../components/shared/categories/categories';
 import MovieList from '../components/shared/moviesList/moviesList';
 import Navbar from '../components/shared/navbar/navbar';
 import Footer from '../components/shared/footer/eventsFooter';
+import PageNotFound from '../error-pages/PageNotFound';
+import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 
 
 const movies:any = [
@@ -133,11 +135,12 @@ const AppRoutes: React.FC = () => {
       <Route path="/runway" element={<Runway/>} />
       <Route path="/home" element={<Events/>} />
       {/* <Route path="/events" element={<Events/>} /> */}
-      <Route path="/navbar" element={<Navbar/>} />
-      <Route path="/footer" element={<Footer/>} />
+      <Route path="/my-orders" element={<MyOrdersPage/>} />
+      
       <Route path="/categories" element={<Categories />}/> 
       <Route path="/movies" element={<MovieList  movies={movies} titleLength={6} />} />
-
+      <Route path="/not-found" element={<PageNotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       
       {/* Add more protected routes as needed */}
     </Routes>
