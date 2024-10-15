@@ -1,0 +1,186 @@
+/* Add this to your CSS file or import in your component */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+@import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
+
+.movies-list{
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* margin: 15px 0;
+    padding: 15px; */
+    transition: transform 0.2s;
+  }
+  
+  li:hover {
+    transform: scale(1.02);
+  }
+  
+  p {
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  strong {
+    color: #0056b3;
+  }
+}
+
+.movies-list {
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding around the content */
+    margin: 16px; /* Space between movie items */
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+}
+
+.movies-list:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.movies-list h3 {
+    color: #0056b3; /* Custom heading color */
+    margin: 0 0 8px; /* Margin below heading */
+}
+
+.movies-list p {
+    margin: 4px 0; /* Margin for paragraphs */
+    color: #555; /* Dark gray color for text */
+}
+
+.movies-list ul {
+    padding-left: 20px; /* Indentation for list */
+}
+
+.movies-list li {
+    margin-bottom: 4px; /* Space between list items */
+}
+
+.event-container-item{
+   display: flex;
+   /* justify-content: space-around; */
+}
+
+.event-image{
+  border-radius: 12px;
+  margin-right: 20px;
+  margin-bottom: 2px;
+}
+
+.event-proper{
+  color: #0056b3 !important;
+  font-size: 16px;
+}
+
+.event-proper-inner-item{
+  color: #333 !important;
+  font-size: 18px;
+}
+
+.event-data-container{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.inc-des-count-container{
+   display: flex;
+   justify-content: space-around;
+   border: 1px solid #0056b3;
+   border-radius: 4px;
+   height: 45px;
+   cursor: pointer;
+   padding: 5px;
+   width: 125px;
+   margin-top: 8px;
+   margin-bottom: 8px;
+}
+
+.straight{
+   height: 20;
+   width: 1px;
+   background-color: #0056b3 !important;
+}
+
+.plus{
+   color: #0056b3 !important;
+   font-weight: bold;
+}
+
+/* .container {
+  width: 400px;
+  height: 400px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #0056b3; 
+  outline: none;
+  background-color: #333;
+  overflow: hidden;
+  transition: background 0.3s ease; 
+}
+
+.btn svg {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #0056b3; 
+  stroke-dasharray: 150 480;
+  stroke-dashoffset: 150;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.btn:hover {
+  background: #0056b3; 
+}
+
+.btn:hover svg {
+  stroke-dashoffset: -480; 
+}
+
+.btn span {
+  color: #fff; 
+  font-size: 20px; 
+  font-weight: bold; 
+  z-index: 1;
+} */
+
+
+.book-tickets-btn {
+  display: inline-block; /* Inline block for button-like appearance */
+  padding: 10px 20px; /* Padding for space inside the button */
+  background-color: #0056b3; /* Background color */
+  color: #fff; /* Text color */
+  font-size: 18px; /* Font size */
+  font-weight: bold; /* Bold text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  text-align: center; /* Center text */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.book-tickets-btn:hover {
+  background-color: #fff; 
+  color: #0056b3;/* Darker shade on hover */
+}

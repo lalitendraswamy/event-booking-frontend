@@ -1,0 +1,86 @@
+#navbar-container{
+    background-color: #0056b3 !important;
+    color: whitesmoke !important;
+    height: 60px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: whitesmoke !important;
+}
+
+.navbar-items{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.sidebar {
+    position: fixed; /* Position fixed to overlay */
+    top: 0;
+    right: -300px; /* Initially hidden off-screen */
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease; /* Smooth transition */
+    z-index: 1000; /* High z-index to ensure it appears above other content */
+}
+
+.sidebar.show {
+    right: 0; /* Slide in when shown */
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.logo-container{
+    color: #0056b3;
+    font-family: 'Ubuntu', sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.profile-container{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.orders-container{
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.order-icon{
+    height: 32px;
+    width: 32px;
+    color: #0056b3;
+    margin-right: 6px;
+}
+
+.order-heading{
+    color: #0056b3;
+}
+
+.order-text{
+  font-size: 12px;
+}
+
+.text-underline{
+    text-decoration: none;
+    color: #fff;
+}

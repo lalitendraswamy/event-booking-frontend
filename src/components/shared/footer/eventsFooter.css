@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.horizontal-line{
+    width: 35%;
+}
+.social-icons-container {
+    display: flex;
+    gap: 20px; /* Spacing between icons */
+    padding: 20px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icon {
+    font-size: 30px; /* Icon size */
+    color: #0056b3;/* Default icon color */
+    transition: transform 0.3s; /* Smooth transition */
+    margin: 12px;
+}
+
+/* Bounce animation on hover */
+.social-icon:hover {
+    animation: bounce 0.5s forwards;  /* Use both classes */
+    animation-duration: 0.5s; /* Duration of the animation */
+    color: #333; 
+}
+
+.logo-container{
+    color: #0056b3;
+    font-family: 'Ubuntu', sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.logo-footer-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.copy-right{
+    color: #0056b3;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+p{
+    color: #333; 
+}
