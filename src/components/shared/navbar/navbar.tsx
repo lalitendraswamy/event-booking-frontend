@@ -22,8 +22,6 @@ const EventNavbar: React.FC = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
 
-                        <Nav.Link href="/"  style={{color:"whitesmoke"}}>Home</Nav.Link>  
-                        <Nav.Link href="/about"  style={{color:"whitesmoke"}}>About</Nav.Link>
                         <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>                        
                         <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
                         <Nav.Link href="/contact"  style={{color:"whitesmoke"}}>Contact</Nav.Link>
