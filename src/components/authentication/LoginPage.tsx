@@ -38,7 +38,7 @@ export default function LoginPage() {
           <h2>welcome!</h2>
           <button onClick={handleLogin}>
             <div>
-              <img/>
+              <img alt="imag"/>
               <p>Log in with Microsoft</p>
             </div>
           </button>
