@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import axios from 'axios';
 
 interface Event {
     id: number;
@@ -18,13 +19,17 @@ const initialState: EventState = {
     error: null,
 };
 
-// export const fetchEvents = createAsyncThunk<Event[], void>(
-//     'events/fetchEvents',
-//     async () => {
-//         const response = await fetch('https://jsonplaceholder.typicode.com/posts'); // Replace with your events API
-//         return response.json();
-//     }
-// );
+export const getAllEvents = createAsyncThunk(
+    'events/getAllEvents',
+    async () => {
+        try{
+            const response = await axios.get('http://10.0.0.72:5000/events');
+            return response.data;
+        }catch(err){
+            console.log(err)
+        }
+    }
+  );
 
 const eventSlice = createSlice({
     name: 'events',
@@ -32,14 +37,13 @@ const eventSlice = createSlice({
     reducers: {
        
     },
-
-    // extraReducers: (builder) => {
-    //     builder
-    //         .addCase(fetchEvents.fulfilled, (state, action:any) => {
-    //             state.loading = false;
-    //             state.events = action.payload;
-    //         })
-    // },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getAllEvents.fulfilled, (state, action:any) => {
+                state.loading = false;
+                state.events = action.payload;
+            })
+    },
 });
 
 export default eventSlice.reducer;

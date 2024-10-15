@@ -7,7 +7,7 @@ import { GiSelfLove } from "react-icons/gi";
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
-const EventNavbar: React.FC = () => {
+const EventNavbar = () => {
     const [showModal, setShowModal] = useState(false);
 
     const handleClose = () => setShowModal(false);

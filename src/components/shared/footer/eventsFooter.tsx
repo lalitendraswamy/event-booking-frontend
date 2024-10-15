@@ -1,7 +1,7 @@
 import { FaFacebook, FaTwitter, FaYoutube, FaLinkedin,FaRegCopyright } from 'react-icons/fa';
 
-import 'animate.css'; // Import Animate.css
-import "./eventsFooter.css"; // Import your CSS file
+import 'animate.css'; 
+import "./eventsFooter.css"; 
 
 const EventsFooter = () => {
     return (
