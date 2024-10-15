@@ -37,6 +37,7 @@ export default function LoginPage() {
         </div>
         <div className="login-content p-5">
           <h4>Hello,</h4>
+
           <h2 className="text-start">welcome!</h2>
           <button onClick={handleLogin} >
             <div className="login-btn-content">
@@ -45,6 +46,7 @@ export default function LoginPage() {
               </div>
               
               <p >Log in with Microsoft</p>
+
             </div>
           </button>
         </div>

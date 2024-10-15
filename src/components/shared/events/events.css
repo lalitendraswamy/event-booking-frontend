@@ -99,14 +99,6 @@
     background-color: #0056b3;
 }
 
-/* .previous-btn{
-    height: 40px;
-    width: 100px;
-    border-radius: 20px;
-    border-radius: 20px solid white;
-    border-color: #0056b3 !important;
-} */
-
 .previous-btn {
     height: 40px;
     width: 100px;
@@ -151,11 +143,6 @@
 
 
 
-
-
-/* events.css */
-
-
 .events-item {
     margin: 10px;
     transition: transform 0.3s; /* Smooth scale transition */
@@ -179,12 +166,12 @@
     text-align: center;
 }
 
-.title-headeing{
-    color: #0056b3;
+.event-title-heading{
+    color: #0056b3 !important;
     animation: bounce 2s forwards;
 }
 
-.title-headeing:hover{
-    color: #333;
+.event-title-heading:hover{
+    color: #333 !important;
     
 }

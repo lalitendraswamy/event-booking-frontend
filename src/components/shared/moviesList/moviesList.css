@@ -1,61 +1,41 @@
 /* Add this to your CSS file or import in your component */
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+
+
+@import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
+
+.movies-list{
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
   
-
-  .movies-list{
-
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-    
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    
-    li {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin: 15px 0;
-      padding: 15px;
-      transition: transform 0.2s;
-    }
-    
-    li:hover {
-      transform: scale(1.02);
-    }
-    
-    img {
-      border-radius: 5px;
-      display: block;
-      margin: 0 auto 10px auto;
-    }
-    
-    h3 {
-      font-size: 1.2em;
-      margin: 10px 0;
-      color: #444;
-    }
-    
-    p {
-      margin: 5px 0;
-      color: #555;
-    }
-    
-    strong {
-      color: #000;
-    }
+  li {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* margin: 15px 0;
+    padding: 15px; */
+    transition: transform 0.2s;
+  }
+  
+  li:hover {
+    transform: scale(1.02);
+  }
+  
+  p {
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  strong {
+    color: #0056b3;
 
   }
-
-
-  
 }
 
-   .movies-list {
+.movies-list {
     border: 1px solid #ddd; /* Light gray border */
     border-radius: 8px; /* Rounded corners */
     padding: 16px; /* Padding around the content */

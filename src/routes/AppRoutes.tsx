@@ -9,120 +9,84 @@ import Categories from '../components/shared/categories/categories';
 import MovieList from '../components/shared/moviesList/moviesList';
 import Navbar from '../components/shared/navbar/navbar';
 import Footer from '../components/shared/footer/eventsFooter';
+import EventsPage from "../components/EventsPage/EventsPage";
 import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 
-
-const event:any = [
-  {
-    id: 1,
-    title: "Pushpa: The Rule",
-    releaseDate: "2024-12-22",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/pushpa-the-rule--part-2-et00356724-1712566690.jpg",
-    reviewsCount: 1500,
-    reviews: [
-      { user: "Rajesh Kumar", rating: 5, comment: "Amazing movie! A must-watch!" },
-      { user: "Priya", rating: 4, comment: "Great action sequences." }
-    ],
-    ticketsCount: 800
-  },
-  {
-    id: 2,
-    title: "Salaar",
-    releaseDate: "2024-09-28",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/pushpa-the-rule--part-2-et00356724-1712566690.jpg",
-    reviewsCount: 800,
-    reviews: [
-      { user: "Kiran Yadav", rating: 5, comment: "Excited for this one!" },
-      { user: "Ravi", rating: 4, comment: "Looks promising!" }
-    ],
-    ticketsCount: 600
-  },
-  {
-    id: 3,
-    title: "NTR 30",
-    releaseDate: "2024-10-01",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/ntr-30-et00356725-1712566691.jpg",
-    reviewsCount: 1200,
-    reviews: [
-      { user: "Suresh", rating: 5, comment: "Can't wait!" },
-      { user: "Anjali", rating: 3, comment: "Hyped but cautious." }
-    ],
-    ticketsCount: 500
-  },
-  {
-    id: 4,
-    title: "Varasudu",
-    releaseDate: "2024-11-10",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/varasudu-et00356729-1712566688.jpg",
-    reviewsCount: 300,
-    reviews: [],
-    ticketsCount: 700
-  },
-  {
-    id: 5,
-    title: "Jersey",
-    releaseDate: "2022-04-22",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/jersey-et00356727-1712566689.jpg",
-    reviewsCount: 900,
-    reviews: [
-      { user: "Sunil", rating: 4, comment: "A heartwarming story." }
-    ],
-    ticketsCount: 400
-  },
-  {
-    id: 6,
-    title: "K.G.F: Chapter 2",
-    releaseDate: "2022-04-14",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kgf-chapter-2-et00356726-1712566692.jpg",
-    reviewsCount: 1200,
-    reviews: [
-      { user: "Deepak", rating: 5, comment: "Epic!" }
-    ],
-    ticketsCount: 1000
-  },
-  {
-    id: 7,
-    title: "Dasara",
-    releaseDate: "2023-03-30",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/dasara-et00356732-1712566667.jpg",
-    reviewsCount: 500,
-    reviews: [
-      { user: "Pranay", rating: 4, comment: "Great action!" }
-    ],
-    ticketsCount: 300
-  },
-  {
-    id: 8,
-    title: "Adipurush",
-    releaseDate: "2023-06-16",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/adipurush-et00356728-1712566687.jpg",
-    reviewsCount: 700,
-    reviews: [],
-    ticketsCount: 450
-  },
-  {
-    id: 9,
-    title: "Fighter",
-    releaseDate: "2024-01-25",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/fighter-et00356731-1712566678.jpg",
-    reviewsCount: 200,
-    reviews: [
-      { user: "Anil", rating: 4, comment: "Thrilling!" }
-    ],
-    ticketsCount: 500
-  },
-  {
-    id: 10,
-    title: "Rudrangi",
-    releaseDate: "2023-08-25",
-    image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/rudrangi-et00356730-1712566679.jpg",
-    reviewsCount: 250,
-    reviews: [
-      { user: "Meena", rating: 3, comment: "Interesting!" }
-    ],
-    ticketsCount: 300
-  }
+  const event = [
+    {   
+        id: '1',
+        title: "Pushpa: The Rule",
+        releaseDate: "2023-12-15",
+        image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/pushpa-the-rule--part-2-et00356724-1712566690.jpg",
+        reviewsCount: 1200,
+        reviews: [
+            { user: "Alice", rating: 4.5, comment: "Amazing visuals!" },
+            { user: "Bob", rating: 4.0, comment: "Great storyline." }
+        ],
+        ticketsCount: 1500,
+    },
+    {
+        id: '2',
+        title: "Devara",
+        releaseDate: "2024-01-10",
+        image: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OC4yLzEwICAyOTguMUsgVm90ZXM%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00310216-tluebxpafx-portrait.jpg",
+        reviewsCount: 850,
+        reviews: [
+            { user: "Charlie", rating: 5.0, comment: "A must-watch!" },
+            { user: "David", rating: 3.5, comment: "It was okay." }
+        ],
+        ticketsCount: 900,
+    },
+    {
+        id: '3',
+        title: "KGF: Chapter 2",
+        releaseDate: "2022-04-14",
+        image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kgf-chapter-2-et00098647-08-04-2022-11-33-32.jpg",
+        reviewsCount: 2000,
+        reviews: [
+            { user: "Eve", rating: 4.8, comment: "Incredible action!" },
+            { user: "Frank", rating: 4.2, comment: "Loved it!" }
+        ],
+        ticketsCount: 2500,
+    },
+    {
+        id: '4',
+        title: "RRR",
+        releaseDate: "2022-03-25",
+        image: "https://assets-in.bmscdn.com/iedb/movies/images/extra/vertical_logo/mobile/thumbnail/xxlarge/rrr-et00094579-1700135873.jpg",
+        reviewsCount: 1800,
+        reviews: [
+            { user: "Grace", rating: 4.9, comment: "Epic film!" },
+            { user: "Henry", rating: 4.0, comment: "Good performances." }
+        ],
+        ticketsCount: 2100,
+    },
+    {
+        id:'5',
+        title: "Vettaiyan - The Hunter",
+        releaseDate: "2023-11-20",
+        image: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/vettaiyan-the-hunter-et00412743-1728048350.jpg",
+        reviewsCount: 500,
+        reviews: [
+            { user: "Ivy", rating: 3.8, comment: "Interesting plot." },
+            { user: "Jack", rating: 4.1, comment: "Well made." }
+        ],
+        ticketsCount: 600,
+    },
+    {
+        id: '6',
+        title: "Lubber Pandhu",
+        releaseDate: "2023-08-15",
+        image: "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OS41LzEwICA1NC41SyBWb3Rlcw%3D%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00409924-fhqlnmfgyt-portrait.jpg",
+        reviewsCount: 300,
+        reviews: [
+            { user: "Kathy", rating: 4.3, comment: "Fun watch!" },
+            { user: "Leo", rating: 3.5, comment: "Not bad." }
+        ],
+        ticketsCount: 350,
+    }
+>>>>>>> main
 ];
 
 
@@ -134,15 +98,21 @@ const AppRoutes: React.FC = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/runway" element={<Runway/>} />
       <Route path="/home" element={<Events/>} />
-      {/* <Route path="/events" element={<Events/>} /> */}
-      <Route path="/my-orders" element={<MyOrdersPage/>} />
+
       
+
+
+      <Route path="/events" element={<EventsPage/>} />
+      <Route path="/navbar" element={<Navbar/>} />
+      <Route path="/footer" element={<Footer/>} />
       <Route path="/categories" element={<Categories />}/> 
-      <Route path="/movies" element={<MovieList  events={event} titleLength={6} />} />
+      <Route path="/events/:id" element={<MovieList  events={event} />} />
+      <Route path="/my-orders" element={<MyOrdersPage/>} />
       <Route path="/not-found" element={<PageNotFound />} />
       <Route path="*" element={<Navigate to="/not-found" replace />} />
-      <Route path="/events/:id" element={<MovieList  events={event} />} />
-      {/* Add more protected routes as needed */}
+      
+    
+
     </Routes>
   );
 };
