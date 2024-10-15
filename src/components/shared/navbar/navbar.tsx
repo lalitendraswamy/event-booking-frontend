@@ -21,7 +21,6 @@ const EventNavbar: React.FC = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
-
                         <Nav.Link href="/"  style={{color:"whitesmoke"}}>Home</Nav.Link>
                         <Nav.Link href="/about"  style={{color:"whitesmoke"}}>About</Nav.Link>
                         <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
