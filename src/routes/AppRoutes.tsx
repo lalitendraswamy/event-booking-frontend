@@ -86,7 +86,7 @@ import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
         ],
         ticketsCount: 350,
     }
->>>>>>> main
+
 ];
 
 
