@@ -1,17 +1,25 @@
 
 import React, { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { clearAllCookies } from '../../../utils/cookieUtils';
+
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+
 import './navbar.css';
 
 const EventNavbar = () => {
     const [showModal, setShowModal] = useState(false);
-
+    const navigate=useNavigate();
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
+    const handleLogout=()=> {
+        clearAllCookies();
+        console.log("cookies cleared")
+        navigate('/login')
+    }
 
     return (
         <>
@@ -37,20 +45,23 @@ const EventNavbar = () => {
             <div className={`sidebar ${showModal ? 'show' : ''}`}>
                 <div className="sidebar-content">
                     <div className='profile-container'>
-                        <div >
+
+                        <div className='d-flex align-items-center' >
                         <p className='m-0'>Hey!</p>
-                        <p className='m-0'>Edit Your Profile &gt; </p>
+                        
                         </div>
                        <img src="https://cdn.dnaindia.com/sites/default/files/2024/10/13/2657411-image-2024-10-13t181657.151.jpg?im=FitAndFill=(1200,900)" alt="Profile" className="profile-img" />
                     </div>
                     <div className='mb-2'>
-                    <h5 className='order-heading'>Name: John Doe</h5>
-                    <p>Email: johndoe@example.com</p>
+                    <h5 className='order-heading'>John Doe</h5>
+                    <p>Role: User or Admin</p>
+
+
                     </div>
                     <div className='orders-container'>
                         <IoBagHandle className='order-icon'/>
                         <div>
-                            <h5 className='order-heading'>Your Orders</h5>
+                            <h5 onClick={()=>navigate('/my-orders')} className='order-heading'>Your Orders</h5>
                             <p className='order-text'>View all your booking & purchese</p>
                         </div>
                     </div>
@@ -69,7 +80,7 @@ const EventNavbar = () => {
                         </div>
                     </div>
                     <div className='profile-container'>
-                       <button className='btn btn-primary'>Sigout</button>
+                       <button className='btn btn-primary' onClick={handleLogout}>Logout</button>
                        <Button variant="secondary" onClick={handleClose}>Close</Button>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { setCookie } from '../../utils/cookieUtils';
+import { getCookie, setCookie } from '../../utils/cookieUtils';
 
 
 function Runway() {
@@ -17,13 +17,15 @@ function Runway() {
       // Send the authorization code to the backend to exchange for tokens
       const exchangeCodeForTokens = async () => {
         try {
-          console.log('code', code)
-          const response = await axios.post("http://localhost:5000/auth/callback", { code });
-          console.log("user data", response.data);
+              if(!getCookie("token")){
+              console.log('code', code)
+              const response = await axios.post("http://localhost:5000/auth/callback", { code });
+              console.log("user data", response.data);
 
-          setCookie('token', response.data, 3);
-          setCookie('role', 'user', 3);
-          navigate('/');
+            setCookie('token', response.data.token,3);
+            setCookie('role', response.data.role , 3);
+            navigate('/');
+          }
 
         } catch (e) {
           console.log(e);

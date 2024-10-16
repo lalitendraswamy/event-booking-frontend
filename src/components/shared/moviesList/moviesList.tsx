@@ -5,14 +5,16 @@ import "./moviesList.css";
 const MovieList = ({ events }: any) => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
-    const filterIdData = events.filter((event: any) => event.id === id);
+    const filterIdData = events.filter((event: any) => event.eventId === id);
+    console.log(filterIdData,id)
     const {
-        image,
-        releaseDate,
+        eventId,
+        imageUrl,
+        eventDateTime,
         reviews,
         reviewsCount,
-        ticketsCount,
-        title
+        totalTickets,
+        eventName
     } = filterIdData[0];
 
     const increaseTicketsCount =()=>{
@@ -28,13 +30,13 @@ const MovieList = ({ events }: any) => {
 <div className='movies-list'>
 <div className='event-container-item'>
     <div>
-        <img src={image} alt={title} width="100" className='event-image mb-2' />
+        <img src={imageUrl} alt={eventId} width="100" className='event-image mb-2' />
     </div>
     <div className='event-data-container'>
-        <h3 className='mb-3'>{title}</h3>
-        <p className='event-proper'>Release Date: <span className='event-proper-inner-item'>{releaseDate}</span></p>
+        <h3 className='mb-3'>{eventName}</h3>
+        <p className='event-proper'>Release Date: <span className='event-proper-inner-item'>{eventDateTime}</span></p>
         <p className='event-proper'>Reviews Count: <span className='event-proper-inner-item'>{reviewsCount}</span></p>
-        <p className='event-proper'>Available Tickets: <span className='event-proper-inner-item'>{ticketsCount}</span></p>
+        <p className='event-proper'>Available Tickets: <span className='event-proper-inner-item'>{totalTickets}</span></p>
         <p className='event-proper'>Description: <span className='event-proper-inner-item'>"Pushpa: The Rule" is an anticipated sequel to the blockbuster film "Pushpa: The Rise." Directed by Sukumar and featuring Allu Arjun in the titular role, this film delves deeper into the gritty world of red sandalwood smuggling, focusing on the challenges faced by the protagonist, Pushpa Raj.</span></p>
         
         <div className='inc-des-count-container'>
@@ -51,7 +53,7 @@ const MovieList = ({ events }: any) => {
     </div>
 </div>
 <strong>Reviews:</strong>
-        {reviews.length > 0 ? (
+        {/* {reviews.length > 0 ? (
             <ul>
                 {reviews.map((review:any) => (
                     <li key={review.user} className='p-3'>
@@ -61,7 +63,7 @@ const MovieList = ({ events }: any) => {
             </ul>
         ) : (
             <p>There are no reviews.</p>
-        )}
+        )} */}
 </div>
        
     )
