@@ -45,6 +45,7 @@ const EventNavbar = () => {
             <div className={`sidebar ${showModal ? 'show' : ''}`}>
                 <div className="sidebar-content">
                     <div className='profile-container'>
+
                         <div className='d-flex align-items-center' >
                         <p className='m-0'>Hey!</p>
                         
@@ -53,7 +54,9 @@ const EventNavbar = () => {
                     </div>
                     <div className='mb-2'>
                     <h5 className='order-heading'>John Doe</h5>
-                    <p>johndoe@example.com</p>
+                    <p>Role: User or Admin</p>
+
+
                     </div>
                     <div className='orders-container'>
                         <IoBagHandle className='order-icon'/>
