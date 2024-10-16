@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import customAxios from '../../../components/authentication/customAxios';
+
 
 export interface User {
     userId:string,
@@ -8,16 +10,22 @@ export interface User {
     role:string
 }
 
+export interface LoginUser{
+    username: string,
+    userImageUrl : string,
+    role:string
+}
+
 export interface UserState {
-    users: User[];
-    user: User | null;
+    users: User[] | any;
+    loginUser: LoginUser  | null;
     loading: boolean;
     error: string | null;
 }
 
 const initialState: UserState = {
     users: [],
-    user:null,
+    loginUser:null,
     loading: false,
     error: null,
 };
@@ -26,10 +34,11 @@ export const getUsers = createAsyncThunk<User[], void>(
     'users/getUsers',
     async () => {
         try{
-            const response = await axios.get('http://localhost:5000/users');
+            const response = await customAxios.get('/users');
+            // console.log("Response data", response.data)
             return response.data;
-        }catch(e){
-            console.log(e);
+        }catch(e:any){
+            console.log(e.message);
         }
     }
 );
@@ -38,7 +47,7 @@ export const postUser = createAsyncThunk<User,User>(
     'users/postUser',
     async (user,{rejectWithValue}) => {
         try{
-            const response = await axios.post("http://localhost:5000/users",user);
+            const response = await customAxios.post("/users",user);
             return response.data
         }catch(error:any){
             console.log(error);
@@ -53,7 +62,12 @@ export const postUser = createAsyncThunk<User,User>(
 const userSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {},
+    reducers: {
+        getLoginUser: (state,action) =>{
+            state.loginUser = action.payload
+        }
+
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUsers.fulfilled, (state, action:any) => {
@@ -68,4 +82,5 @@ const userSlice = createSlice({
     },
 });
 
+export const {getLoginUser} = userSlice.actions
 export default userSlice.reducer;

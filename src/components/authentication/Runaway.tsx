@@ -3,11 +3,16 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getCookie, setCookie } from '../../utils/cookieUtils';
+import { useDispatch } from 'react-redux';
+import { getLoginUser } from '../../redux/features/authentication/UserSlice';
+import customAxios from './customAxios';
+
 
 
 function Runway() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -19,11 +24,17 @@ function Runway() {
         try {
               if(!getCookie("token")){
               console.log('code', code)
-              const response = await axios.post("http://localhost:5000/auth/callback", { code });
+
+              const response = await customAxios.post("/auth/callback", { code });
               console.log("user data", response.data);
 
             setCookie('token', response.data.token,3);
             setCookie('role', response.data.role , 3);
+            dispatch<any>(getLoginUser({
+              username:response.data.username,
+              userImageUrl:response.data.userImageUrl,
+              role:response.data.role
+            }))
             navigate('/');
           }
 

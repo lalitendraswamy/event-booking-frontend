@@ -15,9 +15,10 @@ const UserForm = () => {
     role: 'user',
   };
 
-  const {users} = useSelector((s:any) => s.users)
+  const {users,loginUser} = useSelector((s:any) => s.users)
   const dispatch  = useDispatch()
   console.log("Users in redux",users);
+  // console.log("Login User in redux",loginUser);
  
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
