@@ -14,6 +14,11 @@ export const removeCookie = (name: string) => {
 };
 
 
+export const isAdmin = () => {
+  return Cookies.get('role')==='admin';
+};
+
+
 export const clearAllCookies = () => {
   Object.keys(Cookies.get()).forEach((cookieName) => {
     Cookies.remove(cookieName);

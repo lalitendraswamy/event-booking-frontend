@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { clearAllCookies } from '../../../utils/cookieUtils';
+import { clearAllCookies,isAdmin } from '../../../utils/cookieUtils';
 
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
@@ -31,8 +31,8 @@ const EventNavbar = () => {
                     <Nav className="ml-auto navbar-items" >
                         <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
                         <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
-                        <Nav.Link href="/add-user"  style={{color:"whitesmoke"}}>Add User</Nav.Link>
-                        <Nav.Link href="/add-event"  style={{color:"whitesmoke"}}>Add Event</Nav.Link>
+                        <Nav.Link href="/add-user"   style={{color:"#FB8500"}}>Add User</Nav.Link>
+                        <Nav.Link href="/add-event"  style={{color:"#FB8500"}}>Add Event</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 </div>
@@ -54,7 +54,7 @@ const EventNavbar = () => {
                     </div>
                     <div className='mb-2'>
                     <h5 className='order-heading'>John Doe</h5>
-                    <p>Role: User or Admin</p>
+                    <p>Role: { isAdmin() ? "Admin":"User"}</p>
 
 
                     </div>
