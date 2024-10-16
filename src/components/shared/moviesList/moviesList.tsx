@@ -12,7 +12,7 @@ const MovieList = ({ events }: any) => {
         imageUrl,
         eventDateTime,
         reviews,
-        reviewsCount,
+        // reviewsCount,
         totalTickets,
         eventName
     } = filterIdData[0];
@@ -35,7 +35,7 @@ const MovieList = ({ events }: any) => {
     <div className='event-data-container'>
         <h3 className='mb-3'>{eventName}</h3>
         <p className='event-proper'>Release Date: <span className='event-proper-inner-item'>{eventDateTime}</span></p>
-        <p className='event-proper'>Reviews Count: <span className='event-proper-inner-item'>{reviewsCount}</span></p>
+        <p className='event-proper'>Reviews Count: <span className='event-proper-inner-item'>{reviews.length}</span></p>
         <p className='event-proper'>Available Tickets: <span className='event-proper-inner-item'>{totalTickets}</span></p>
         <p className='event-proper'>Description: <span className='event-proper-inner-item'>"Pushpa: The Rule" is an anticipated sequel to the blockbuster film "Pushpa: The Rise." Directed by Sukumar and featuring Allu Arjun in the titular role, this film delves deeper into the gritty world of red sandalwood smuggling, focusing on the challenges faced by the protagonist, Pushpa Raj.</span></p>
         
