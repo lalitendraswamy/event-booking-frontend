@@ -1,10 +1,29 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export interface Review{
+    review: string,
+    userRating: string| number,
+    user:{
+        username:string
+    }
+}
+
 export interface Event {
-    id: number;
-    title: string;
-    image: string;
+    eventId: string,
+    eventName: string,
+    category: string,
+    description:string,
+    eventDataTime:string,
+    duration:string| number,
+    totalTickets:string| number,
+    averageRating: string| number,
+    organizerName:string,
+    organizerImage:string,
+    imageUrl:string,
+    ticketPrice:string|number,
+    reviews: Review[] | []
+
 }
 
 export interface EventState {
@@ -23,7 +42,7 @@ export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await axios.get('http://10.0.0.72:5000/events');
+            const response = await axios.get('http://localhost:5000/events');
             return response.data;
         }catch(err){
             console.log(err)
@@ -35,7 +54,9 @@ const eventSlice = createSlice({
     name: 'events',
     initialState,
     reducers: {
-       
+       filteredEvents : (state,action) =>{
+                state.events = action.payload;
+            }
     },
     extraReducers: (builder) => {
         builder
@@ -46,4 +67,5 @@ const eventSlice = createSlice({
     },
 });
 
+export const {filteredEvents} = eventSlice.actions;
 export default eventSlice.reducer;

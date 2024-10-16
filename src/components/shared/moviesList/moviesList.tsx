@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import "./moviesList.css";
+import { useSelector } from 'react-redux';
 
-const MovieList = ({ events }: any) => {
+const MovieList = () => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
+    const {events} = useSelector((s:any) => s.events);
+
     const filterIdData = events.filter((event: any) => event.eventId === id);
     console.log(filterIdData,id)
     const {
@@ -14,7 +17,8 @@ const MovieList = ({ events }: any) => {
         reviews,
         // reviewsCount,
         totalTickets,
-        eventName
+        eventName,
+        description
     } = filterIdData[0];
 
     const increaseTicketsCount =()=>{
@@ -37,7 +41,10 @@ const MovieList = ({ events }: any) => {
         <p className='event-proper'>Release Date: <span className='event-proper-inner-item'>{eventDateTime}</span></p>
         <p className='event-proper'>Reviews Count: <span className='event-proper-inner-item'>{reviews.length}</span></p>
         <p className='event-proper'>Available Tickets: <span className='event-proper-inner-item'>{totalTickets}</span></p>
-        <p className='event-proper'>Description: <span className='event-proper-inner-item'>"Pushpa: The Rule" is an anticipated sequel to the blockbuster film "Pushpa: The Rise." Directed by Sukumar and featuring Allu Arjun in the titular role, this film delves deeper into the gritty world of red sandalwood smuggling, focusing on the challenges faced by the protagonist, Pushpa Raj.</span></p>
+        <p className='event-proper'>Description: <span className='event-proper-inner-item'>
+                {description}
+            </span>
+            </p>
         
         <div className='inc-des-count-container'>
             <p onClick={increaseTicketsCount} className='plus'>+</p>
@@ -53,17 +60,17 @@ const MovieList = ({ events }: any) => {
     </div>
 </div>
 <strong>Reviews:</strong>
-        {/* {reviews.length > 0 ? (
+        {reviews.length > 0 ? (
             <ul>
                 {reviews.map((review:any) => (
                     <li key={review.user} className='p-3'>
-                        <strong>{review.user}:</strong> {review.comment} (Rating: {review.rating})
+                        <strong>{review.user.username}:</strong> {review.review} (Rating: {review.userRating})
                     </li>
                 ))}
             </ul>
         ) : (
             <p>There are no reviews.</p>
-        )} */}
+        )}
 </div>
        
     )

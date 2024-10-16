@@ -249,7 +249,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/home" element={<Events/>} />
       <Route path="/events" element={<EventsPage/>} />
       <Route path="/categories" element={<Categories />}/> 
-      <Route path="/events/:id" element={<MovieList  events={event} />} />
+      <Route path="/events/:id" element={<MovieList />} />
       <Route path="/my-orders" element={<MyOrdersPage/>} />
       <Route path="/not-found" element={<PageNotFound />} />
       <Route path="*" element={<Navigate to="/not-found" replace />} />
