@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {EventService} from "../../../services/event.service";
 import axios from 'axios';
+
+const EventsService = new EventService();
 
 export interface Review{
     review: string,
@@ -42,20 +45,21 @@ export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await axios.get('http://localhost:5000/events');
-            return response.data;
-        }catch(err){
-            console.log(err);
+            const response = await EventsService.getAllEvents();
+            console.log("Inside Thunk", response)
+            return response;
+        }catch(error){
+            console.log(error);
         }
     }
-  );
+);
 
-  export const addEvent = createAsyncThunk(
+  export const addEvent = createAsyncThunk<Event, Event>(
     'events/addEvent',
-    async () => {
+    async (eventData:any) => {
         try{
-            const response = await axios.post('http://localhost:5000/events/multiple');
-            return response.data;
+            const response = await EventsService.addEvent(eventData);
+            return response;
         }catch(err){
             console.log(err);
         }
@@ -77,8 +81,8 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
-                state.loading = false;
-                state.events = action.payload;
+                console.log("added Event")
+                state.events.push(action.payload)
             })
     },
 });

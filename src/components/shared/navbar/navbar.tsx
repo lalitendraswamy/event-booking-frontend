@@ -25,7 +25,7 @@ const EventNavbar = () => {
         <>
             <Navbar expand="lg" id='navbar-container'>
                 <div className='d-flex'>
-                <Navbar.Brand href="#home" className='logo-container' style={{color:"whitesmoke"}}><Link to="/" className='text-underline'>BLP events</Link></Navbar.Brand>
+                <Navbar.Brand href="/" className='logo-container' style={{color:"whitesmoke"}}>BLP events</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
