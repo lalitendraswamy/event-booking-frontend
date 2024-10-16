@@ -3,26 +3,40 @@ import * as Yup from 'yup';
 import Navbar from '../shared/navbar/navbar'
 import Footer from '../shared/footer/eventsFooter'
 import './add-user.css'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
 
 const UserForm = () => {
   const initialValues = {
     username: '',
     email: '',
-    imageUrl: '',
+    userImageUrl: '',
     role: 'user',
   };
 
+  const {users,loginUser} = useSelector((s:any) => s.users)
+  const dispatch  = useDispatch()
+  console.log("Users in redux",users);
+  // console.log("Login User in redux",loginUser);
+ 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
     email: Yup.string().email('Invalid email format').required('Email is required'),
-    imageUrl: Yup.string().url('Invalid URL format').required('Image URL is required'),
+    userImageUrl: Yup.string().required('Image URL is required'),
     role: Yup.string().oneOf(['user', 'admin'], 'Role is required').required('Role is required'),
   });
 
   const handleSubmit = (values:any) => {
     console.log('Form data:', values);
-   
+    dispatch<any>(postUser(values))
   };
+
+  
+  // useEffect(() =>{
+  //   dispatch<any>(getUsers())
+    
+  // },[])
 
   return (
     <div className='user-form-data'>
@@ -49,9 +63,9 @@ const UserForm = () => {
           </div>
 
           <div className="user-form__group">
-            <label className="user-form__label" htmlFor="imageUrl">Image URL</label>
-            <Field className="user-form__input" name="imageUrl" type="text" />
-            <ErrorMessage name="imageUrl" component="div" className="user-form__error" />
+            <label className="user-form__label" htmlFor="userImageUrl">Image URL</label>
+            <Field className="user-form__input" name="userImageUrl" type="text" />
+            <ErrorMessage name="userImageUrl" component="div" className="user-form__error" />
           </div>
 
           <div className="user-form__group">
