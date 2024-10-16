@@ -2,11 +2,15 @@ import {useRef } from 'react';
 import Slider from 'react-slick';
 import type { Settings } from 'react-slick';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import 'animate.css'; // Add this line at the top of your file
 import './events.css';
 
 const Events = () => {
     const sliderRef = useRef<Slider | null>(null); // Use a ref to hold the slider instance
+    const dispatch = useDispatch();
+    const eventData = useSelector((state:any) => state.events)
+    console.log(eventData);
 
     const settings: Settings = {
         dots: false,
