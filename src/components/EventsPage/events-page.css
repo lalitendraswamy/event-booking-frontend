@@ -114,6 +114,18 @@
 }
 
 
+.admin-event-card-button{
+    border:1px solid #0056b3;
+    background-color: transparent;
+    cursor: pointer;
+
+    .order-icon{
+        color: #FB8500;
+    }
+}
+
+
+
 /* .event-page-container{
     display: flex;
 }
