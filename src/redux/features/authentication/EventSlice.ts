@@ -31,6 +31,18 @@ export const getAllEvents = createAsyncThunk(
     }
   );
 
+  export const addEvent = createAsyncThunk(
+    'events/addEvent',
+    async () => {
+        try{
+            const response = await axios.post('http://localhost:5000/events/multiple');
+            return response.data;
+        }catch(err){
+            console.log(err);
+        }
+    }
+  );
+
 const eventSlice = createSlice({
     name: 'events',
     initialState,
@@ -40,6 +52,10 @@ const eventSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
+                state.loading = false;
+                state.events = action.payload;
+            })
+            .addCase(addEvent.fulfilled, (state, action:any) => {
                 state.loading = false;
                 state.events = action.payload;
             })
