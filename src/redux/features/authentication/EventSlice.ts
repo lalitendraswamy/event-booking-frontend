@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
-interface Event {
+export interface Event {
     id: number;
     title: string;
     image: string;
 }
 
-interface EventState {
+export interface EventState {
     events: Event[];
     loading: boolean;
     error: string | null;
@@ -26,7 +26,7 @@ export const getAllEvents = createAsyncThunk(
             const response = await axios.get('http://10.0.0.72:5000/events');
             return response.data;
         }catch(err){
-            console.log(err)
+            console.log(err);
         }
     }
   );
