@@ -220,7 +220,7 @@ const EventPage = () => {
                             <h4>{item.name}</h4>
                             <p>{item.description}</p>
                             <div className="view-container">
-                                <p>Price: {item.price}</p>
+                                <p>Price: &#8377;{item.price}</p>
                                 <button className='btn btn-primary view'>View</button>
                             </div>
                         </div>

@@ -45,15 +45,15 @@ const EventNavbar = () => {
             <div className={`sidebar ${showModal ? 'show' : ''}`}>
                 <div className="sidebar-content">
                     <div className='profile-container'>
-                        <div >
+                        <div className='d-flex align-items-center' >
                         <p className='m-0'>Hey!</p>
-                        <p className='m-0'>Edit Your Profile &gt; </p>
+                        
                         </div>
                        <img src="https://cdn.dnaindia.com/sites/default/files/2024/10/13/2657411-image-2024-10-13t181657.151.jpg?im=FitAndFill=(1200,900)" alt="Profile" className="profile-img" />
                     </div>
                     <div className='mb-2'>
-                    <h5 className='order-heading'>Name: John Doe</h5>
-                    <p>Email: johndoe@example.com</p>
+                    <h5 className='order-heading'>John Doe</h5>
+                    <p>johndoe@example.com</p>
                     </div>
                     <div className='orders-container'>
                         <IoBagHandle className='order-icon'/>

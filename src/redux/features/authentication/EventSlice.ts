@@ -26,7 +26,7 @@ export const getAllEvents = createAsyncThunk(
             const response = await axios.get('http://10.0.0.72:5000/events');
             return response.data;
         }catch(err){
-            console.log(err)
+            console.log(err);
         }
     }
   );
