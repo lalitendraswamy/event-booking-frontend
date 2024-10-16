@@ -53,7 +53,7 @@ const MovieList = ({ events }: any) => {
     </div>
 </div>
 <strong>Reviews:</strong>
-        {reviews.length > 0 ? (
+        {/* {reviews.length > 0 ? (
             <ul>
                 {reviews.map((review:any) => (
                     <li key={review.user} className='p-3'>
@@ -63,7 +63,7 @@ const MovieList = ({ events }: any) => {
             </ul>
         ) : (
             <p>There are no reviews.</p>
-        )}
+        )} */}
 </div>
        
     )
