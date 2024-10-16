@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
+import customAxios from '../../../components/authentication/customAxios';
 
 export interface Review{
     review: string,
@@ -42,7 +43,7 @@ export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await axios.get('http://localhost:5000/events');
+            const response = await customAxios.get('/events');
             return response.data;
         }catch(err){
             console.log(err);
