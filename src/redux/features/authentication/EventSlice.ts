@@ -45,7 +45,7 @@ export const getAllEvents = createAsyncThunk(
             const response = await axios.get('http://localhost:5000/events');
             return response.data;
         }catch(err){
-            console.log(err)
+            console.log(err);
         }
     }
   );

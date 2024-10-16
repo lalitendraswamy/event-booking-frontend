@@ -25,7 +25,7 @@ const EventsFooter = () => {
             <FaLinkedin />
         </a>
         </div>
-        <p>Copyright 2024  <FaRegCopyright className='copy-right'/>  Bigtree Entertainment Pvt. Ltd. All Rights Reserved</p>
+        <p> <FaRegCopyright className='copy-right'/>copyright 2024, BLP Entertainments Pvt. Ltd. @all rights are reserved</p>
     </div>
     );
 };

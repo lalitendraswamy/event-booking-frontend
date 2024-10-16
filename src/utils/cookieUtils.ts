@@ -12,3 +12,10 @@ export const getCookie = (name: string) => {
 export const removeCookie = (name: string) => {
   Cookies.remove(name);
 };
+
+
+export const clearAllCookies = () => {
+  Object.keys(Cookies.get()).forEach((cookieName) => {
+    Cookies.remove(cookieName);
+  });
+};
