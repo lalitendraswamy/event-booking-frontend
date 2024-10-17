@@ -92,7 +92,7 @@ const userSlice = createSlice({
 
             })
             .addCase(deleteUser.fulfilled, (state,action) => {
-                console.log("Removed User");
+                // console.log("Removed User");
                 const newList = state.users.filter((each:any) => each.userId !== action.payload)
                 state.users = newList;
             })

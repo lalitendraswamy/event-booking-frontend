@@ -7,15 +7,20 @@ import UserTable from './UserTable';
 import { MdGroupAdd } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import './user-page.css';
+import Spinner from '../shared/spinner/spinner';
 
 export default function Userpage() {
     const { users } = useSelector((s: any) => s.users);
     const dispatch = useDispatch();
     const navigate= useNavigate();
-console.log(users)
+
     useEffect(() => {
         dispatch<any>(getUsers());
     }, []);
+
+    if(users.length===0){
+        return(<Spinner/>)
+    }
 
     return (
         <div>
@@ -29,7 +34,8 @@ console.log(users)
                 {users.length > 0 ? (
                     <UserTable users={users} /> // Use the UserTable component
                 ) : (
-                    <p>No users found.</p>
+                    <div className='user-page' style={{"fontSize":"50px","color":"#0056B3"}}><p>No users found.</p></div>
+                    
                 )}
             </div>
             <Footer />

@@ -22,8 +22,7 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
     
     const dispatch = useDispatch()
 const onDeleteUser= async (id:string)=>{
-    // const response= await service.deleteUser(id);
-    // console.log(response);
+    
     dispatch<any>(deleteUser(id));
 }
 ;

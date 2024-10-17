@@ -14,8 +14,8 @@ export default function MyOrdersPage() {
     return (
       <div>
         <Navbar/>
-        <div className='my-orders-page'>
-                You have !No Orders
+        <div className='my-orders-page' style={{"fontSize":"50px","color":"#0056B3"}}>
+                You have No Orders!
         </div>
         <Footer/>      
     </div>

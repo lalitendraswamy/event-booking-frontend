@@ -4,6 +4,7 @@ import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Link,useNavigate } from "react-router-dom";
 import { EventService } from "../../services/event.service";
+import { getCookie } from "../../utils/cookieUtils";
 
 
 export const EventCard = ({ item }: any) => {
@@ -32,12 +33,14 @@ export const EventCard = ({ item }: any) => {
       <p>{item.description}</p>
       <div className="view-container">
         <p>Price: {item.ticketPrice}</p>
-        <button onClick={()=> navigate(`/edit-event/${item.eventId}`)} className="admin-event-card-button">
+        {getCookie('role')==='admin'&&(<button onClick={()=> navigate(`/edit-event/${item.eventId}`)} className="admin-event-card-button">
           <MdModeEdit className="order-icon" />
-        </button>
-        <button onClick={()=>onDelete(item.eventId)} className="admin-event-card-button">
+        </button>)}
+        {getCookie('role')==='admin'&&(<button onClick={()=>onDelete(item.eventId)} className="admin-event-card-button">
           <RiDeleteBinFill className="order-icon" />
-        </button>
+        </button>)}
+        
+        
         <Link
           to={`/events/${item.eventId}`}
           className="underline-none"

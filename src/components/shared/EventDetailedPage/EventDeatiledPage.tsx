@@ -3,9 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
 import { postOrder } from '../../../redux/features/authentication/OrderSlice';
-import { addFavorite, addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
+import { addFavorite,  getEventById } from "../../../redux/features/authentication/EventSlice";
 
 
 

@@ -17,7 +17,7 @@ const orderSlice= createSlice({
               state.orders= [...state.orders,action.payload]  
         },
         cancelOrder:(state,action)=>{
-            console.log(action.payload)
+            // console.log(action.payload)
             state.orders= state.orders.filter((order :any)=> order.bookingId!==action.payload)
         }
     }

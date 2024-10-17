@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { clearAllCookies } from '../../../utils/cookieUtils';
+import { clearAllCookies,getCookie } from '../../../utils/cookieUtils';
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
@@ -26,7 +26,7 @@ const EventNavbar = () => {
             <Navbar expand="lg" id='navbar-container'>
                 <div className='d-flex'>
 
-                    <Navbar.Brand onClick={()=>navigate('/')} className='logo-container' style={{ color: "whitesmoke" }}>BLP events</Navbar.Brand>
+                    <Navbar.Brand onClick={()=>navigate('/')} style={{"cursor":"pointer","color":"whitesmoke"}} className='logo-container' ><i>BLP_events</i></Navbar.Brand>
                     
 
                 
@@ -35,8 +35,12 @@ const EventNavbar = () => {
                     <Nav className="ml-auto navbar-items" >
                         <Nav.Link  onClick={()=>navigate('/events')} style={{color:"whitesmoke"}}>Events</Nav.Link>
                         <Nav.Link  onClick={()=>navigate('/my-orders')} style={{color:"whitesmoke"}}>My Orders</Nav.Link>
-                        <Nav.Link  onClick={()=>navigate('/users')}  style={{color:"#FB8500"}}>Users</Nav.Link>
-                        <Nav.Link  onClick={()=>navigate('/add-event')} style={{color:"#FB8500"}}>Add Event</Nav.Link>
+                        
+                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/users')}  style={{color:"#FB8500"}}>Users</Nav.Link>)}
+                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/add-event')} style={{color:"#FB8500"}}>Add Event</Nav.Link>)}
+                        
+                        
+                        
                     </Nav>
                 </Navbar.Collapse>
 
@@ -64,7 +68,7 @@ const EventNavbar = () => {
                         </div>
                         <div className='mb-2'>
                             <h5 className='order-heading'>{loginUser.username || 'User'}</h5>
-                            <p>Role: <b className='ms-1' > {loginUser.role.toUpperCase() || 'User or Admin'}</b></p>
+                            <p>Role: <b className='ms-1' > {getCookie('role').toUpperCase() || 'User or Admin'}</b></p>
                         </div>
                         </div>
                         <div className='orders-container mt-3'>

@@ -15,5 +15,6 @@
   .favorite-card-item{
     height: 230px;
     display: flex;
-    justify-content: space-around;
+    padding: 0 50px 0 50px;
+    justify-content: space-between;
   }
