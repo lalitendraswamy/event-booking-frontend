@@ -6,13 +6,14 @@ import LoginPage from '../components/authentication/LoginPage';
 import Runway from '../components/authentication/Runaway';
 import Events from '../components/shared/events/events';
 import Categories from '../components/shared/categories/categories';
-import MovieList from '../components/shared/moviesList/moviesList';
+import MovieList from '../components/shared/EventDetailedPage/EventDeatiledPage';
 import EventsPage from "../components/EventsPage/EventsPage";
 import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 import UserForm from "../components/AddUserPage/add-user";
 import EventForm from '../components/AddEventPage/add-event';
 import EditEventPage from '../components/EditEventPage/EditEventPage';
+import Userpage from '../components/UsersPage/Userpage';
 
   const event = [
     // {   
@@ -256,8 +257,10 @@ const AppRoutes: React.FC = () => {
       <Route path="*" element={<Navigate to="/not-found" replace />} />
 
       <Route path="/edit-event/:id" element={<EditEventPage />} />
+      <Route path="/users" element={<Userpage />} />
       <Route path="/add-event" element={<EventForm />} />
       <Route path="/add-user"  element={<UserForm />} />
+
     </Routes>
   );
 };

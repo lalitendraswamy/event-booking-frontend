@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
+
+
+import "./event-detailed-page.css";
+
 import { useEffect, useState } from "react";
-import "./moviesList.css";
+
 import Navbar from "../navbar/navbar";
 import Footer from '../footer/eventsFooter';
 import { useDispatch, useSelector } from "react-redux";
