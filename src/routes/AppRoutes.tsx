@@ -12,6 +12,7 @@ import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 import UserForm from "../components/AddUserPage/add-user";
 import EventForm from '../components/AddEventPage/add-event';
+import FavoriteEventCard from "../components/FavoriteEventCard/favoriteEvent";
 
   const event = [
     // {   
@@ -238,31 +239,13 @@ import EventForm from '../components/AddEventPage/add-event';
         }
 ];
 
-const favoriteEvent = {
-    eventId: "12345678-1234-1234-1234-1234567890ab",
-    eventName: "Hip Hop Showcase",
-    description: "An electrifying night of hip hop dance featuring local and national talent.",
-    eventDateTime: "2024-10-20T20:00:00",
-    category: "Dance",
-    duration: 150,
-    totalTickets: 400,
-    location: "Chicago, IL",
-    averageRating: 4.7,
-    organizerName: "Urban Dance Collective",
-    organizerImage: "https://example.com/images/urban_dance_collective.jpg",
-    imageUrl: "https://example.com/images/hip_hop_showcase.jpg",
-    ticketPrice: 50,
-    isFavorite: true,
-    addedAt: "2024-10-16T11:01:55.661Z"
-  };
-
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home/>} />
       {/* <Route path="/" element={<ProtectedRoute element={<Home/>} />} /> */}
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/favorite-event" element={<FavoriteEventCard event={FavoriteEventCard}/>} />
+      <Route path="/favorite-event" element={<FavoriteEventCard />} />
       <Route path="/runway" element={<Runway/>} />
       <Route path="/home" element={<Events/>} />
       <Route path="/events" element={<EventsPage/>} />

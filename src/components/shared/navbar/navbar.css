@@ -32,7 +32,7 @@
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transition: right 0.3s ease; /* Smooth transition */
     z-index: 1000; /* High z-index to ensure it appears above other content */
-    overflow: hidden;
+    overflow: hidden
 }
 
 .sidebar::-webkit-scrollbar {
@@ -50,6 +50,7 @@
 
 .profile-data{
     display: flex;
+    /* flex-direction: column !important; */
 }
 
 .profile-img {

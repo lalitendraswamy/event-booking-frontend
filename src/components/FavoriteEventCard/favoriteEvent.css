@@ -12,13 +12,8 @@
     transform: translateY(-5px);
   }
   
-  /* .event-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  } */
-  
   .favorite-card-item{
+    height: 230px;
     display: flex;
     justify-content: space-around;
   }

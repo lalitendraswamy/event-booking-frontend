@@ -132,6 +132,7 @@
   cursor: pointer; /* Change cursor to pointer on hover */
   text-align: center; /* Center text */
   transition: background-color 0.3s ease; /* Smooth background transition */
+  margin-right: 10px;
 }
 
 .book-tickets-btn:hover {

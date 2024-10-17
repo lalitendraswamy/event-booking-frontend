@@ -74,8 +74,15 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             },
         addFavoriteItem:(state,action)=>{
+            let data:any = state.favorites.find(favorite => favorite.eventId === action.payload.eventId);
+            if(!data){
             state.favorites.push(action.payload);
+            }
+        },
+        removeFavoriteItem: (state, action) => {
+            state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload);
         }
+        
     },
     extraReducers: (builder) => {
         builder
@@ -84,11 +91,11 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
-                console.log("added Event")
-                state.events.push(action.payload)
+                console.log("added Event");
+                state.events.push(action.payload);
             })
     },
 });
 
-export const {filteredEvents,addFavoriteItem} = eventSlice.actions;
+export const {filteredEvents,addFavoriteItem,removeFavoriteItem} = eventSlice.actions;
 export default eventSlice.reducer;
