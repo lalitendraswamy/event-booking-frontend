@@ -6,7 +6,7 @@ export class UserService{
     getAllUsers = async()=>{
         try{
             const response = await customAxios.get('/users');
-            // console.log("Response data", response.data)
+            console.log("Response data", response.data)
             return response.data;
         }catch(e:any){
             console.log(e.message);

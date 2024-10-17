@@ -35,7 +35,7 @@ export const getUsers = createAsyncThunk<User[], void>(
     async () => {
         try{
             const response = await userServices.getAllUsers();
-            return response.data;
+            return response;
         }catch(e:any){
             console.log(e.message);
         }
