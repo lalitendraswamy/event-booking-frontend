@@ -3,6 +3,7 @@ import {EventService} from "../../../services/event.service";
 import customAxios from '../../../components/authentication/customAxios';
 const EventsService = new EventService();
 
+
 export interface Review{
     review: string,
     userRating: string| number,
@@ -49,6 +50,10 @@ export const getAllEvents = createAsyncThunk(
     async () => {
         try{
             const response = await EventsService.getAllEvents();
+
+
+            console.log("Inside Thunk", response)
+
             return response;
         }catch(error){
             console.log(error);
