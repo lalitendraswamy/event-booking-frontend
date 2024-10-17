@@ -13,9 +13,14 @@ import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 import UserForm from "../components/AddUserPage/add-user";
 import EventForm from '../components/AddEventPage/add-event';
 
+import EditEventPage from '../components/EditEventPage/EditEventPage';
+import ContactUs from "../components/ContactUsPage/contact-us";
+
+
+
 import FavoriteEventCard from "../components/FavoriteEventCard/favoriteEvent";
 
-import EditEventPage from '../components/EditEventPage/EditEventPage';
+
 import Userpage from '../components/UsersPage/Userpage';
 
 
@@ -32,6 +37,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/home" element={<Events/>} />
       <Route path="/events" element={<EventsPage/>} />
       <Route path="/categories" element={<Categories />}/> 
+      <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/events/:id" element={<MovieList />} />
       <Route path="/my-orders" element={<MyOrdersPage/>} />
       <Route path="/not-found" element={<PageNotFound />} />
