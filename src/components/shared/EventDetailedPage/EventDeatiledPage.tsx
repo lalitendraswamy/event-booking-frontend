@@ -1,13 +1,10 @@
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavoriteItem } from "../../../redux/features/authentication/EventSlice";
-
-
-
-
+import { addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
+import { postOrder } from '../../../redux/features/authentication/OrderSlice';
 import "./event-detailed-page.css";
 
 import { useEffect, useState } from "react";
@@ -19,14 +16,17 @@ import Footer from '../footer/eventsFooter';
 const MovieList = () => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
-    const { events } = useSelector((state: any) => state.events);
+    const { events,eachEvent } = useSelector((state: any) => state.events);
     const dispatch = useDispatch();
+    const navigate=useNavigate();
     
     const filterIdData = events.filter((event: any) => event.eventId === id);
     
-    if (filterIdData.length === 0) {
-        return <div>No event found</div>; // Handle case where no event is found
-    }
+    useEffect(() => {
+      dispatch<any>(getEventById(id!));
+    
+   },[])
+    
 
     const {
         eventId,
@@ -35,9 +35,13 @@ const MovieList = () => {
         reviews,
         totalTickets,
         eventName,
-        description
-    } = filterIdData[0];
-
+        location,
+        ticketPrice,
+        description,
+        category,
+       
+    } = eachEvent;
+console.log("Each event",eachEvent)
 
     const dateObj = new Date(eventDateTime);
 
@@ -60,9 +64,23 @@ const year = dateObj.getFullYear();
         dispatch(addFavoriteItem(filterIdData[0]));
     };
 
+    const onTicketBooking=()=>{
+        const orderDetails={bookingId:eventName,eventName,location,eventDateTime,ticketPrice,category,imageUrl,totalTickets:count}
+        dispatch(postOrder(orderDetails));
+        navigate('/my-orders')
+        
+
+    };
+
+    if(!eachEvent){
+      return <h1>Loading....</h1>
+    }
+  
+
     return (
         <div>
             <Navbar />
+            { eachEvent ?
             <div className="movies-list">
                 <div className="event-container-item">
                     <div>
@@ -79,13 +97,19 @@ const year = dateObj.getFullYear();
                             Release Date: <span className="event-proper-inner-item">{`${day}:${month}:${year}`}</span>
                         </p>
                         <p className="event-proper">
-                            Reviews Count: <span className="event-proper-inner-item">{reviews.length}</span>
+                            Reviews Count: <span className="event-proper-inner-item">{
+                           eachEvent.reviews ? reviews.length : "0"
+                            }</span>
                         </p>
                         <p className="event-proper">
                             Available Tickets: <span className="event-proper-inner-item">{totalTickets}</span>
                         </p>
                         <p className="event-proper">
                             Description: <span className="event-proper-inner-item">{description}</span>
+                        </p>
+
+                        <p className="event-proper">
+                            Price: <span className="event-proper-inner-item"> &#8377; {ticketPrice}</span>
                         </p>
 
                         <div className='fav-tic-container'>
@@ -101,12 +125,13 @@ const year = dateObj.getFullYear();
                         </div>
 
                         <div>
-                            <button className='book-tickets-btn' onClick={() => alert('Tickets booked!')}>Book Tickets</button>
+                            <button className='book-tickets-btn' onClick={onTicketBooking}>Book Tickets</button>
                             <button className='book-tickets-btn' onClick={handleAddFavorites}>Favorite <GiSelfLove /></button>
                             </div>
 
                         <strong>Reviews:</strong>
-                        {reviews.length > 0 ? (
+                        {eachEvent.reviews ?
+                         (
                             <ul>
                                 {reviews.map((review: any) => (
                                     <li key={review.user} className="p-3">
@@ -120,8 +145,13 @@ const year = dateObj.getFullYear();
                     </div>
                 </div>
             </div>
+             :
+             <h1>Loading....</h1>  
+             }
+
             <Footer />
         </div>
+        
     );
 };
 

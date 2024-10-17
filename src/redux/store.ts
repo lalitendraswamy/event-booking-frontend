@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './features/authentication/UserSlice'; 
 import eventSlice from "./features/authentication/EventSlice";
+import orderSlice from './features/authentication/OrderSlice';
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -19,7 +20,8 @@ const persistedUserSlice = persistReducer(persistConfig, userSlice)
 const store = configureStore({
     reducer: {
         users: persistedUserSlice,
-        events: eventSlice
+        events: eventSlice,
+        orders: orderSlice,
     },
 }); 
 

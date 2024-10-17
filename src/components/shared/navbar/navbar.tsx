@@ -26,17 +26,17 @@ const EventNavbar = () => {
             <Navbar expand="lg" id='navbar-container'>
                 <div className='d-flex'>
 
-                    <Navbar.Brand href="/" className='logo-container' style={{ color: "whitesmoke" }}>BLP events</Navbar.Brand>
+                    <Navbar.Brand onClick={()=>navigate('/')} className='logo-container' style={{ color: "whitesmoke" }}>BLP events</Navbar.Brand>
                     
 
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
-                        <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
-                        <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
-                        <Nav.Link href="/users"   style={{color:"#FB8500"}}>Users</Nav.Link>
-                        <Nav.Link href="/add-event"  style={{color:"#FB8500"}}>Add Event</Nav.Link>
+                        <Nav.Link  onClick={()=>navigate('/events')} style={{color:"whitesmoke"}}>Events</Nav.Link>
+                        <Nav.Link  onClick={()=>navigate('/my-orders')} style={{color:"whitesmoke"}}>My Orders</Nav.Link>
+                        <Nav.Link  onClick={()=>navigate('/users')}  style={{color:"#FB8500"}}>Users</Nav.Link>
+                        <Nav.Link  onClick={()=>navigate('/add-event')} style={{color:"#FB8500"}}>Add Event</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
 
@@ -64,7 +64,7 @@ const EventNavbar = () => {
                         </div>
                         <div className='mb-2'>
                             <h5 className='order-heading'>{loginUser.username || 'User'}</h5>
-                            <p>Role: {loginUser.role || 'User or Admin'}</p>
+                            <p>Role: <b className='ms-1' > {loginUser.role.toUpperCase() || 'User or Admin'}</b></p>
                         </div>
                         </div>
                         <div className='orders-container mt-3'>

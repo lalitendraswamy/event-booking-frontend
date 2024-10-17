@@ -20,7 +20,7 @@ export interface LoginUser{
     username: string,
     userImageUrl : string,
     role:string
-}
+} 
 
 export interface UserState {
     users: User[] | any;
@@ -52,7 +52,7 @@ export const deleteUser = createAsyncThunk(
     "users/deleteUser",
     async (id:string) =>{
         try{
-            const response = await userService.deleteUser(id)
+            const response = await userServices.deleteUser(id)
             return id
         }catch(e){
             console.log(e);
