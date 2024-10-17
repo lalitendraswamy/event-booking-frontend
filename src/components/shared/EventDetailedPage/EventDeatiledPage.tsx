@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import "./moviesList.css";
+import "./event-detailed-page.css";
 import Navbar from "../navbar/navbar";
 import Footer from '../footer/eventsFooter';
 import { useSelector } from "react-redux";

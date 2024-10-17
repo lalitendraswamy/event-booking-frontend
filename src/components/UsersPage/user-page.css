@@ -1,0 +1,74 @@
+/* .user-page{
+    
+    min-height: 85vh;
+
+    h3{
+        color: green;
+    }
+} */
+
+.user-page {
+    padding: 20px;
+    text-align: center;
+    color: #333;
+    
+}
+
+.user-page-top-card{
+    width: 80%;
+    margin: 20px auto;
+
+    h3{
+        color: #0056B3;
+    }
+
+    button{
+        border-style: none;
+        padding: 0 17px 0 17px;
+        background-color: #FB8500;
+        color: whitesmoke;
+        font-weight: 500;
+        border-radius: 4px;
+    }
+}
+
+.user-table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+.user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 7px;
+    text-align: center;
+    width: 15vw;
+
+    img{
+        width: 100%;
+       
+    }
+
+}
+
+.user-table th {
+    background-color: #f2f2f2;
+    font-weight: 500;
+}
+
+.user-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.user-image {
+    width: 15vw;
+    height: 200px;
+ 
+}
+
+.user-delete-btn{
+    border-style: none;
+    background-color: transparent;
+
+}
+
