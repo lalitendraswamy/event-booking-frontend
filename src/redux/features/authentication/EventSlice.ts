@@ -29,12 +29,14 @@ export interface Event {
 
 export interface EventState {
     events: Event[];
+    eachEvent: Event | []
     loading: boolean;
     error: string | null;
 }
 
 const initialState: EventState = {
     events: [],
+    eachEvent : [],
     loading: false,
     error: null,
 };
@@ -51,6 +53,20 @@ export const getAllEvents = createAsyncThunk(
     }
 );
 
+
+export const getEventById = createAsyncThunk(
+    "events/getEventById",
+    async (id:string) => {
+        try{
+            const response = await customAxios.get(`/events/get/${id}`);
+            return response.data
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+)
+
 const eventSlice = createSlice({
     name: 'events',
     initialState,
@@ -64,6 +80,9 @@ const eventSlice = createSlice({
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
                 state.loading = false;
                 state.events = action.payload;
+            })
+            .addCase(getEventById.fulfilled,(state,action) => {
+                    state.eachEvent = action.payload
             })
     },
 });
