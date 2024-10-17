@@ -1,13 +1,10 @@
 // src/Runway.js
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { getCookie, setCookie } from '../../utils/cookieUtils';
 import { useDispatch } from 'react-redux';
 import { getLoginUser } from '../../redux/features/authentication/UserSlice';
 import customAxios from './customAxios';
-
-
 
 function Runway() {
   const location = useLocation();
@@ -27,7 +24,7 @@ function Runway() {
 
               const response = await customAxios.post("/auth/callback", { code });
               console.log("user data", response.data);
-
+  
             setCookie('token', response.data.token,3);
             setCookie('role', response.data.role , 3);
             dispatch<any>(getLoginUser({
@@ -35,7 +32,7 @@ function Runway() {
               userImageUrl:response.data.userImageUrl,
               role:response.data.role
             }))
-            navigate('/');
+            navigate("/");
           }
 
         } catch (e) {

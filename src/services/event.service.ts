@@ -1,9 +1,29 @@
+import customAxios from '../.../../components/authentication/customAxios';
 import axios from "axios";
 
 export class EventService{
     
     constructor(){
 
+    }
+
+
+    getAllEvents = async()=>{
+        try{
+            const response = await customAxios.get('/events');
+            return response.data;
+        }catch(error){
+            return error;
+        }
+    }
+
+    addEvent = async(eventData:any)=>{
+        try{
+            const response = await customAxios.post('/events/add',eventData);
+            return response.data;
+        }catch(err){
+            return err;
+        }
     }
 
 
@@ -22,6 +42,7 @@ export class EventService{
         let response= await axios.put(`http://localhost:5000/events/update/${eventId}`, body)
         return response
     }
+
 
 
 }

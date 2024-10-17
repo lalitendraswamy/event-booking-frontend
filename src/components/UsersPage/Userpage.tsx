@@ -12,10 +12,10 @@ export default function Userpage() {
     const { users } = useSelector((s: any) => s.users);
     const dispatch = useDispatch();
     const navigate= useNavigate();
-
+console.log(users)
     useEffect(() => {
         dispatch<any>(getUsers());
-    }, [dispatch]);
+    }, []);
 
     return (
         <div>

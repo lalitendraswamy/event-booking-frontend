@@ -1,3 +1,4 @@
+
 import React from "react";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -16,6 +17,7 @@ export const EventCard = ({ item }: any) => {
     console.log(response);
     navigate('/events')
   }
+
 
   return (
     
