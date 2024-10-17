@@ -5,6 +5,11 @@ import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
 import { addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
 import { postOrder } from '../../../redux/features/authentication/OrderSlice';
+import { addFavorite, addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
+
+
+
+
 import "./event-detailed-page.css";
 
 import { useEffect, useState } from "react";
@@ -17,16 +22,32 @@ const MovieList = () => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
     const { events,eachEvent } = useSelector((state: any) => state.events);
-    const dispatch = useDispatch();
+
+    
     const navigate=useNavigate();
     
+    
+    
+  
+    
+
+    const {users,loginUser} = useSelector((s:any) => s.users)
+    const dispatch = useDispatch();
+    // console.log("Login User", loginUser)
+    // console.log("Users", users)
+    const {userId}= users.filter((each:any) => loginUser.username === each.username )[0];
+    // console.log("UserId",userId)
+
+    
     const filterIdData = events.filter((event: any) => event.eventId === id);
-    
+
+
     useEffect(() => {
-      dispatch<any>(getEventById(id!));
-    
-   },[])
-    
+        dispatch<any>(getEventById(id!));
+     
+     },[])
+     
+
 
     const {
         eventId,
@@ -34,14 +55,17 @@ const MovieList = () => {
         eventDateTime,
         reviews,
         totalTickets,
-        eventName,
-        location,
         ticketPrice,
+        eventName,
+
+        location,
+        
         description,
         category,
        
     } = eachEvent;
 console.log("Each event",eachEvent)
+
 
     const dateObj = new Date(eventDateTime);
 
@@ -61,7 +85,8 @@ const year = dateObj.getFullYear();
     };
 
     const handleAddFavorites = () => {
-        dispatch(addFavoriteItem(filterIdData[0]));
+        // dispatch(addFavoriteItem(filterIdData[0]));
+        dispatch<any>(addFavorite({userId,eventId}))
     };
 
     const onTicketBooking=()=>{
@@ -113,7 +138,7 @@ const year = dateObj.getFullYear();
                         </p>
 
                         <div className='fav-tic-container'>
-
+ 
                             <div className="inc-des-count-container">
                                 <p onClick={increaseTicketsCount} className="plus">+</p>
                                 <span className="straight"></span>
@@ -121,14 +146,14 @@ const year = dateObj.getFullYear();
                                 <span className="straight"></span>
                                 <p onClick={decreaseTicketsCount} className="plus">-</p>
                             </div>
-                    
+                   
                         </div>
-
+ 
                         <div>
                             <button className='book-tickets-btn' onClick={onTicketBooking}>Book Tickets</button>
                             <button className='book-tickets-btn' onClick={handleAddFavorites}>Favorite <GiSelfLove /></button>
                             </div>
-
+ 
                         <strong>Reviews:</strong>
                         {eachEvent.reviews ?
                          (

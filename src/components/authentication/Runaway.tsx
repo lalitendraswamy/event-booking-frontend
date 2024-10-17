@@ -19,7 +19,7 @@ function Runway() {
       // Send the authorization code to the backend to exchange for tokens
       const exchangeCodeForTokens = async () => {
         try {
-              if(!getCookie("token")){
+              if(!getCookie("token") ){
               console.log('code', code)
 
               const response = await customAxios.post("/auth/callback", { code });
@@ -32,7 +32,9 @@ function Runway() {
               userImageUrl:response.data.userImageUrl,
               role:response.data.role
             }))
-            navigate("/");
+          
+              navigate("/");
+           
           }
 
         } catch (e) {

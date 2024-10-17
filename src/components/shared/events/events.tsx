@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllEvents } from '../../../redux/features/authentication/EventSlice';
 import 'animate.css'; // Add this line at the top of your file
 import './events.css';
+import { getUsers } from '../../../redux/features/authentication/UserSlice';
 
 const Events = () => {
     const sliderRef = useRef<Slider | null>(null); // Use a ref to hold the slider instance
@@ -15,6 +16,7 @@ const Events = () => {
   
     useEffect(() => {
       dispatch<any>(getAllEvents());
+      dispatch<any>(getUsers())
     }, []);
     
     const settings: Settings = {
