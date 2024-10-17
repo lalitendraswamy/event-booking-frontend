@@ -1,17 +1,44 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+
+
 import "./event-detailed-page.css";
+
+import { useEffect, useState } from "react";
+
 import Navbar from "../navbar/navbar";
 import Footer from '../footer/eventsFooter';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventById } from "../../../redux/features/authentication/EventSlice";
+import customAxios from "../../authentication/customAxios";
 
 const MovieList = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
-  const { events } = useSelector((s: any) => s.events);
-
+  const { events,eachEvent } = useSelector((s: any) => s.events);
+  const dispatch = useDispatch()
   const filterIdData = events.filter((event: any) => event.eventId === id);
-  console.log(filterIdData, id);
+  // console.log(eachEvent, id,filterIdData[0]);
+
+
+  useEffect(() => {
+    dispatch<any>(getEventById(id!));
+  
+ },[])
+
+// console.log("data",data)
+  const increaseTicketsCount = () => {
+    setCount(count + 1);
+  };
+
+  const decreaseTicketsCount = () => {
+    setCount(count === 0 ? 0 : count - 1);
+  };
+
+  if(!eachEvent){
+    return <h1>Loading....</h1>
+  }
+
+  
   const {
     eventId,
     imageUrl,
@@ -21,19 +48,16 @@ const MovieList = () => {
     totalTickets,
     eventName,
     description,
-  } = filterIdData[0];
+  } = eachEvent;
 
-  const increaseTicketsCount = () => {
-    setCount(count + 1);
-  };
-
-  const decreaseTicketsCount = () => {
-    setCount(count === 0 ? 0 : count - 1);
-  };
+  // console.log("Each Event", eachEvent)
+  // console.log("reviews",eachEvent.reviews)
 
   return (
     <>
     <Navbar/>
+
+   { eachEvent ?
       <div className="movies-list">
         <div className="event-container-item">
           <div>
@@ -52,7 +76,10 @@ const MovieList = () => {
             </p>
             <p className="event-proper">
               Reviews Count:{" "}
-              <span className="event-proper-inner-item">{reviews.length}</span>
+              <span className="event-proper-inner-item">
+                {eachEvent.reviews ?  reviews.length : "0"}
+                
+                </span>
             </p>
             <p className="event-proper">
               Available Tickets:{" "}
@@ -81,7 +108,7 @@ const MovieList = () => {
           </div>
         </div>
         <strong>Reviews:</strong>
-        {reviews.length > 0 ? (
+       {eachEvent.reviews  ? (
           <ul>
             {reviews.map((review: any) => (
               <li key={review.user} className="p-3">
@@ -92,8 +119,11 @@ const MovieList = () => {
           </ul>
         ) : (
           <p>There are no reviews.</p>
-        )}
+        )} 
       </div>
+     :
+    <h1>Loading....</h1>  
+    }
       <Footer/>
     </>
   );
