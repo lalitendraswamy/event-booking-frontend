@@ -26,7 +26,7 @@ const FavoriteEventCard = () => {
      { favoriteData.length > 0 ?
       
       <div
-        className="favorite-event-card"
+        className=""
       >{
           favoriteData.map((favoriteItem: any) => (
             <div key={favoriteItem.eventId}>

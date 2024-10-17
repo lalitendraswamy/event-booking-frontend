@@ -7,6 +7,12 @@
     justify-content: space-between;
     align-items: center;
     color: whitesmoke !important;
+
+    .main-logo{
+        height: 100%;
+        width: 10vw;
+    }
+
 }
 
 .navbar-items{

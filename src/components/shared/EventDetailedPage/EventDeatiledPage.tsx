@@ -3,7 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavorite, addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
+import { postOrder } from '../../../redux/features/authentication/OrderSlice';
+import { addFavorite,  getEventById } from "../../../redux/features/authentication/EventSlice";
 
 
 
@@ -20,6 +21,15 @@ const MovieList = () => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
     const { events,eachEvent } = useSelector((state: any) => state.events);
+
+    
+    const navigate=useNavigate();
+    
+    
+    
+  
+    
+
     const {users,loginUser} = useSelector((s:any) => s.users)
     const dispatch = useDispatch();
     // console.log("Login User", loginUser)
@@ -37,6 +47,7 @@ const MovieList = () => {
      },[])
      
 
+
     const {
         eventId,
         imageUrl,
@@ -45,8 +56,14 @@ const MovieList = () => {
         totalTickets,
         ticketPrice,
         eventName,
-        description
+
+        location,
+        
+        description,
+        category,
+       
     } = eachEvent;
+console.log("Each event",eachEvent)
 
 
     const dateObj = new Date(eventDateTime);
@@ -72,17 +89,17 @@ const year = dateObj.getFullYear();
     };
 
     const onTicketBooking=()=>{
-        // const orderDetails={bookingId:eventName,eventName,location,eventDateTime,ticketPrice,category,imageUrl,totalTickets:count}
-        // dispatch(postOrder(orderDetails));
-        // navigate('/my-orders')
-       
- 
+        const orderDetails={bookingId:eventName,eventName,location,eventDateTime,ticketPrice,category,imageUrl,totalTickets:count}
+        dispatch(postOrder(orderDetails));
+        navigate('/my-orders')
+        
+
     };
 
     if(!eachEvent){
-        return <h1>Loading....</h1>
-      }
-   
+      return <h1>Loading....</h1>
+    }
+  
 
     return (
         <div>
@@ -114,11 +131,11 @@ const year = dateObj.getFullYear();
                         <p className="event-proper">
                             Description: <span className="event-proper-inner-item">{description}</span>
                         </p>
- 
+
                         <p className="event-proper">
                             Price: <span className="event-proper-inner-item"> &#8377; {ticketPrice}</span>
                         </p>
- 
+
                         <div className='fav-tic-container'>
  
                             <div className="inc-des-count-container">
@@ -155,10 +172,10 @@ const year = dateObj.getFullYear();
              :
              <h1>Loading....</h1>  
              }
- 
+
             <Footer />
         </div>
-       
+        
     );
 };
 

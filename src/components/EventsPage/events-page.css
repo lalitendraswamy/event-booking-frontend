@@ -1,6 +1,8 @@
 .event-page-container {
     display: flex;
-
+    justify-content: center;
+  
+    min-height: 80vh;
     margin: 20px;
 }
 

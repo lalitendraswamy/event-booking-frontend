@@ -1,6 +1,8 @@
 import React from 'react';
 import { RiDeleteBinFill } from "react-icons/ri";
 import { UserService } from '../../services/user-service';
+import { useDispatch } from 'react-redux';
+import { deleteUser } from '../../redux/features/authentication/UserSlice';
 
 interface User {
     userId: string;
@@ -14,14 +16,17 @@ interface UserTableProps {
     users: User[];
 }
 
-const onDeleteUser= async (id:string)=>{
-    const response= await service.deleteUser(id);
-    console.log(response);
-}
-;
 const service= new UserService();
 
 const UserTable: React.FC<UserTableProps> = ({ users }) => {
+    
+    const dispatch = useDispatch()
+const onDeleteUser= async (id:string)=>{
+    
+    dispatch<any>(deleteUser(id));
+}
+;
+    
     return (
         <table className='user-table'>
             <thead>
