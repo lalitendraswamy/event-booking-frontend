@@ -128,7 +128,11 @@ export const  EventFilters = () => {
                 {category}
             </button>
         ))}
-        <button type='button' onClick={onRemoveFilters}>Remove Filters</button>
+        
+    </div>
+    <div className="filter-item">
+    <label className="filter-item-label"><button type='button'  onClick={onRemoveFilters}>Remove Filters</button></label>
+    
     </div>
 </div>
 

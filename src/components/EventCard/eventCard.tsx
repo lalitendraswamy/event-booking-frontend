@@ -3,10 +3,20 @@ import React from "react";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Link,useNavigate } from "react-router-dom";
+import { EventService } from "../../services/event.service";
+
 
 export const EventCard = ({ item }: any) => {
 
   const navigate=useNavigate();
+  const service= new EventService();
+
+
+  const onDelete=async(id:string)=>{
+    let response= await service.deleteEvent(id);
+    console.log(response);
+    navigate('/events')
+  }
 
 
   return (
@@ -25,7 +35,7 @@ export const EventCard = ({ item }: any) => {
         <button onClick={()=> navigate(`/edit-event/${item.eventId}`)} className="admin-event-card-button">
           <MdModeEdit className="order-icon" />
         </button>
-        <button  className="admin-event-card-button">
+        <button onClick={()=>onDelete(item.eventId)} className="admin-event-card-button">
           <RiDeleteBinFill className="order-icon" />
         </button>
         <Link

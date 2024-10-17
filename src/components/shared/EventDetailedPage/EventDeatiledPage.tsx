@@ -1,11 +1,20 @@
+
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
 import { addFavoriteItem } from "../../../redux/features/authentication/EventSlice";
+
+
+
+
+import "./event-detailed-page.css";
+
+import { useEffect, useState } from "react";
+
 import Navbar from "../navbar/navbar";
 import Footer from '../footer/eventsFooter';
-import "./moviesList.css";
+
 
 const MovieList = () => {
     const [count, setCount] = useState(0);

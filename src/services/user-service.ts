@@ -1,5 +1,6 @@
-import customAxios from '../.../../components/authentication/customAxios';
 
+import customAxios from '../.../../components/authentication/customAxios';
+import axios from "axios";
 export class UserService{
     
     getAllUsers = async()=>{
@@ -20,4 +21,14 @@ export class UserService{
         console.log(error);
     }
    }
+
+   deleteUser=async(eventId:string)=>{
+    let response= await axios.delete(`http://localhost:5000/users/remove/${eventId}`)
+    return response;
 }
+
+
+}
+
+
+

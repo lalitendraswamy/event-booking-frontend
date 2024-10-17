@@ -1,8 +1,14 @@
 import customAxios from '../.../../components/authentication/customAxios';
+import axios from "axios";
 
 export class EventService{
     
-     getAllEvents = async()=>{
+    constructor(){
+
+    }
+
+
+    getAllEvents = async()=>{
         try{
             const response = await customAxios.get('/events');
             return response.data;
@@ -19,4 +25,24 @@ export class EventService{
             return err;
         }
     }
+
+
+    deleteEvent=async(eventId:string)=>{
+        let response= await axios.delete(`http://localhost:5000/events/remove/${eventId}`)
+        return response
+    }
+
+    getEventById=async(eventId:string)=>{
+        let response= await axios.delete(`http://localhost:5000/events/remove/${eventId}`)
+        return response
+    }
+
+
+    updateEvent=async(eventId:string,body:any)=>{
+        let response= await axios.put(`http://localhost:5000/events/update/${eventId}`, body)
+        return response
+    }
+
+
+
 }

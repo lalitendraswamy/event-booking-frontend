@@ -3,6 +3,9 @@ import * as Yup from "yup";
 import Navbar from "../shared/navbar/navbar";
 import Footer from "../shared/footer/eventsFooter";
 import "../AddEventPage/add-event.css";
+import { EventService } from "../../services/event.service";
+
+const service= new EventService();
 
 interface EventFormValues {
   eventName: string;
@@ -20,6 +23,7 @@ interface EventFormValues {
 
 // Sample API data
 const api_data = {
+  eventId:"18cc9742-ad40-4250-a96b-b07179d26299",
   eventName: "Music Festival 2024",
   description: "An amazing music festival featuring top artists.",
   eventDateTime: "2024-12-15T18:00:00",
@@ -29,7 +33,7 @@ const api_data = {
   averageRating: "4.5",
   organizerName: "XYZ Events",
   organizerImage: "https://example.com/images/xyz_events.jpg",
-  imageUrl: "https://example.com/images/music_festival.jpg",
+  imageUrl: "https://assets-in.bmscdn.com/nmcms/events/banner/weblisting/tag-maadu-kannada-comedy-every-friday-et00411360-2024-9-10-t-6-37-23.jpg",
   ticketPrice: "75",
 };
 
@@ -77,9 +81,13 @@ const validationSchema = Yup.object({
 
 const EditEventPage = () => {
 
-  const updateEvent = (values: EventFormValues) => {
+
+
+  const updateEvent = async (values: EventFormValues) => {
     console.log("Form data:", values);
-    //api call to update an event
+    console.log("id",api_data.eventId)
+    const response =await service.updateEvent(api_data.eventId,values)
+    console.log('upd_res',response)
 
 
   };

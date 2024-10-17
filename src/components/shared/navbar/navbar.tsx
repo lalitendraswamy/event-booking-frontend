@@ -25,16 +25,21 @@ const EventNavbar = () => {
         <>
             <Navbar expand="lg" id='navbar-container'>
                 <div className='d-flex'>
+
                     <Navbar.Brand href="/" className='logo-container' style={{ color: "whitesmoke" }}>BLP events</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="ml-auto navbar-items">
-                            <Nav.Link href="/events" style={{ color: "whitesmoke" }}>Events</Nav.Link>
-                            <Nav.Link href="/my-orders" style={{ color: "whitesmoke" }}>My Orders</Nav.Link>
-                            <Nav.Link href="/add-user" style={{ color: "#FB8500" }}>Add User</Nav.Link>
-                            <Nav.Link href="/add-event" style={{ color: "#FB8500" }}>Add Event</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
+                    
+
+                
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ml-auto navbar-items" >
+                        <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
+                        <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
+                        <Nav.Link href="/users"   style={{color:"#FB8500"}}>Users</Nav.Link>
+                        <Nav.Link href="/add-event"  style={{color:"#FB8500"}}>Add Event</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+
                 </div>
                 <Nav.Link onClick={handleShow}>
                     <img 
