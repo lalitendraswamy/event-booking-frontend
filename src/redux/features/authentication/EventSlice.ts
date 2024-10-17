@@ -45,6 +45,8 @@ const initialState: EventState = {
     favorites:[]
 };
 
+
+
 export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
@@ -72,6 +74,19 @@ export const getAllEvents = createAsyncThunk(
         }
     }
 );
+
+export const addFavorite = createAsyncThunk(
+    "events/addFavorite",
+    async ({userId,eventId}:{userId:string,eventId:string}) =>{
+        try{
+            const response = await customAxios.post(`/wishlist`, {userId,eventId});
+           console.log("Favorite",response.data)
+            return response.data
+        }catch(e){
+            console.log(e);
+        }
+    }
+)
 
 
 export const getEventById = createAsyncThunk(
@@ -117,7 +132,9 @@ const eventSlice = createSlice({
             })
             .addCase(getEventById.fulfilled,(state,action) => {
                     state.eachEvent = action.payload
-
+            })
+            .addCase(addFavorite.fulfilled, (state,action) => {
+                state.favorites.push(action.payload)
             })
     },
 });
