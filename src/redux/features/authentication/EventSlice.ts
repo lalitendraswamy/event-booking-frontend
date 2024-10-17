@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {EventService} from "../../../services/event.service";
-
+import customAxios from '../../../components/authentication/customAxios';
 const EventsService = new EventService();
 
 export interface Review{
@@ -30,6 +30,7 @@ export interface Event {
 
 export interface EventState {
     events: Event[];
+    eachEvent: Event | []
     loading: boolean;
     error: string | null;
     favorites:Event[] ;
@@ -37,6 +38,7 @@ export interface EventState {
 
 const initialState: EventState = {
     events: [],
+    eachEvent : [],
     loading: false,
     error: null,
     favorites:[]
@@ -66,6 +68,20 @@ export const getAllEvents = createAsyncThunk(
     }
 );
 
+
+export const getEventById = createAsyncThunk(
+    "events/getEventById",
+    async (id:string) => {
+        try{
+            const response = await customAxios.get(`/events/get/${id}`);
+            return response.data
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+)
+
 const eventSlice = createSlice({
     name: 'events',
     initialState,
@@ -93,6 +109,10 @@ const eventSlice = createSlice({
             .addCase(addEvent.fulfilled, (state, action:any) => {
                 console.log("added Event");
                 state.events.push(action.payload);
+            })
+            .addCase(getEventById.fulfilled,(state,action) => {
+                    state.eachEvent = action.payload
+
             })
     },
 });
