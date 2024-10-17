@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import axios from 'axios';
+import {EventService} from "../../../services/event.service";
 import customAxios from '../../../components/authentication/customAxios';
+const EventsService = new EventService();
+
 
 export interface Review{
     review: string,
@@ -32,6 +34,7 @@ export interface EventState {
     eachEvent: Event | []
     loading: boolean;
     error: string | null;
+    favorites:Event[] ;
 }
 
 const initialState: EventState = {
@@ -39,14 +42,31 @@ const initialState: EventState = {
     eachEvent : [],
     loading: false,
     error: null,
+    favorites:[]
 };
 
 export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await customAxios.get('/events');
-            return response.data;
+            const response = await EventsService.getAllEvents();
+
+
+            console.log("Inside Thunk", response)
+
+            return response;
+        }catch(error){
+            console.log(error);
+        }
+    }
+);
+
+  export const addEvent = createAsyncThunk<Event, Event>(
+    'events/addEvent',
+    async (eventData:any) => {
+        try{
+            const response = await EventsService.addEvent(eventData);
+            return response;
         }catch(err){
             console.log(err);
         }
@@ -73,7 +93,17 @@ const eventSlice = createSlice({
     reducers: {
        filteredEvents : (state,action) =>{
                 state.events = action.payload;
+            },
+        addFavoriteItem:(state,action)=>{
+            let data:any = state.favorites.find(favorite => favorite.eventId === action.payload.eventId);
+            if(!data){
+            state.favorites.push(action.payload);
             }
+        },
+        removeFavoriteItem: (state, action) => {
+            state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload);
+        }
+        
     },
     extraReducers: (builder) => {
         builder
@@ -81,11 +111,16 @@ const eventSlice = createSlice({
                 state.loading = false;
                 state.events = action.payload;
             })
+            .addCase(addEvent.fulfilled, (state, action:any) => {
+                console.log("added Event");
+                state.events.push(action.payload);
+            })
             .addCase(getEventById.fulfilled,(state,action) => {
                     state.eachEvent = action.payload
+
             })
     },
 });
 
-export const {filteredEvents} = eventSlice.actions;
+export const {filteredEvents,addFavoriteItem,removeFavoriteItem} = eventSlice.actions;
 export default eventSlice.reducer;

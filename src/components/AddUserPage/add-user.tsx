@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Navbar from '../shared/navbar/navbar'
-import Footer from '../shared/footer/eventsFooter'
+import Navbar from '../shared/navbar/navbar';
+import Footer from '../shared/footer/eventsFooter';
 import './add-user.css'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
