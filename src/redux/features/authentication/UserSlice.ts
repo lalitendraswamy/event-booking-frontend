@@ -44,18 +44,6 @@ export const getUsers = createAsyncThunk<User[], void>(
 
 export const postUser = createAsyncThunk<User,User>(
     'users/postUser',
-    // async (user,{rejectWithValue}) => {
-    //     try{
-    //         const response = await customAxios.post("/users",user);
-    //         return response.data
-    //     }catch(error:any){
-    //         console.log(error);
-    //         // return e 
-    //         return rejectWithValue(
-    //             error.response ? error.response.data : "Something went wrong"
-    //         );
-    //     }
-    // }
     async (user) => {
         try{
             const response = await userServices.addUser(user);
