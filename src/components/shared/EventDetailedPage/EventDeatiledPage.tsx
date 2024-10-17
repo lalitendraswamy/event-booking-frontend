@@ -1,9 +1,9 @@
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavorite, addFavoriteItem } from "../../../redux/features/authentication/EventSlice";
+import { addFavorite, addFavoriteItem, getEventById } from "../../../redux/features/authentication/EventSlice";
 
 
 
@@ -22,13 +22,20 @@ const MovieList = () => {
     const { events,eachEvent } = useSelector((state: any) => state.events);
     const {users,loginUser} = useSelector((s:any) => s.users)
     const dispatch = useDispatch();
-    const {userId} = users.filter((each:any) => loginUser.username === each.username );
+    // console.log("Login User", loginUser)
+    // console.log("Users", users)
+    const {userId}= users.filter((each:any) => loginUser.username === each.username )[0];
+    // console.log("UserId",userId)
+
     
     const filterIdData = events.filter((event: any) => event.eventId === id);
-    
-    if (filterIdData.length === 0) {
-        return <div>No event found</div>; // Handle case where no event is found
-    }
+
+
+    useEffect(() => {
+        dispatch<any>(getEventById(id!));
+     
+     },[])
+     
 
     const {
         eventId,
@@ -36,6 +43,7 @@ const MovieList = () => {
         eventDateTime,
         reviews,
         totalTickets,
+        ticketPrice,
         eventName,
         description
     } = eachEvent;
@@ -63,9 +71,23 @@ const year = dateObj.getFullYear();
         dispatch<any>(addFavorite({userId,eventId}))
     };
 
+    const onTicketBooking=()=>{
+        // const orderDetails={bookingId:eventName,eventName,location,eventDateTime,ticketPrice,category,imageUrl,totalTickets:count}
+        // dispatch(postOrder(orderDetails));
+        // navigate('/my-orders')
+       
+ 
+    };
+
+    if(!eachEvent){
+        return <h1>Loading....</h1>
+      }
+   
+
     return (
         <div>
             <Navbar />
+            { eachEvent ?
             <div className="movies-list">
                 <div className="event-container-item">
                     <div>
@@ -82,9 +104,9 @@ const year = dateObj.getFullYear();
                             Release Date: <span className="event-proper-inner-item">{`${day}:${month}:${year}`}</span>
                         </p>
                         <p className="event-proper">
-                            Reviews Count: <span className="event-proper-inner-item">
-                                {reviews.length}
-                                </span>
+                            Reviews Count: <span className="event-proper-inner-item">{
+                           eachEvent.reviews ? reviews.length : "0"
+                            }</span>
                         </p>
                         <p className="event-proper">
                             Available Tickets: <span className="event-proper-inner-item">{totalTickets}</span>
@@ -92,9 +114,13 @@ const year = dateObj.getFullYear();
                         <p className="event-proper">
                             Description: <span className="event-proper-inner-item">{description}</span>
                         </p>
-
+ 
+                        <p className="event-proper">
+                            Price: <span className="event-proper-inner-item"> &#8377; {ticketPrice}</span>
+                        </p>
+ 
                         <div className='fav-tic-container'>
-
+ 
                             <div className="inc-des-count-container">
                                 <p onClick={increaseTicketsCount} className="plus">+</p>
                                 <span className="straight"></span>
@@ -102,16 +128,17 @@ const year = dateObj.getFullYear();
                                 <span className="straight"></span>
                                 <p onClick={decreaseTicketsCount} className="plus">-</p>
                             </div>
-                    
+                   
                         </div>
-
+ 
                         <div>
-                            <button className='book-tickets-btn' onClick={() => alert('Tickets booked!')}>Book Tickets</button>
+                            <button className='book-tickets-btn' onClick={onTicketBooking}>Book Tickets</button>
                             <button className='book-tickets-btn' onClick={handleAddFavorites}>Favorite <GiSelfLove /></button>
                             </div>
-
+ 
                         <strong>Reviews:</strong>
-                        {reviews.length > 0 ? (
+                        {eachEvent.reviews ?
+                         (
                             <ul>
                                 {reviews.map((review: any) => (
                                     <li key={review.user} className="p-3">
@@ -125,8 +152,13 @@ const year = dateObj.getFullYear();
                     </div>
                 </div>
             </div>
+             :
+             <h1>Loading....</h1>  
+             }
+ 
             <Footer />
         </div>
+       
     );
 };
 

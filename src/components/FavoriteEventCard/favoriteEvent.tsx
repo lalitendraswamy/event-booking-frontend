@@ -2,8 +2,9 @@ import { motion } from 'framer-motion';
 import EventNavbar from "../shared/navbar/navbar";
 import EventsFooter from "../shared/footer/eventsFooter";
 import { useSelector, useDispatch } from 'react-redux';
-import {removeFavoriteItem} from "../../redux/features/authentication/EventSlice";
+import {getFavorite, removeFavoriteItem} from "../../redux/features/authentication/EventSlice";
 import './favoriteEvent.css';
+import { useEffect } from 'react';
 
 const FavoriteEventCard = () => {
   const dispatch = useDispatch();
@@ -13,9 +14,17 @@ const FavoriteEventCard = () => {
        dispatch<any>(removeFavoriteItem(eventId));
   }
 
+  useEffect(() =>{
+    dispatch<any>(getFavorite());
+  },[])
+
+  console.log(favoriteData)
+
   return (
     <>
       <EventNavbar />
+     { favoriteData.length > 0 ?
+      
       <div
         className="favorite-event-card"
       >{
@@ -30,13 +39,13 @@ const FavoriteEventCard = () => {
             >
               <div className='favorite-card-item'>
                 <div className='w-60'>
-                  <h3>{favoriteItem.eventName}</h3>
-                  <p>{favoriteItem.description}</p>
-                  <p>Location: {favoriteItem.location}</p>
-                  <p>Rating: {favoriteItem.averageRating}</p>
+                  <h3>{favoriteItem.event.eventName}</h3>
+                  <p>{favoriteItem.event.description}</p>
+                  <p>Location: {favoriteItem.event.location}</p>
+                  <p>Rating: {favoriteItem.event.averageRating}</p>
                   <button className='book-tickets-btn' onClick={()=>handleRemoveFavItem(favoriteItem.eventId)}>Remove From Favorites</button>
                 </div>
-                <img src={favoriteItem.imageUrl} alt={favoriteItem.eventName} className="event-image" />
+                <img src={favoriteItem.event.imageUrl} alt={favoriteItem.event.eventName} className="event-image" />
               </div>
 
             </motion.div>
@@ -44,6 +53,9 @@ const FavoriteEventCard = () => {
           ))
         }
       </div>
+      :
+      <p>No Favorites</p>
+      }
       <EventsFooter />
     </>
   );
