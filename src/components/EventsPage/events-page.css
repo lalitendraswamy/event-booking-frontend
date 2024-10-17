@@ -20,6 +20,14 @@
     margin-bottom: 5px;
     color: #0056b3;
     font-weight: 400;
+
+    button{
+        border-style: none;
+        background-color: #0056b3;
+        color: white;
+        border-radius: 4px;
+        padding: 7px;
+    }
     
 }
 

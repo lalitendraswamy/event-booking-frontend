@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import customAxios from '../../../components/authentication/customAxios';
+import {UserService} from "../../../services/user-service";
 
+const userServices = new UserService();
 
 export interface User {
     userId:string,
@@ -34,9 +34,8 @@ export const getUsers = createAsyncThunk<User[], void>(
     'users/getUsers',
     async () => {
         try{
-            const response = await customAxios.get('/users');
-            // console.log("Response data", response.data)
-            return response.data;
+            const response = await userServices.getAllUsers();
+            return response;
         }catch(e:any){
             console.log(e.message);
         }
@@ -45,16 +44,12 @@ export const getUsers = createAsyncThunk<User[], void>(
 
 export const postUser = createAsyncThunk<User,User>(
     'users/postUser',
-    async (user,{rejectWithValue}) => {
+    async (user) => {
         try{
-            const response = await customAxios.post("/users",user);
-            return response.data
+            const response = await userServices.addUser(user);
+            return response;
         }catch(error:any){
             console.log(error);
-            // return e 
-            return rejectWithValue(
-                error.response ? error.response.data : "Something went wrong"
-            );
         }
     }
 )
@@ -75,7 +70,6 @@ const userSlice = createSlice({
                 state.users = action.payload;
             })
             .addCase(postUser.fulfilled,(state,action) => {
-                console.log("added User")
                 state.users.push(action.payload)
 
             })

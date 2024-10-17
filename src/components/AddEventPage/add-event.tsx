@@ -2,40 +2,45 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Navbar from "../shared/navbar/navbar";
 import Footer from "../shared/footer/eventsFooter";
+import { useDispatch } from "react-redux";
+import { addEvent } from "../../redux/features/authentication/EventSlice";
 import "./add-event.css";
 
 interface EventFormValues {
   eventName: string;
   description: string;
   eventDateTime: string;
-  duration: number | undefined;
-  totalTickets: number | undefined;
+  category:string;
+  duration: number; // Changed to number (no undefined)
+  totalTickets: number; // Changed to number (no undefined)
   location: string;
-  averageRating: number | undefined;
+  averageRating: number; // Changed to number (no undefined)
   organizerName: string;
   organizerImage: string;
   imageUrl: string;
-  ticketPrice: number | undefined;
+  ticketPrice: number; // Changed to number (no undefined)
 }
 
 const initialValues: EventFormValues = {
   eventName: "",
   description: "",
   eventDateTime: "",
-  duration: undefined,
-  totalTickets: undefined,
+  category:"",
+  duration: 0, // Initialized to 0 instead of undefined
+  totalTickets: 0, // Initialized to 0 instead of undefined
   location: "",
-  averageRating: undefined,
+  averageRating: 0, // Initialized to 0 instead of undefined
   organizerName: "",
   organizerImage: "",
   imageUrl: "",
-  ticketPrice: undefined,
+  ticketPrice: 0, // Initialized to 0 instead of undefined
 };
 
 const validationSchema = Yup.object({
   eventName: Yup.string().required("Event Name is required"),
   description: Yup.string().required("Description is required"),
   eventDateTime: Yup.string().required("Event Date and Time are required"),
+  category:Yup.string().required("category required"),
   duration: Yup.number()
     .min(0, "Duration must be greater than or equal to 0")
     .required("Duration is required"),
@@ -60,13 +65,16 @@ const validationSchema = Yup.object({
 });
 
 const EventForm = () => {
-  const handleSubmit = (values: EventFormValues) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values: any) => {
+    dispatch<any>(addEvent(values));
     console.log("Form data:", values);
   };
 
   return (
     <>
-        <Navbar/>
+      <Navbar />
       <div className="event-container mt-5">
         <h2 className="event-heading">Event Registration</h2>
         <Formik
@@ -119,6 +127,23 @@ const EventForm = () => {
                   type="datetime-local"
                   id="eventDateTime"
                   name="eventDateTime"
+                />
+                <ErrorMessage
+                  className="event-error"
+                  name="eventDateTime"
+                  component="div"
+                />
+              </div>
+
+              <div>
+                <label className="event-label" htmlFor="eventDateTime">
+                  Categoty
+                </label>
+                <Field
+                  className="event-input"
+                  type="category"
+                  id="category"
+                  name="category"
                 />
                 <ErrorMessage
                   className="event-error"
@@ -272,7 +297,7 @@ const EventForm = () => {
           )}
         </Formik>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

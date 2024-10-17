@@ -1,0 +1,19 @@
+.favorite-event-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px;
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+  
+  .favorite-event-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .favorite-card-item{
+    height: 230px;
+    display: flex;
+    justify-content: space-around;
+  }
