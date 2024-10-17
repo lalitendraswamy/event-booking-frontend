@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavoriteItem } from "../../../redux/features/authentication/EventSlice";
+import { addFavorite, addFavoriteItem } from "../../../redux/features/authentication/EventSlice";
 
 
 
@@ -19,8 +19,10 @@ import Footer from '../footer/eventsFooter';
 const MovieList = () => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
-    const { events } = useSelector((state: any) => state.events);
+    const { events,eachEvent } = useSelector((state: any) => state.events);
+    const {users,loginUser} = useSelector((s:any) => s.users)
     const dispatch = useDispatch();
+    const {userId} = users.filter((each:any) => loginUser.username === each.username );
     
     const filterIdData = events.filter((event: any) => event.eventId === id);
     
@@ -36,7 +38,7 @@ const MovieList = () => {
         totalTickets,
         eventName,
         description
-    } = filterIdData[0];
+    } = eachEvent;
 
 
     const dateObj = new Date(eventDateTime);
@@ -57,7 +59,8 @@ const year = dateObj.getFullYear();
     };
 
     const handleAddFavorites = () => {
-        dispatch(addFavoriteItem(filterIdData[0]));
+        // dispatch(addFavoriteItem(filterIdData[0]));
+        dispatch<any>(addFavorite({userId,eventId}))
     };
 
     return (
@@ -79,7 +82,9 @@ const year = dateObj.getFullYear();
                             Release Date: <span className="event-proper-inner-item">{`${day}:${month}:${year}`}</span>
                         </p>
                         <p className="event-proper">
-                            Reviews Count: <span className="event-proper-inner-item">{reviews.length}</span>
+                            Reviews Count: <span className="event-proper-inner-item">
+                                {reviews.length}
+                                </span>
                         </p>
                         <p className="event-proper">
                             Available Tickets: <span className="event-proper-inner-item">{totalTickets}</span>
