@@ -64,7 +64,7 @@ export const getAllEvents = createAsyncThunk(
             console.log(err);
         }
     }
-  );
+);
 
 const eventSlice = createSlice({
     name: 'events',

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { clearAllCookies } from '../../../utils/cookieUtils';
-import { useSelector, UseSelector } from 'react-redux';
+
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
@@ -34,8 +34,8 @@ const EventNavbar = () => {
                     <Nav className="ml-auto navbar-items" >
                         <Nav.Link href="/events"  style={{color:"whitesmoke"}}>Events</Nav.Link>
                         <Nav.Link href="/my-orders"  style={{color:"whitesmoke"}}>My Orders</Nav.Link>
-                        <Nav.Link href="/add-user"  style={{color:"whitesmoke"}}>Add User</Nav.Link>
-                        <Nav.Link href="/add-event"  style={{color:"whitesmoke"}}>Add Event</Nav.Link>
+                        <Nav.Link href="/add-user"   style={{color:"#FB8500"}}>Add User</Nav.Link>
+                        <Nav.Link href="/add-event"  style={{color:"#FB8500"}}>Add Event</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 </div>
@@ -54,9 +54,10 @@ const EventNavbar = () => {
                     <img src={loginUser.userImageUrl} alt="Profile" className="profile-img" />}
                     </div>
                     <div className='mb-2'>
-                    <h5 className='order-heading'>{loginUser.username}</h5>
-                    <p>Role: {loginUser.role}</p>
-                    </div>
+                    <h5 className='order-heading'>John Doe</h5>
+                    <p>Role: User or Admin</p>
+
+
                     </div>
                     <div className='orders-container mt-3'>
                         <IoBagHandle className='order-icon'/>

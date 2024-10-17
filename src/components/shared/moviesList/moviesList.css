@@ -117,6 +117,7 @@
 .plus{
    color: #0056b3 !important;
    font-weight: bold;
+   padding: 7px;
 }
 
 .book-tickets-btn {
@@ -136,6 +137,8 @@
 .book-tickets-btn:hover {
   background-color: #fff; 
   color: #0056b3;/* Darker shade on hover */
+  border: 2px solid #0056b3;
+  
 }
 
 .fav-tic-container{

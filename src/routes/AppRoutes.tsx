@@ -12,7 +12,6 @@ import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 import UserForm from "../components/AddUserPage/add-user";
 import EventForm from '../components/AddEventPage/add-event';
-import FavoriteEventCard from '../components/FavoriteEventCard/favoriteEvent';
 
   const event = [
     // {   
@@ -272,6 +271,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/my-orders" element={<MyOrdersPage/>} />
       <Route path="/not-found" element={<PageNotFound />} />
       <Route path="*" element={<Navigate to="/not-found" replace />} />
+
       <Route path="/add-event" element={<EventForm />} />
       <Route path="/add-user"  element={<UserForm />} />
     </Routes>
