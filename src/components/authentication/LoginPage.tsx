@@ -9,7 +9,7 @@ import { AuthService } from "../../services/authService";
 const service = new AuthService()
 
 export default function LoginPage() {
-  
+
   const navigate = useNavigate();
 
   // const authUrl =
@@ -24,9 +24,9 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     console.log("azure api from backend");
-    let authUrl =  await service.getAuthUrl()
+    let authUrl = await service.getAuthUrl()
     console.log(authUrl)
-    window.location.href =authUrl.data
+    window.location.href = authUrl.data
   };
 
   useEffect(() => {
@@ -48,9 +48,9 @@ export default function LoginPage() {
           <button onClick={handleLogin} >
             <div className="login-btn-content">
               <div className="d-flex align-items-center justify-content-center">
-                <img src={MicrosoftLogo}/>
+                <img src={MicrosoftLogo} />
               </div>
-              
+
               <p >Log in with Microsoft</p>
 
             </div>

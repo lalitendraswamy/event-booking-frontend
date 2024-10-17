@@ -1,10 +1,10 @@
-import axios from "axios";
+import customAxios from '../.../../components/authentication/customAxios';
 
 export class EventService{
     
      getAllEvents = async()=>{
         try{
-            const response = await axios.get('http://localhost:5000/events');
+            const response = await customAxios.get('/events');
             return response.data;
         }catch(error){
             return error;
@@ -13,7 +13,7 @@ export class EventService{
 
     addEvent = async(eventData:any)=>{
         try{
-            const response = await axios.post('http://localhost:5000/events/add',eventData);
+            const response = await customAxios.post('/events/add',eventData);
             return response.data;
         }catch(err){
             return err;

@@ -225,7 +225,7 @@ const Events = () => {
 
     const dispatch = useDispatch();
     const {events} = useSelector((state:any) => state.events);
-    console.log("In events",events)
+    
   
     useEffect(() => {
       dispatch<any>(getAllEvents());

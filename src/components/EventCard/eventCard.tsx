@@ -1,11 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const EventCard = ({item}:any) => {
-
-    
-
-
   return (
     <div className="filtered-item">
     <img src={item.imageUrl} alt={item.eventName} width="100" className="filtered-item-img" />

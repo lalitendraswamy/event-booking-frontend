@@ -1,13 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { GiSelfLove } from "react-icons/gi";
+import { useSelector,useDispatch } from 'react-redux';
+import {addFavoriteItem} from "../../../redux/features/authentication/EventSlice";
 import "./moviesList.css";
-import { useSelector } from 'react-redux';
 
 const MovieList = () => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
     const {events} = useSelector((s:any) => s.events);
-
+    const dispatch = useDispatch();
     const filterIdData = events.filter((event: any) => event.eventId === id);
     console.log(filterIdData,id)
     const {
@@ -15,7 +17,6 @@ const MovieList = () => {
         imageUrl,
         eventDateTime,
         reviews,
-        // reviewsCount,
         totalTickets,
         eventName,
         description
@@ -27,6 +28,10 @@ const MovieList = () => {
 
     const decreaseTicketsCount =()=>{
         setCount(count === 0 ? 0 :count -1)
+    }
+
+    const handleAddFavorites =()=>{
+        dispatch(addFavoriteItem(filterIdData[0]))
     }
 
     return (
@@ -54,8 +59,9 @@ const MovieList = () => {
             <p onClick={decreaseTicketsCount} className='plus'>-</p>
         </div>
 
-        <div>
+        <div className='fav-tic-container'>
             <button className='book-tickets-btn'>Book Tickets</button>
+            <button className='book-tickets-btn' onClick={handleAddFavorites}>Favorite <GiSelfLove /></button>
         </div>
     </div>
 </div>

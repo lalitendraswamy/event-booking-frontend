@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {EventService} from "../../../services/event.service";
-import axios from 'axios';
+
+const EventsService = new EventService();
 
 export interface Review{
     review: string,
@@ -31,20 +32,34 @@ export interface EventState {
     events: Event[];
     loading: boolean;
     error: string | null;
+    favorites:Event[] ;
 }
 
 const initialState: EventState = {
     events: [],
     loading: false,
     error: null,
+    favorites:[]
 };
 
 export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await axios.get('http://localhost:5000/events');
-            return response.data;
+            const response = await EventsService.getAllEvents();
+            return response;
+        }catch(error){
+            console.log(error);
+        }
+    }
+);
+
+  export const addEvent = createAsyncThunk<Event, Event>(
+    'events/addEvent',
+    async (eventData:any) => {
+        try{
+            const response = await EventsService.addEvent(eventData);
+            return response;
         }catch(err){
             console.log(err);
         }
@@ -57,7 +72,10 @@ const eventSlice = createSlice({
     reducers: {
        filteredEvents : (state,action) =>{
                 state.events = action.payload;
-            }
+            },
+        addFavoriteItem:(state,action)=>{
+            state.favorites.push(action.payload);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -72,5 +90,5 @@ const eventSlice = createSlice({
     },
 });
 
-export const {filteredEvents} = eventSlice.actions;
+export const {filteredEvents,addFavoriteItem} = eventSlice.actions;
 export default eventSlice.reducer;
