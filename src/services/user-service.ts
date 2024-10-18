@@ -23,7 +23,7 @@ export class UserService{
    }
 
    deleteUser=async(eventId:string)=>{
-    let response= await axios.delete(`http://localhost:5000/users/remove/${eventId}`)
+    let response= await customAxios.delete(`/users/remove/${eventId}`)
     return response;
 }
 

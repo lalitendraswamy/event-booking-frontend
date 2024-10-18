@@ -12,8 +12,8 @@ const FavoriteEventCard = () => {
 
   const handleRemoveFavItem = (eventId:any) =>{
        dispatch<any>(deleteFavorite(eventId));
-       
-       dispatch<any>(getFavorite());
+       dispatch(removeFavoriteItem(eventId))
+      //  dispatch<any>(getFavorite());
   }
 
   useEffect(() =>{

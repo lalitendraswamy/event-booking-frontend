@@ -57,12 +57,9 @@ const MovieList = () => {
         totalTickets,
         ticketPrice,
         eventName,
-
         location,
-        
         description,
         category,
-       
     } = eachEvent;
 console.log("Each event",eachEvent)
 
