@@ -38,7 +38,7 @@ const MovieList = () => {
     // console.log("UserId",userId)
 
     
-    const filterIdData = events.filter((event: any) => event.eventId === id);
+    // const filterIdData = events.filter((event: any) => event.eventId === id);
 
 
     useEffect(() => {
