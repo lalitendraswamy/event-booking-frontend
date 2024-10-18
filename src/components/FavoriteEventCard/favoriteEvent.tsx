@@ -28,7 +28,7 @@ const FavoriteEventCard = () => {
      { favoriteData.length > 0 ?
       
       <div
-        className=""
+        
       >{
           favoriteData.map((favoriteItem: any) => (
             <div key={favoriteItem.eventId}>
@@ -56,7 +56,7 @@ const FavoriteEventCard = () => {
         }
       </div>
       :
-      <p>No Favorites</p>
+      <div className="fav-eve-page-no-fav" >No Favorites !</div>
       }
       <EventsFooter />
     </>

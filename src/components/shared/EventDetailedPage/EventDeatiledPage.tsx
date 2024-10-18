@@ -113,13 +113,13 @@ const MovieList = () => {
             <div className="event-data-container">
               <h3 className="mb-3">{eventName}</h3>
               <p className="event-proper pr-1">
-                Release Date:{" "}
+                Release Date: {" "}
                 <span className="event-proper-inner-item">{`${day}:${month}:${year}`}</span>
               </p>
               <p className="event-proper">
-                Reviews Count:{" "}
+                Category:{" "}
                 <span className="event-proper-inner-item">
-                  {eachEvent.reviews ? reviews.length : "0"}
+                  {eachEvent.category}
                 </span>
               </p>
               <p className="event-proper">
@@ -166,9 +166,11 @@ const MovieList = () => {
                
               </div>
 
-              <strong>Reviews:</strong>
-              {eachEvent.reviews ? (
+              
+              {/* {eachEvent.reviews ? (
+                
                 <ul>
+                  <strong>Reviews:</strong>
                   {reviews.map((review: any) => (
                     <li key={review.user} className="p-3">
                       <strong>{review.user.username}:</strong> {review.review}{" "}
@@ -178,7 +180,7 @@ const MovieList = () => {
                 </ul>
               ) : (
                 <p>There are no reviews.</p>
-              )}
+              )} */}
             </div>
           </div>
         </div>

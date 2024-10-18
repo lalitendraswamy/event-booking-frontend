@@ -6,6 +6,7 @@ import './add-user.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
+import { useNavigate } from 'react-router-dom';
 
 const UserForm = () => {
   const initialValues = {
@@ -17,6 +18,7 @@ const UserForm = () => {
 
   const {users,loginUser} = useSelector((s:any) => s.users)
   const dispatch  = useDispatch()
+  const navigate= useNavigate();
   console.log("Users in redux",users);
   // console.log("Login User in redux",loginUser);
  
@@ -30,6 +32,8 @@ const UserForm = () => {
   const handleSubmit = (values:any) => {
     console.log('Form data:', values);
     dispatch<any>(postUser(values))
+    alert("User added Successfully")
+    navigate('/users')
   };
 
   

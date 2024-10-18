@@ -28,7 +28,7 @@ export class EventService{
 
 
     deleteEvent=async(eventId:string)=>{
-        let response= await customAxios.delete(`/remove/${eventId}`)
+        let response= await customAxios.delete(`/events/remove/${eventId}`)
         return response
     }
 
@@ -39,7 +39,7 @@ export class EventService{
 
 
     updateEvent=async(eventId:string,body:any)=>{
-        let response= await customAxios.put(`/update/${eventId}`, body)
+        let response= await customAxios.put(`/events/update/${eventId}`, body)
         return response
     }
 
