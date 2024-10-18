@@ -33,10 +33,7 @@ const UserForm = () => {
   };
 
   
-  // useEffect(() =>{
-  //   dispatch<any>(getUsers())
-    
-  // },[])
+  
 
   return (
     <div className='user-form-data'>

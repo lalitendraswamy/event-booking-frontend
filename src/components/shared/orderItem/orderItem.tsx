@@ -1,31 +1,44 @@
 import React from 'react'
 import './order-item.css'
 import QRimg from '../../../assets/images/qr-img.png'
+import { cancelOrder } from '../../../redux/features/authentication/OrderSlice'
+import { useDispatch } from 'react-redux'
 
-export default function OrderItem() {
 
-    const eventObj={
-        name:"Late Night Jokes!",
-        location:"Visakhapatnam",
-        date:"04-Jul-2024",
-        time:"09:00pm",
-        price:"499",
-        category:"Stand Up Comedy",
-        url:"https://in.bmscdn.com/Events/moviecard/ET00374903.jpg",
-        tickets:1
-    }
-    const {name,url,location,date,price,time,category,tickets}=eventObj;
+const convertDateTimeToNormal=(dateTime:string)=>{
+    const date = new Date(dateTime);
+const formatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true, // Change to false for 24-hour format
+});
+
+const formattedDate = formatter.format(date);
+return formattedDate;
+}
+
+export default function OrderItem({order}:any) {
+    console.log(order)
+    const dispatch=useDispatch();
+    
+    const {eventName,imageUrl,location,eventDateTime,ticketPrice,category,totalTickets,bookingId}=order;
+    const formattedDateTime=convertDateTimeToNormal(eventDateTime);
 
   return (
     <li className='order-item-card p-3'>
         <div className='order-info'>
-            <img src={url} />
+            <img src={imageUrl} />
             <div className=' p-2' >
-                <h3>{name}</h3>
+                <h3>{eventName}</h3>
                 <h4>Location: {location}</h4>
-                <h4>Quatity: {tickets}</h4>
-                <h4>Amount Paid: {price}</h4>
-                <button className='btn btn-danger' >Cancel</button>
+                <h4>Date: {formattedDateTime}</h4>
+                <h4>Ticket Price:  &#8377; {ticketPrice}</h4>
+                <h4>Quatity: {totalTickets}</h4>
+                <h4>Amount Paid: <b>&#8377; {ticketPrice * totalTickets}</b></h4>
+                <button onClick={()=>dispatch(cancelOrder(bookingId))} className='btn btn-danger' >Cancel</button>
             </div>
         
         </div>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {EventService} from "../../../services/event.service";
 import customAxios from '../../../components/authentication/customAxios';
+import axios from 'axios';
 const EventsService = new EventService();
 
 
@@ -54,8 +55,6 @@ export const getAllEvents = createAsyncThunk(
             const response = await EventsService.getAllEvents();
 
 
-            console.log("Inside Thunk", response)
-
             return response;
         }catch(error){
             console.log(error);
@@ -79,11 +78,38 @@ export const addFavorite = createAsyncThunk(
     "events/addFavorite",
     async ({userId,eventId}:{userId:string,eventId:string}) =>{
         try{
+            // console.log("Inside thunk favorite")
+            
             const response = await customAxios.post(`/wishlist`, {userId,eventId});
-           console.log("Favorite",response.data)
+        //    console.log("Favorite",response.data)
             return response.data
         }catch(e){
+            // console.log("Error in add Favorite")
             console.log(e);
+        }
+    }
+)
+
+export const getFavorite = createAsyncThunk(
+    "events/getFavorite",
+    async () =>{
+        try{
+            const response = await customAxios.get("/wishlist");
+            return response.data
+        }catch(e){
+            console.log(e)
+        }
+    }
+)
+
+export const deleteFavorite = createAsyncThunk(
+    "events/deleteFavorite",
+    async (eventId:string) =>{
+        try{
+            const response = await customAxios.delete(`/wishlist/${eventId}`);
+            return response.data
+        }catch(e){
+            console.log(e)
         }
     }
 )
@@ -127,14 +153,19 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
-                console.log("added Event");
+                // console.log("added Event");
                 state.events.push(action.payload);
             })
             .addCase(getEventById.fulfilled,(state,action) => {
                     state.eachEvent = action.payload
             })
             .addCase(addFavorite.fulfilled, (state,action) => {
-                state.favorites.push(action.payload)
+                // console.log("Favorite Event Added")
+                // state.favorites.push(action.payload)
+            })
+            .addCase(getFavorite.fulfilled, (state,action) => {
+                // console.log("Action", action.payload)
+                state.favorites = action.payload
             })
     },
 });

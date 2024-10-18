@@ -75,8 +75,7 @@ export const  EventFilters = () => {
         if (category && filtered) {
             filtered = filtered.filter((event:any) => event.category === category);
         }
-        console.log("filtered",filtered);
-        // dispatch(getAllEvents())
+       
         dispatch<any>(filteredEvents(filtered))
         setFiltersData(filtered);
     };

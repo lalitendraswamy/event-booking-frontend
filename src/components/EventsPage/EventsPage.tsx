@@ -14,6 +14,7 @@ const EventPage = () => {
     useEffect(() => {
         dispatch<any>(getAllEvents())
     },[])
+    
 
     return (
         <>
