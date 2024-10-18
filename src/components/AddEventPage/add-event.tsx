@@ -5,6 +5,7 @@ import Footer from "../shared/footer/eventsFooter";
 import { useDispatch } from "react-redux";
 import { addEvent } from "../../redux/features/authentication/EventSlice";
 import "./add-event.css";
+import { useNavigate } from "react-router-dom";
 
 interface EventFormValues {
   eventName: string;
@@ -66,9 +67,11 @@ const validationSchema = Yup.object({
 
 const EventForm = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
 
   const handleSubmit = (values: any) => {
     dispatch<any>(addEvent(values));
+    
     console.log("Form data:", values);
   };
 

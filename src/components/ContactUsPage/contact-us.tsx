@@ -7,6 +7,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import './contact-us.css';
 import EventNavbar from '../shared/navbar/navbar';
 import EventsFooter from '../shared/footer/eventsFooter';
+import { useNavigate } from 'react-router-dom';
 
 // Yup validation schema
 const validationSchema = Yup.object({
@@ -21,6 +22,8 @@ const ContactUs: React.FC = () => {
     contactNumber: '',
     issueDescription: '',
   };
+
+  const navigate=useNavigate();
 
   // Framer Motion Animation Variants
   const containerVariants = {
@@ -49,6 +52,8 @@ const ContactUs: React.FC = () => {
   const handleSubmit = (values: any) => {
     console.log('Form Submitted:', values);
     alert('Form submitted successfully!');
+    navigate('/')
+
   };
 
   return (

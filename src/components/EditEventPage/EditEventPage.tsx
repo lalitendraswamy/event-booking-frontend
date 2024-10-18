@@ -7,6 +7,7 @@ import { EventService } from "../../services/event.service";
 import { useParams } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { getAllEvents, getEventById } from "../../redux/features/authentication/EventSlice";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const service= new EventService();
@@ -60,6 +61,7 @@ const EditEventPage = () => {
   const { eachEvent } = useSelector((state: any) => state.events);
   const dispatch= useDispatch();
   console.log('each eve',eachEvent)
+  const navigate=useNavigate();
 
   useEffect(()=>{
  
@@ -88,8 +90,9 @@ const EditEventPage = () => {
     console.log("id",eachEvent.eventId)
     const response =await service.updateEvent(eachEvent.eventId,values)
     dispatch<any>(getAllEvents())
-    console.log('upd_res',response)
 
+    console.log('upd_res',response)
+    navigate(`/events/${eventId}`)
 
   };
 
