@@ -11,6 +11,7 @@ customAxios.interceptors.request.use(
     (config) => {
         const token = getCookie("token"); // Or wherever you store your token
         if (token) {
+          
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;

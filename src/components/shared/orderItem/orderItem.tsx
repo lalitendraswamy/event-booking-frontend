@@ -33,11 +33,11 @@ export default function OrderItem({order}:any) {
             <img src={imageUrl} />
             <div className=' p-2' >
                 <h3>{eventName}</h3>
-                <h4>Location: {location}</h4>
-                <h4>Date: {formattedDateTime}</h4>
-                <h4>Ticket Price:  &#8377; {ticketPrice}</h4>
-                <h4>Quatity: {numberOfTickets}</h4>
-                <h4>Amount Paid: <b>&#8377; {ticketPrice * numberOfTickets}</b></h4>
+                <h6>Location: {location}</h6>
+                <h6>Date: {formattedDateTime}</h6>
+                <h6>Ticket Price:  &#8377; {ticketPrice}</h6>
+                <h6>Quatity: {numberOfTickets}</h6>
+                <h6>Amount Paid: <b style={{"color":"#0056B3"}} >&#8377; {ticketPrice * numberOfTickets}</b></h6>
                 <button onClick={()=>dispatch<any>(deleteOrder(bookingId))} className='btn btn-danger' >Cancel</button>
             </div>
         
@@ -45,7 +45,7 @@ export default function OrderItem({order}:any) {
         <div className='order-ticket'>
             <img src={QRimg} />
             <h6>Booking ID</h6>
-            <p><b>{`${bookingId}`.toUpperCase()}</b></p>
+            <p className='text-center'><b>{`${bookingId}`.toUpperCase()}</b></p>
 
         </div>
 

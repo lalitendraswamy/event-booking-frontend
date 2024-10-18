@@ -34,6 +34,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/contact-us" element={<ProtectedRoute element={<ContactUs />} />} />
         <Route path="/events/:id" element={<ProtectedRoute element={<MovieList />} />} />
         <Route path="/my-orders" element={<ProtectedRoute element={<MyOrdersPage />} />} />
+        <Route path="/contact" element={<ProtectedRoute element={<ContactUs />} />} />
 
 
         {/* admin routes */}
