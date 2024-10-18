@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from 'react-redux';
-import { postOrder } from '../../../redux/features/authentication/OrderSlice';
+import { createOrder, getOrders, postOrder } from '../../../redux/features/authentication/OrderSlice';
 import { addFavorite,  getEventById } from "../../../redux/features/authentication/EventSlice";
 
 
@@ -18,7 +18,7 @@ import Footer from '../footer/eventsFooter';
 
 
 const MovieList = () => {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const { id } = useParams();
     const { events,eachEvent } = useSelector((state: any) => state.events);
 
@@ -31,6 +31,7 @@ const MovieList = () => {
     
 
     const {users,loginUser} = useSelector((s:any) => s.users)
+    const {orders} = useSelector((s:any) => s.orders);
     const dispatch = useDispatch();
     // console.log("Login User", loginUser)
     // console.log("Users", users)
@@ -80,7 +81,7 @@ const year = dateObj.getFullYear();
     };
 
     const decreaseTicketsCount = () => {
-        setCount(count > 0 ? count - 1 : 0);
+        setCount(count > 1 ? count - 1 : 1);
     };
 
     const handleAddFavorites = () => {
@@ -89,8 +90,10 @@ const year = dateObj.getFullYear();
     };
 
     const onTicketBooking=()=>{
-        const orderDetails={bookingId:eventName,eventName,location,eventDateTime,ticketPrice,category,imageUrl,totalTickets:count}
-        dispatch(postOrder(orderDetails));
+        const orderDetails={numberOfTickets:count,ticketPrice,status:"booked",eventId, userId};
+        // dispatch(postOrder(orderDetails));
+        dispatch<any>(createOrder(orderDetails));
+        dispatch<any>(getOrders());
         navigate('/my-orders')
         
 
