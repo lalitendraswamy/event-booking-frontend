@@ -6,7 +6,7 @@ export const setCookie = (name: string, value: string, days?: number) => {
 };
 
 export const getCookie = (name: string) => {
-  return Cookies.get(name) || '';
+  return Cookies.get(name) || "";
 };
 
 export const removeCookie = (name: string) => {

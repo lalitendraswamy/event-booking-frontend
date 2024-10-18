@@ -1,7 +1,7 @@
 import React from 'react'
 import './order-item.css'
 import QRimg from '../../../assets/images/qr-img.png'
-import { cancelOrder } from '../../../redux/features/authentication/OrderSlice'
+import { cancelOrder, deleteOrder } from '../../../redux/features/authentication/OrderSlice'
 import { useDispatch } from 'react-redux'
 
 
@@ -23,8 +23,8 @@ return formattedDate;
 export default function OrderItem({order}:any) {
     console.log(order)
     const dispatch=useDispatch();
-    
-    const {eventName,imageUrl,location,eventDateTime,ticketPrice,category,totalTickets,bookingId}=order;
+    const {bookingId,numberOfTickets} = order;
+    const {eventName,imageUrl,location,eventDateTime,ticketPrice,category,totalTickets}=order.event;
     const formattedDateTime=convertDateTimeToNormal(eventDateTime);
 
   return (
@@ -36,16 +36,16 @@ export default function OrderItem({order}:any) {
                 <h4>Location: {location}</h4>
                 <h4>Date: {formattedDateTime}</h4>
                 <h4>Ticket Price:  &#8377; {ticketPrice}</h4>
-                <h4>Quatity: {totalTickets}</h4>
-                <h4>Amount Paid: <b>&#8377; {ticketPrice * totalTickets}</b></h4>
-                <button onClick={()=>dispatch(cancelOrder(bookingId))} className='btn btn-danger' >Cancel</button>
+                <h4>Quatity: {numberOfTickets}</h4>
+                <h4>Amount Paid: <b>&#8377; {ticketPrice * numberOfTickets}</b></h4>
+                <button onClick={()=>dispatch<any>(deleteOrder(bookingId))} className='btn btn-danger' >Cancel</button>
             </div>
         
         </div>
         <div className='order-ticket'>
             <img src={QRimg} />
             <h6>Booking ID</h6>
-            <p><b>BUCV00DACS5NZ0</b></p>
+            <p><b>{`${bookingId}`.toUpperCase()}</b></p>
 
         </div>
 
