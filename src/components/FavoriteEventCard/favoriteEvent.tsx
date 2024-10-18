@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import EventNavbar from "../shared/navbar/navbar";
 import EventsFooter from "../shared/footer/eventsFooter";
 import { useSelector, useDispatch } from 'react-redux';
-import {getFavorite, removeFavoriteItem} from "../../redux/features/authentication/EventSlice";
+import {deleteFavorite, getFavorite, removeFavoriteItem} from "../../redux/features/authentication/EventSlice";
 import './favoriteEvent.css';
 import { useEffect } from 'react';
 
@@ -11,14 +11,16 @@ const FavoriteEventCard = () => {
   const favoriteData = useSelector((state: any) => state.events.favorites);
 
   const handleRemoveFavItem = (eventId:any) =>{
-       dispatch<any>(removeFavoriteItem(eventId));
+       dispatch<any>(deleteFavorite(eventId));
+       
+       dispatch<any>(getFavorite());
   }
 
   useEffect(() =>{
     dispatch<any>(getFavorite());
   },[])
 
-  console.log(favoriteData)
+  console.log("Faavvv",favoriteData)
 
   return (
     <>
