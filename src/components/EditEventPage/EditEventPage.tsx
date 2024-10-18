@@ -4,8 +4,15 @@ import Navbar from "../shared/navbar/navbar";
 import Footer from "../shared/footer/eventsFooter";
 import "../AddEventPage/add-event.css";
 import { EventService } from "../../services/event.service";
+import { useParams } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+import { getAllEvents, getEventById } from "../../redux/features/authentication/EventSlice";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const service= new EventService();
+
+
 
 interface EventFormValues {
   eventName: string;
@@ -20,37 +27,6 @@ interface EventFormValues {
   imageUrl: string;
   ticketPrice: number | undefined;
 }
-
-// Sample API data
-const api_data = {
-  eventId:"18cc9742-ad40-4250-a96b-b07179d26299",
-  eventName: "Music Festival 2024",
-  description: "An amazing music festival featuring top artists.",
-  eventDateTime: "2024-12-15T18:00:00",
-  duration: "180", 
-  totalTickets: "500",
-  location: "Los Angeles, CA",
-  averageRating: "4.5",
-  organizerName: "XYZ Events",
-  organizerImage: "https://example.com/images/xyz_events.jpg",
-  imageUrl: "https://assets-in.bmscdn.com/nmcms/events/banner/weblisting/tag-maadu-kannada-comedy-every-friday-et00411360-2024-9-10-t-6-37-23.jpg",
-  ticketPrice: "75",
-};
-
-// Initial values derived from API data
-const initialValues: EventFormValues = {
-  eventName: api_data.eventName,
-  description: api_data.description,
-  eventDateTime: api_data.eventDateTime,
-  duration: api_data.duration ? Number(api_data.duration) : undefined,
-  totalTickets: api_data.totalTickets ? Number(api_data.totalTickets) : undefined,
-  location: api_data.location,
-  averageRating: api_data.averageRating ? Number(api_data.averageRating) : undefined,
-  organizerName: api_data.organizerName,
-  organizerImage: api_data.organizerImage,
-  imageUrl: api_data.imageUrl,
-  ticketPrice: api_data.ticketPrice ? Number(api_data.ticketPrice) : undefined,
-};
 
 const validationSchema = Yup.object({
   eventName: Yup.string().required("Event Name is required"),
@@ -81,14 +57,42 @@ const validationSchema = Yup.object({
 
 const EditEventPage = () => {
 
+  const eventId=useParams().id;
+  const { eachEvent } = useSelector((state: any) => state.events);
+  const dispatch= useDispatch();
+  console.log('each eve',eachEvent)
+  const navigate=useNavigate();
+
+  useEffect(()=>{
+ 
+    dispatch<any>(getEventById(eventId!));
+  
+  },[])
+
+  const initialValues: EventFormValues = {
+    eventName: eachEvent.eventName,
+    description: eachEvent.description,
+    eventDateTime: eachEvent.eventDateTime,
+    duration: eachEvent.duration ? Number(eachEvent.duration) : undefined,
+    totalTickets: eachEvent.totalTickets ? Number(eachEvent.totalTickets) : undefined,
+    location: eachEvent.location,
+    averageRating: eachEvent.averageRating ? Number(eachEvent.averageRating) : undefined,
+    organizerName: eachEvent.organizerName,
+    organizerImage: eachEvent.organizerImage,
+    imageUrl: eachEvent.imageUrl,
+    ticketPrice: eachEvent.ticketPrice ? Number(eachEvent.ticketPrice) : undefined,
+  };
+  
 
 
   const updateEvent = async (values: EventFormValues) => {
     console.log("Form data:", values);
-    console.log("id",api_data.eventId)
-    const response =await service.updateEvent(api_data.eventId,values)
-    console.log('upd_res',response)
+    console.log("id",eachEvent.eventId)
+    const response =await service.updateEvent(eachEvent.eventId,values)
+    dispatch<any>(getAllEvents())
 
+    console.log('upd_res',response)
+    navigate(`/events/${eventId}`)
 
   };
 
