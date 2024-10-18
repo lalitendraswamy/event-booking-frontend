@@ -53,8 +53,6 @@ export const getAllEvents = createAsyncThunk(
     async () => {
         try{
             const response = await EventsService.getAllEvents();
-
-
             return response;
         }catch(error){
             console.log(error);
@@ -107,6 +105,7 @@ export const deleteFavorite = createAsyncThunk(
     async (eventId:string) =>{
         try{
             const response = await customAxios.delete(`/wishlist/${eventId}`);
+            console.log("Removed Favorite", response);
             return response.data
         }catch(e){
             console.log(e)
@@ -166,6 +165,10 @@ const eventSlice = createSlice({
             .addCase(getFavorite.fulfilled, (state,action) => {
                 // console.log("Action", action.payload)
                 state.favorites = action.payload
+            })
+            .addCase(deleteFavorite.fulfilled, (state,action) => {
+                console.log("Favorite Event Deleted");
+                // state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload.eventId);
             })
     },
 });
