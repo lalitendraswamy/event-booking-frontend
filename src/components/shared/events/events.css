@@ -16,7 +16,7 @@
 
 .event-image{
     height: 380px;
-    width: 250px;
+    /* width: 300px !important; */
 }
 
 /* events.css */
