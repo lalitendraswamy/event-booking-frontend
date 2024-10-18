@@ -5,17 +5,20 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { Link,useNavigate } from "react-router-dom";
 import { EventService } from "../../services/event.service";
 import { getCookie } from "../../utils/cookieUtils";
+import { useDispatch } from "react-redux";
+import { getAllEvents } from "../../redux/features/authentication/EventSlice";
 
 
 export const EventCard = ({ item }: any) => {
 
   const navigate=useNavigate();
   const service= new EventService();
-
+  const dispatch = useDispatch()
 
   const onDelete=async(id:string)=>{
     let response= await service.deleteEvent(id);
-    console.log(response);
+      dispatch<any>(getAllEvents())
+    console.log("delete Event",response);
     navigate('/events')
   }
 
