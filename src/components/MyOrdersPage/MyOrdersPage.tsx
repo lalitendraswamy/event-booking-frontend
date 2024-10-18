@@ -30,10 +30,7 @@ export default function MyOrdersPage() {
                {orders.map((order:any)=>(
                 <OrderItem key={order.bookingId} order={order} />
                ))}
-                {/* <OrderItem />
-                <OrderItem/>
-                <OrderItem/>
-                <OrderItem/> */}
+                
         </div>
         <Footer/>      
     </div>

@@ -35,6 +35,7 @@ const EventNavbar = () => {
                     <Nav className="ml-auto navbar-items" >
                         <Nav.Link  onClick={()=>navigate('/events')} style={{color:"whitesmoke"}}>Events</Nav.Link>
                         <Nav.Link  onClick={()=>navigate('/my-orders')} style={{color:"whitesmoke"}}>My Orders</Nav.Link>
+                        <Nav.Link  onClick={()=>navigate('/contact')} style={{color:"whitesmoke"}}>Contact Us</Nav.Link>
                         
                         {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/users')}  style={{color:"#FB8500"}}>Users</Nav.Link>)}
                         {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/add-event')} style={{color:"#FB8500"}}>Add Event</Nav.Link>)}
@@ -81,7 +82,7 @@ const EventNavbar = () => {
                         <div className='orders-container'>
                             <BiSolidMessageSquareDetail className='order-icon' />
                             <div>
-                                <h5 className='order-heading'>Help & Support</h5>
+                                <h5  onClick={() => navigate('/contact')} className='order-heading'>Help & Support</h5>
                                 <p className='order-text'>We will get back to you</p>
                             </div>
                         </div>
