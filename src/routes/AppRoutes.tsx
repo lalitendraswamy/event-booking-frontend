@@ -16,9 +16,6 @@ import FavoriteEventCard from "../components/FavoriteEventCard/favoriteEvent";
 import Userpage from '../components/UsersPage/Userpage';
 import ProtectedRoute from './ProtectedRoute';
 
-
-
-
 const AppRoutes: React.FC = () => {
   return (
     <Routes>

@@ -78,13 +78,13 @@ const EventNavbar = () => {
                                 <p className='order-text'>View all your bookings & purchases</p>
                             </div>
                         </div>
-                        <div className='orders-container'>
+                        <Link to="/contact-us" className='text-button-underline-none'><div className='orders-container'>
                             <BiSolidMessageSquareDetail className='order-icon' />
                             <div>
                                 <h5 className='order-heading'>Help & Support</h5>
                                 <p className='order-text'>We will get back to you</p>
                             </div>
-                        </div>
+                        </div></Link>
                         <Link to="/favorite-event" className='text-button-underline-none'>
                             <div className='orders-container'>
                                 <GiSelfLove className='order-icon' />

@@ -47,7 +47,6 @@ const FavoriteEventCard = () => {
                 </div>
                 <img src={favoriteItem.event.imageUrl} alt={favoriteItem.event.eventName} className="event-image" />
               </div>
-
             </motion.div>
           </div>
           ))
