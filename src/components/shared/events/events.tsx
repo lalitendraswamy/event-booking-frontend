@@ -8,11 +8,12 @@ import 'animate.css'; // Add this line at the top of your file
 import './events.css';
 import { getUsers } from '../../../redux/features/authentication/UserSlice';
 
+
 const Events = () => {
     const sliderRef = useRef<Slider | null>(null); // Use a ref to hold the slider instance
     const dispatch = useDispatch();
     const {events} = useSelector((state:any) => state.events);
-    
+    console.log("events test",events)
   
     useEffect(() => {
       dispatch<any>(getAllEvents());
@@ -42,6 +43,14 @@ const Events = () => {
             },
         ],
     };
+
+    if(events.length ===0){
+        return(
+            <div>
+                <h2>Noo Events</h2>
+            </div>
+        )
+    }
 
     return (
         <div className="events-container mt-5 mb-5">
