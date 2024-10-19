@@ -1,5 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 
+import { loadStripe } from "@stripe/stripe-js";
+
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,6 +21,8 @@ import { useEffect, useState } from "react";
 
 import Navbar from "../navbar/navbar";
 import Footer from "../footer/eventsFooter";
+import axios from "axios";
+import { number } from "yup";
 
 const MovieList = () => {
   const [count, setCount] = useState(1);
@@ -78,7 +82,11 @@ const MovieList = () => {
     dispatch<any>(addFavorite({ userId, eventId }));
   };
 
-  const onTicketBooking = () => {
+  const onTicketBooking = async() => {
+
+
+    const stripe= await loadStripe("pk_test_51Q8hB3Rq55caQ1GVNs8aridgq68od48i1WReyiMfSUfAabTzhs6YIgMnzzl1Ltxi9GjCcFlzB4YgqRY9hMbFROmW00ov315VSU");
+
     const orderDetails = {
       numberOfTickets: count,
       ticketPrice,
@@ -86,10 +94,28 @@ const MovieList = () => {
       eventId,
       userId,
     };
-    // dispatch(postOrder(orderDetails));
-    dispatch<any>(createOrder(orderDetails));
-    dispatch<any>(getOrders());
-    navigate("/my-orders");
+
+    const body = {
+      ticketPrice: orderDetails.ticketPrice,
+      numberOfTickets: orderDetails.numberOfTickets,
+  };
+
+    const response =await axios.post("http://localhost:5000/ticket-booking/create-checkout",orderDetails)
+
+    const session= response.data;
+    console.log(session,'session');
+    const result=stripe?.redirectToCheckout({
+      sessionId:session.id
+    })
+
+    if(!result){
+      console.log('result')
+    }
+
+    // // dispatch(postOrder(orderDetails));
+    // dispatch<any>(createOrder(orderDetails));
+    // dispatch<any>(getOrders());
+    // navigate("/my-orders");
   };
 
   if (!eachEvent) {
