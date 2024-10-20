@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { addUserError, getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const UserForm = () => {
   // const [isUserAlreadyExists,setIsUserExists] = useState(false)
@@ -34,8 +35,8 @@ const UserForm = () => {
   const handleSubmit = (values:any) => {
     console.log('Form data:', values);
     dispatch<any>(postUser(values))
-    alert("User added Successfully")
-    navigate('/users')
+    // alert("User added Successfully")
+    // navigate('/users')
   };
 
   // const onChangeUsername = () =>{
