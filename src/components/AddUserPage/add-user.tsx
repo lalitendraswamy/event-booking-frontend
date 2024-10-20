@@ -4,13 +4,13 @@ import Navbar from '../shared/navbar/navbar';
 import Footer from '../shared/footer/eventsFooter';
 import './add-user.css'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { addUserError, getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserForm = () => {
-
-  
+  // const [isUserAlreadyExists,setIsUserExists] = useState(false)
   const initialValues = {
     username: '',
     email: '',
@@ -18,7 +18,7 @@ const UserForm = () => {
     role: 'user',
   };
 
-  const {users,loginUser} = useSelector((s:any) => s.users)
+  const {users,loginUser,isUserAlreadyExists} = useSelector((s:any) => s.users)
   const dispatch  = useDispatch()
   const navigate= useNavigate();
   console.log("Users in redux",users);
@@ -38,7 +38,18 @@ const UserForm = () => {
     navigate('/users')
   };
 
-  
+  // const onChangeUsername = () =>{
+  //   dispatch(addUserError());
+  // }
+
+  useEffect(() => {
+    if (isUserAlreadyExists) {
+      toast.error('User already exists', {
+        position: "top-right",
+      });
+    }
+    dispatch(addUserError());
+  }, [isUserAlreadyExists,dispatch]);
   
 
   return (
@@ -53,9 +64,10 @@ const UserForm = () => {
     >
       {() => (
         <Form className="user-form ">
+         
           <div className="user-form__group">
             <label className="user-form__label" htmlFor="username">Username</label>
-            <Field className="user-form__input" name="username" type="text" />
+            <Field  className="user-form__input" name="username" type="text" />
             <ErrorMessage name="username" component="div" className="user-form__error" />
           </div>
 
@@ -81,10 +93,12 @@ const UserForm = () => {
           </div>
 
           <button type="submit" className="user-form__button">Add User</button>
+          {/* <p>{isUserAlreadyExists ? "User Already Exists": "" }</p> */}
         </Form>
       )}
     </Formik>
     <Footer/>
+    <ToastContainer />
     </div>
   );
 };

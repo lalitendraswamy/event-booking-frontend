@@ -16,6 +16,7 @@ const locations = [
     "Central Park, Bangalore"
 ];
 
+
 export const  EventFilters = () => {
        const dispatch = useDispatch();
     const { events } = useSelector((s: any) => s.events)
@@ -27,6 +28,7 @@ export const  EventFilters = () => {
 
     const handleLocationChange = (e: any) => {
         setSelectedLocation(e.target.value);
+        console.log("Location",e.target.value);
         filterEvents(e.target.value, selectedPrice, selectedDate, selectedCategory);
     };
 
@@ -36,6 +38,7 @@ export const  EventFilters = () => {
     };
 
     const handleDateChange = (e: any) => {
+        console.log("Dateee",e.target.value);
         setSelectedDate(e.target.value);
         filterEvents(selectedLocation, selectedPrice, e.target.value, selectedCategory);
     };
@@ -118,7 +121,7 @@ export const  EventFilters = () => {
     </div>
     <div className="filter-item">
         <label className="filter-item-label">Categories</label>
-        {["Movies", "Concerts", "Sports", "Exhibitions", "Conferences", "Festivals", "Wellness", "Seminars", "Family"].map(category => (
+        {["Music", "Concerts", "Arts", "Exhibitions", "Conferences", "Festivals", "Wellness", "Seminars", "Comedy"].map(category => (
             <button
                 key={category}
                 onClick={() => handleCategoryFilter(category)}

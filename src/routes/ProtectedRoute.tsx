@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, role }) => {
   const token = getCookie('token'); // Assuming token is stored in cookies
   const userRole = getCookie('role'); // Assuming role is stored in cookies
   console.log('token',token)
-  if (!token) {
+  if (!token || token === "") {
     // If the token doesn't exist, redirect to the login page
     return <Navigate to="/login" />;
   }

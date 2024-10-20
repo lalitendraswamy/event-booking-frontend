@@ -45,14 +45,15 @@ const userId=getCookie('userId');
     totalTickets,
     ticketPrice,
     eventName,
-
     location,
+        description,
+        category,
+    } = eachEvent;
+console.log("Each event",eachEvent)
 
-    description,
-    category,
-  } = eachEvent;
-
+   
   const dateObj = new Date(eventDateTime);
+
 
   const day = dateObj.getDate();
   const month = dateObj.getMonth() + 1;
