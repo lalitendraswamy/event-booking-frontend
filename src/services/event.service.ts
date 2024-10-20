@@ -32,10 +32,10 @@ export class EventService{
         return response
     }
 
-    // getEventById=async(eventId:string)=>{
-    //     let response= await customAxios.delete(`http://localhost:5000/events/remove/${eventId}`)
-    //     return response
-    // }
+    getEventById=async(eventId:string)=>{
+        let response= await customAxios.delete(`/events/${eventId}`)
+        return response
+    }
 
 
     updateEvent=async(eventId:string,body:any)=>{
