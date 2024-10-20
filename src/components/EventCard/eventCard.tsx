@@ -9,6 +9,20 @@ import { useDispatch } from "react-redux";
 import { getAllEvents } from "../../redux/features/authentication/EventSlice";
 
 
+const convertDateTimeToNormal=(dateTime:string):any=>{
+  const date = new Date(dateTime);
+const formatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true, // Change to false for 24-hour format
+});
+const formattedDate = formatter.format(date);
+return formattedDate;
+}
+
 export const EventCard = ({ item }: any) => {
 
   const navigate=useNavigate();
@@ -32,10 +46,15 @@ export const EventCard = ({ item }: any) => {
         width="100"
         className="filtered-item-img"
       />
-      <h4>{item.eventName}</h4>
-      <p>{item.description}</p>
+      <h5 className="mt-2">{item.eventName}</h5>
+      <p>{convertDateTimeToNormal(item.eventDateTime)}</p>
+      <div className="d-flex justify-content-between">
+        <p className="bg-info bg-opacity-10 border border-info p-2 rounded" >{item.category}</p>
+      <p className="bg-info bg-opacity-10 border border-info p-2 rounded" >{item.location}</p>
+      </div>
+      
       <div className="view-container">
-        <p>Price: {item.ticketPrice}</p>
+        <p>Price: <b className="ps-1"> &#8377;{item.ticketPrice}</b></p>
         {getCookie('role')==='admin'&&(<button onClick={()=> navigate(`/edit-event/${item.eventId}`)} className="admin-event-card-button">
           <MdModeEdit className="order-icon" />
         </button>)}
