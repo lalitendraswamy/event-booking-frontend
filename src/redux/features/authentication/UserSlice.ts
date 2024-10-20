@@ -17,6 +17,7 @@ export interface User {
 }
 
 export interface LoginUser{
+    userId:string,
     username: string,
     userImageUrl : string,
     role:string
@@ -27,6 +28,7 @@ export interface UserState {
     loginUser: LoginUser  | null;
     loading: boolean;
     error: string | null;
+    isUserAlreadyExists: boolean;
 }
 
 const initialState: UserState = {
@@ -34,6 +36,7 @@ const initialState: UserState = {
     loginUser:null,
     loading: false,
     error: null,
+    isUserAlreadyExists: false
 };
 
 export const getUsers = createAsyncThunk<User[], void>(
@@ -65,7 +68,9 @@ export const postUser = createAsyncThunk<User,User>(
     async (user) => {
         try{
             const response = await userServices.addUser(user);
-            return response;
+            if(response){
+                return response;
+            }
         }catch(error:any){
             console.log(error);
         }
@@ -78,6 +83,9 @@ const userSlice = createSlice({
     reducers: {
         getLoginUser: (state,action) =>{
             state.loginUser = action.payload
+        },
+        addUserError: (state) =>{
+            state.isUserAlreadyExists = false
         }
 
     },
@@ -87,8 +95,17 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.users = action.payload;
             })
+            .addCase(postUser.pending, (state,action) =>{
+                state.isUserAlreadyExists = false
+            })
             .addCase(postUser.fulfilled,(state,action) => {
-                state.users.push(action.payload)
+                if(action.payload){
+                    state.isUserAlreadyExists = false
+                    state.users.push(action.payload)
+                }
+                else{
+                    state.isUserAlreadyExists = true
+                }
 
             })
             .addCase(deleteUser.fulfilled, (state,action) => {
@@ -99,5 +116,5 @@ const userSlice = createSlice({
     },
 });
 
-export const {getLoginUser} = userSlice.actions
+export const {getLoginUser,addUserError} = userSlice.actions
 export default userSlice.reducer;

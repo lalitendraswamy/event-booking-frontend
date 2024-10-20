@@ -77,9 +77,8 @@ export const addFavorite = createAsyncThunk(
     async ({userId,eventId}:{userId:string,eventId:string}) =>{
         try{
             // console.log("Inside thunk favorite")
-            
             const response = await customAxios.post(`/wishlist`, {userId,eventId});
-        //    console.log("Favorite",response.data)
+            //    console.log("Favorite",response.data)
             return response.data
         }catch(e){
             // console.log("Error in add Favorite")
@@ -159,7 +158,7 @@ const eventSlice = createSlice({
                     state.eachEvent = action.payload
             })
             .addCase(addFavorite.fulfilled, (state,action) => {
-                // console.log("Favorite Event Added")
+                console.log("Favorite Event Added")
                 // state.favorites.push(action.payload)
             })
             .addCase(getFavorite.fulfilled, (state,action) => {

@@ -16,9 +16,10 @@ export class UserService{
    addUser = async(userData:any)=>{
     try{
         const response = await customAxios.post("/users",userData);
+        console.log("User Already Exists", response);
         return response.data
     }catch(error:any){
-        console.log(error);
+        console.log("Error in Post User",error);
     }
    }
 
