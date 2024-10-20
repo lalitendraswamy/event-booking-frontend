@@ -18,7 +18,15 @@ const EventNavbar = () => {
     const handleShow = () => setShowModal(true);
     const handleLogout = () => {
         clearAllCookies();
-        navigate('/login');
+        // navigate('/login');
+        const azureLogoutUrl = `https://login.microsoftonline.com/${
+            process.env.REACT_APP_TENANT_ID
+          }/oauth2/v2.0/logout?post_logout_redirect_uri=${encodeURIComponent(
+            "http://localhost:3000/login" // Set the login page after logout
+          )}`;
+       
+          // Redirect to Azure AD logout URL
+          window.location.href = azureLogoutUrl;
     }
 
     return (

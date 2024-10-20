@@ -15,6 +15,8 @@ import ContactUs from "../components/ContactUsPage/contact-us";
 import FavoriteEventCard from "../components/FavoriteEventCard/favoriteEvent";
 import Userpage from '../components/UsersPage/Userpage';
 import ProtectedRoute from './ProtectedRoute';
+import PaymentSuccess from '../components/shared/payments/PaymentSuccess';
+import PaymentFailed from '../components/shared/payments/PaymentFailed';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -32,6 +34,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/events/:id" element={<ProtectedRoute element={<MovieList />} />} />
         <Route path="/my-orders" element={<ProtectedRoute element={<MyOrdersPage />} />} />
         <Route path="/contact" element={<ProtectedRoute element={<ContactUs />} />} />
+        <Route path="/success" element={<ProtectedRoute element={<PaymentSuccess />} />} />
+        <Route path="/cancel" element={<ProtectedRoute element={<PaymentFailed />} />} />
 
 
         {/* admin routes */}

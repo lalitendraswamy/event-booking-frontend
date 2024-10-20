@@ -21,22 +21,38 @@ export default function Runway() {
         try {
           if (!getCookie("token")) {
             console.log('code', code)
-            console.log("Before", !getCookie("token"))
+            // console.log("Before", !getCookie("token"))
             const response = await customAxios.post("/auth/callback", { code })
-
-            console.log("After", !getCookie("token"))
+            console.log("fffffffffff",response)
+            // console.log("After", !getCookie("token"))
+           
+            if(response.data.token){
             console.log("user data", response.data)
             setCookie('token', response.data.token, 3)
             setCookie('role', response.data.role, 3)
+            setCookie("userId",response.data.userId, 3);
             dispatch<any>(getLoginUser({
+              userId: response.data.userId,
               username: response.data.username,
               userImageUrl: response.data.userImageUrl,
               role: response.data.role
             }))
-            navigate("/")
+            navigate("/");
+          }else{
+            const azureLogoutUrl = `https://login.microsoftonline.com/${
+              process.env.REACT_APP_TENANT_ID
+            }/oauth2/v2.0/logout?post_logout_redirect_uri=${encodeURIComponent(
+              "http://localhost:3000/login" // Set the login page after logout
+            )}`;
+         
+          window.location.href = azureLogoutUrl;
+          navigate('/not-found')
+          }
+      
           }
         } catch (e) {
           console.log(e)
+         
         }
       }
       exchangeCodeForTokens()
