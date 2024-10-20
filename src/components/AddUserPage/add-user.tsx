@@ -1,12 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Navbar from '../shared/navbar/navbar';
+
 import Footer from '../shared/footer/eventsFooter';
 import './add-user.css'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
 import { useNavigate } from 'react-router-dom';
+import EventNavbar from '../shared/navbar/navbar';
 
 const UserForm = () => {
   const initialValues = {
@@ -41,7 +42,7 @@ const UserForm = () => {
 
   return (
     <div className='user-form-data'>
-      <Navbar/>
+     <EventNavbar />
       <h2>Add a User</h2>
     <Formik
       initialValues={initialValues}
