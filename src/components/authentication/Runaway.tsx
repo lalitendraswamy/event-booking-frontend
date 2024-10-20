@@ -28,7 +28,9 @@ export default function Runway() {
             console.log("user data", response.data)
             setCookie('token', response.data.token, 3)
             setCookie('role', response.data.role, 3)
+            setCookie("userId",response.data.userId, 3);
             dispatch<any>(getLoginUser({
+              userId: response.data.userId,
               username: response.data.username,
               userImageUrl: response.data.userImageUrl,
               role: response.data.role

@@ -1,20 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-
+import { getCookie } from "../../../utils/cookieUtils";
 import { loadStripe } from "@stripe/stripe-js";
 
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  createOrder,
-  getOrders,
-  postOrder,
-} from "../../../redux/features/authentication/OrderSlice";
-import {
-  addFavorite,
-  getEventById,
-  getFavorite,
-} from "../../../redux/features/authentication/EventSlice";
-
+import {  createOrder,  getOrders,  postOrder,} from "../../../redux/features/authentication/OrderSlice";
+import {  addFavorite,  getEventById,  getFavorite,} from "../../../redux/features/authentication/EventSlice";
+import { PaymentService } from "../../../services/paymentService";
 import "./event-detailed-page.css";
 
 import { useEffect, useState } from "react";
@@ -33,14 +25,13 @@ const MovieList = () => {
   );
 
   const navigate = useNavigate();
+  const paymentService= new PaymentService();
 
   const { users, loginUser } = useSelector((s: any) => s.users);
   const { orders } = useSelector((s: any) => s.orders);
   const dispatch = useDispatch();
 
-  const { userId } = users.filter(
-    (each: any) => loginUser.username === each.username
-  )[0];
+const userId=getCookie('userId');
 
   useEffect(() => {
     dispatch<any>(getEventById(id!));
@@ -90,8 +81,11 @@ const MovieList = () => {
     const orderDetails = {
       numberOfTickets: count,
       ticketPrice,
-      status: "booked",
       eventId,
+      imageUrl,
+      eventName,
+      location,
+      category,
       userId,
     };
 
@@ -100,9 +94,11 @@ const MovieList = () => {
       numberOfTickets: orderDetails.numberOfTickets,
   };
 
-    const response =await axios.post("http://localhost:5000/ticket-booking/create-checkout",orderDetails)
+    const response =await paymentService.goToCheckout(orderDetails);
+    console.log('session',response);
 
-    const session= response.data;
+    
+    const session= response;
     console.log(session,'session');
     const result=stripe?.redirectToCheckout({
       sessionId:session.id

@@ -140,7 +140,7 @@ const EventForm = () => {
 
               <div>
                 <label className="event-label" htmlFor="eventDateTime">
-                  Categoty
+                  Category
                 </label>
                 <Field
                   className="event-input"

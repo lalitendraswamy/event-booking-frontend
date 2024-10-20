@@ -17,7 +17,7 @@ const Events = () => {
   
     useEffect(() => {
       dispatch<any>(getAllEvents());
-      dispatch<any>(getUsers())
+      
     }, []);
     
     const settings: Settings = {
