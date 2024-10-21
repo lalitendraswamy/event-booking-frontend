@@ -1,12 +1,19 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import paymentFailed from "../../../assets/images/payment-failed.jpg";
+import "./payment.css";
 
 export default function PaymentFailed() {
   const navigate = useNavigate()
   return (
-    <div>
-      <h1>Payment Failed</h1>
-      <button onClick={() => navigate("/")} className='btn btn-danger'>Go To Home</button>
-    </div>
+<div className='payment-success'>
+<div className='pay-success-container'>
+   <h1 className='payment-fail-heading'>Payment Failed</h1>
+   <p className='payment-fail-icon'>X</p>
+   <img src={paymentFailed} alt="payment-fail" className='pay-fail-img'/>
+   <button onClick={() => navigate("/events")} className='book-tickets-btn'>Retry</button>
+</div>
+
+</div>
   )
 }
