@@ -55,7 +55,7 @@ const validationSchema = Yup.object({
     .required("Ticket Price is required"),
 });
 
-const EditEventPage = () => {
+const  EditEventPage = () => {
 
   const eventId=useParams().id;
   const { eachEvent } = useSelector((state: any) => state.events);
@@ -307,6 +307,6 @@ const EditEventPage = () => {
       <Footer />
     </>
   );
-};
+};   
 
 export default EditEventPage;
