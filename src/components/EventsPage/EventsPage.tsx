@@ -13,12 +13,22 @@ import { getCookie } from "../../utils/cookieUtils";
 const EventPage = () => {
     const { events } = useSelector((s: any) => s.events);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [filteredEvents, setFilteredEvents] = useState(events);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [eventsPerPage] = useState(6);
+    
     useEffect(() => {
         dispatch<any>(getAllEvents());
-    }, [dispatch]);
+    }, []);
+    
+        const navigate = useNavigate();
+        const [filteredEvents, setFilteredEvents] = useState(events);
+
+    const indexOfLastEvent = currentPage * eventsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+    const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     useEffect(() => {
         setFilteredEvents(events); // Update filteredEvents when events change
@@ -33,16 +43,18 @@ const EventPage = () => {
                     setFilteredEvents={setFilteredEvents} 
                 />
                 <div className="d-flex flex-column">
-                    {getCookie('role')==='admin'&&( <button 
-                        onClick={() => navigate('/add-event')} 
-                        className='add-event-btn d-flex justify-content-between align-items-center align-self-end'>
-                        <IoMdAddCircleOutline className='me-2' style={{ "color": "whitesmoke", "fontSize": "30px" }} />
-                        Add Event
-                    </button>)}
-                   
+                    {getCookie('role') === 'admin' && (
+                        <button 
+                            onClick={() => navigate('/add-event')} 
+                            className='add-event-btn d-flex justify-content-between align-items-center align-self-end'>
+                            <IoMdAddCircleOutline className='me-2' style={{ color: "whitesmoke", fontSize: "30px" }} />
+                            Add Event
+                        </button>
+                    )}
+                    
                     <div className="filtered-data-container">
-                        {filteredEvents.length > 0 ? 
-                            filteredEvents.map((item: any, index: any) => (
+                        {currentEvents.length > 0 ? 
+                            currentEvents.map((item: any, index: any) => (
                                 <EventCard item={item} key={index} />
                             )) 
                             : 
@@ -50,6 +62,21 @@ const EventPage = () => {
                         }
                     </div>
                 </div>
+            </div>
+
+            <div className="pagination-controls">
+                {Array.from(
+                    { length: Math.ceil(filteredEvents.length / eventsPerPage) },
+                    (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => paginate(index + 1)}
+                            className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
+                        >
+                            {index + 1}
+                        </button>
+                    )
+                )}
             </div>
             <Footer />
         </>

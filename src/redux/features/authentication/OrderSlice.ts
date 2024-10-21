@@ -23,9 +23,9 @@ export const createOrder = createAsyncThunk(
 
 export const getOrders = createAsyncThunk(
     "order/get",
-    async() => {
+    async(userId:any) => {
         try{
-            const response = await customAxios.get("/ticket-booking");
+            const response = await customAxios.get(`/ticket-booking/${userId}`);
             console.log("Get All Orders", response.data);
             return response.data
         }catch(e){
