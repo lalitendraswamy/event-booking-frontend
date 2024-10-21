@@ -52,9 +52,9 @@ export const EventCard = ({ item }: any) => {
       <div className="d-flex justify-content-between">
         <p className="bg-info bg-opacity-10 border border-info p-2 rounded" >{item.category}</p>
       <p className="bg-info bg-opacity-10 border border-info p-2 rounded" >{item.location}</p>
-      <p>Price: <b className="ps-1"> &#8377;{item.ticketPrice}</b></p>
+     
       </div>
-      
+      <p>Price: <b className="ps-1"> &#8377;{item.ticketPrice}</b></p>
       <div className="view-container">
        
         {getCookie('role')==='admin'&&(<button onClick={()=> navigate(`/edit-event/${item.eventId}`)} className="admin-event-card-button">

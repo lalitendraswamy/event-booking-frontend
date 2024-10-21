@@ -117,7 +117,9 @@
     transition: border-color 0.3s;
 }
 
-/* .heading-filters-data{
+
+
+.heading-filters-data{
     color: #333;
     font-size: 20px;
 }
@@ -186,7 +188,7 @@
 .view{
     background-color: #0056b3 !important;
 
-
+}
 .add-event-btn{
 
         border-style: none;

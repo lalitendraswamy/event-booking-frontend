@@ -6,7 +6,7 @@ import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import profileImg from "../../../assets/images/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp";
+import profileImg from "../../../assets/images/no-profile-image.webp";
 import './navbar.css';
 
 const EventNavbar = () => {
