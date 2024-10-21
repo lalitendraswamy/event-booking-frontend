@@ -1,7 +1,7 @@
 import React from 'react'
 import './order-item.css'
 import QRimg from '../../../assets/images/qr-img.png'
-import { cancelOrder, deleteOrder } from '../../../redux/features/authentication/OrderSlice'
+import { cancelOrder, cancelOrderThunk, deleteOrder } from '../../../redux/features/authentication/OrderSlice'
 import { useDispatch } from 'react-redux'
 
 
@@ -38,7 +38,11 @@ export default function OrderItem({order}:any) {
                 <h6>Ticket Price:  &#8377; {ticketPrice}</h6>
                 <h6>Quatity: {numberOfTickets}</h6>
                 <h6>Amount Paid: <b style={{"color":"#0056B3"}} >&#8377; {ticketPrice * numberOfTickets}</b></h6>
-                <button onClick={()=>dispatch<any>(deleteOrder(bookingId))} className='btn btn-danger' >Cancel</button>
+                {order.status === "cancelled" ?
+                  <span className='text-danger'>Ticket Cancelled</span>
+                :
+                <button onClick={()=>dispatch<any>(cancelOrderThunk(bookingId))} className='btn btn-danger' >Cancel</button>
+                }
             </div>
         
         </div>
