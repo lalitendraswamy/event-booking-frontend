@@ -4,15 +4,17 @@
     text-align: left;
     border-radius: 4px;
     color: #333;
+    display: flex;
+   background-color: #f6f4f4;
+    background-size: cover;
+    margin-bottom: 10px;
+    
+    
     h3{
         color: #0056B3;
     }
     
 
-    display: flex;
-   background-color: #f6f4f4;
-    background-size: cover;
-    margin-bottom: 10px;
    
     
 
@@ -72,4 +74,50 @@
         color: #0056B3;
     }
 
+}
+
+
+.order-confirmation-popup{
+    
+
+
+.modal-header-custom {
+    background-color: #0056B3;
+    color: whitesmoke;
+  }
+  
+  .modal-body-custom {
+    background-color: whitesmoke;
+    color: #333;
+  }
+  
+  .modal-footer-custom {
+    background-color: whitesmoke;
+    border-top: none;
+  }
+  
+  .btn-custom-confirm {
+    background-color: #0056B3;
+    color: whitesmoke;
+    border: none;
+  }
+  
+  .btn-custom-confirm:hover {
+    background-color: #004494;
+  }
+  
+  button.btn-danger {
+    background-color: #333;
+    color: whitesmoke;
+    border: none;
+  }
+  
+  button.btn-danger:hover {
+    background-color: #222;
+  }
+  
+  .modal-header-custom .btn-close {
+    filter: invert(100%);
+  }
+  
 }

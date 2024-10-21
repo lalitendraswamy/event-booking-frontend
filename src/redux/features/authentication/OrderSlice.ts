@@ -29,6 +29,7 @@ export const getOrders = createAsyncThunk(
             console.log("Get All Orders", response.data);
             return response.data
         }catch(e){
+
             console.log(e);
         }
     }
@@ -80,7 +81,9 @@ const orderSlice= createSlice({
                 console.log("Order Created");
             })
             .addCase(getOrders.fulfilled, (state,action) =>{
-                state.orders = action.payload
+                if(action.payload){
+                    state.orders = action.payload
+                }
             })
             .addCase(deleteOrder.fulfilled, (state,action) =>{
                 console.log("Deleted Order");
