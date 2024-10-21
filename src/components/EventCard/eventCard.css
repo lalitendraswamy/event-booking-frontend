@@ -1,0 +1,133 @@
+.filtered-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    height: auto !important;
+  }
+
+  .filtered-item-img {
+    border-radius: 4px;
+    max-width: 263px !important;
+    min-height: 250px !important;
+    max-height: 250px !important;
+  }
+
+  .eventpage-description {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .eventpage-view-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  /* .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+   */
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .admin-event-card-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .order-icon2 {
+    font-size: 1.5rem;
+    
+    border: 2px solid blue;
+    color: #FB8500;
+    border-style: none !important;
+  }
+  
+  .order-icon2:hover {
+    color: #0056b3;
+  }
+
+ .view-container{
+  display: flex;
+  justify-content: space-around !important;
+  align-items: center !important;
+ }
+
+
+
+
+
+
+ .view-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding: 10px;
+  border-top: 1px solid #eaeaea;
+}
+
+.view-container p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.admin-event-card-button {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.admin-event-card-button:hover {
+  background-color: #e2e6ea;
+  border-color: #adb5bd;
+}
+
+.order-icon2 {
+  font-size: 1.25rem;
+  color: #FB8500;
+}
+
+.order-icon2:hover {
+  color: #0056b3;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+

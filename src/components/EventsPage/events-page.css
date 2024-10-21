@@ -114,7 +114,7 @@
     transition: border-color 0.3s;
 }
 
-.heading-filters-data{
+/* .heading-filters-data{
     color: #333;
     font-size: 20px;
 }
@@ -134,9 +134,7 @@
     }
 }
 
-
-
-/* .event-page-container{
+ .event-page-container{
     display: flex;
 }
 

@@ -7,7 +7,7 @@ import { EventService } from "../../services/event.service";
 import { getCookie } from "../../utils/cookieUtils";
 import { useDispatch } from "react-redux";
 import { getAllEvents } from "../../redux/features/authentication/EventSlice";
-
+import "./eventCard.css"
 
 export const EventCard = ({ item }: any) => {
 
@@ -30,17 +30,18 @@ export const EventCard = ({ item }: any) => {
         src={item.imageUrl}
         alt={item.eventName}
         width="100"
-        className="filtered-item-img"
+        className="filtered-item-img mb-1"
       />
       <h4>{item.eventName}</h4>
       <p>{item.description}</p>
+      <p>Price: {item.ticketPrice}</p>
       <div className="view-container">
-        <p>Price: {item.ticketPrice}</p>
+
         {getCookie('role')==='admin'&&(<button onClick={()=> navigate(`/edit-event/${item.eventId}`)} className="admin-event-card-button">
-          <MdModeEdit className="order-icon" />
+          <MdModeEdit className="order-icon2" />
         </button>)}
         {getCookie('role')==='admin'&&(<button onClick={()=>onDelete(item.eventId)} className="admin-event-card-button">
-          <RiDeleteBinFill className="order-icon" />
+          <RiDeleteBinFill className="order-icon2" />
         </button>)}
         
         
@@ -49,7 +50,7 @@ export const EventCard = ({ item }: any) => {
           className="underline-none"
           key={item.eventId}
         >
-          <button className="btn btn-primary view">View</button>
+          <button className="book-tickets-btn">View</button>
         </Link>
       </div>
     </div>
