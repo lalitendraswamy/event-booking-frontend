@@ -1,35 +1,42 @@
-.login-bg{
+.login-bg {
     background-color: #0056B3;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    
-    
-    
+
+    h5{
+        color: whitesmoke;
+        letter-spacing: 5px;
+        word-spacing: 10px;
+        font-weight: 300;
+        text-shadow: white;
+    }
+
 }
 
 
-.login-card{
+.login-card {
     background-color: white;
     height: 80vh;
     width: 80vw;
     display: flex;
-    
 
 
 
-    img{
+
+    img {
         height: 100%;
         width: 100%;
-        border-radius:0px;
-      
-        
+        border-radius: 0px;
+
+
     }
-    
+
 }
 
-.login-content{
+.login-content {
     color: #0056B3;
     height: 100%;
     width: 50%;
@@ -38,46 +45,50 @@
     justify-content: center;
 
 
-    h4{
+    h4 {
         font-size: 30px;
         font-weight: 300;
         font-style: roboto;
 
     }
 
-    h2{
+    h2 {
         font-size: 50px;
         font-weight: bolder;
     }
 
-    button{
+
+
+}
+
+
+.login-button {
+
+    width: 60%;
+    border: 1px solid #0056B3;
+    background-color: #0056B3;
+    border-radius: 4px;
+    color: whitesmoke;
+    padding: 10px;
+
+    .login-btn-content {
+        height: 100%;
         width: 100%;
-        border: 1px solid #0056B3;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 30px;
         
-        .login-btn-content{
-            height: 100%;
-            width: 100%;  
-            display: flex;          
-            align-items: center;
-            justify-content: center;
-
-            p{
-                text-align: left;
-                font-size: 25px;
-                padding-left: 20px;
-                margin: 0px;
-                height: 100%;
-                margin-top: 10px;
-            }
-          
-        }
-
-        img{
-            height: 50px;
-            width: 50px;
-            margin: 0px;
-        }
 
     }
-    
+
+    img {
+        height: 40px;
+        width: 40px;
+        
+        
+     
+    }
+
+
 }

@@ -135,24 +135,30 @@ console.log("Each event",eachEvent)
             </div>
             <div className="event-data-container">
               <h3 className="mb-3">{eventName}</h3>
-              <p className="event-proper pr-1">
-                Release Date: {" "}
-                <span className="event-proper-inner-item">{`${day}:${month}:${year}`}</span>
+              <p className="event-proper">
+                Description:{" "}
+                <span className="event-proper-inner-item">{description}</span>
               </p>
+              
               <p className="event-proper">
                 Category:{" "}
                 <span className="event-proper-inner-item">
                   {eachEvent.category}
                 </span>
               </p>
+              <p className="event-proper pr-1">
+                Release Date: {" "}
+                <span className="event-proper-inner-item">{`${day}/ ${month} / ${year}`}</span>
+              </p>
+              <p className="event-proper pr-1">
+                Location: {" "}
+                <span className="event-proper-inner-item">{location}</span>
+              </p>
               <p className="event-proper">
                 Available Tickets:{" "}
                 <span className="event-proper-inner-item">{totalTickets}</span>
               </p>
-              <p className="event-proper">
-                Description:{" "}
-                <span className="event-proper-inner-item">{description}</span>
-              </p>
+              
 
               <p className="event-proper">
                 Price:{" "}
