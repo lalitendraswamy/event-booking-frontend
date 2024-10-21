@@ -1,6 +1,5 @@
 import {useEffect, useRef } from 'react';
 import Slider from 'react-slick';
-import type { Settings } from 'react-slick';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllEvents } from '../../../redux/features/authentication/EventSlice';
@@ -13,18 +12,22 @@ const Events = () => {
     const sliderRef = useRef<Slider | null>(null); // Use a ref to hold the slider instance
     const dispatch = useDispatch();
     const {events} = useSelector((state:any) => state.events);
+
+   
+
     console.log("events test",events)
+
   
     useEffect(() => {
       dispatch<any>(getAllEvents());
       
     }, []);
-    
-    const settings: Settings = {
+
+    const settings = {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1,
         responsive: [
             {
@@ -44,6 +47,17 @@ const Events = () => {
         ],
     };
 
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (sliderRef.current) {
+                sliderRef.current.slickNext();
+            }
+        }, 3000); // Change slides every 3 seconds
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
+
     if(events.length ===0){
         return(
             <div>
@@ -51,6 +65,7 @@ const Events = () => {
             </div>
         )
     }
+
 
     return (
         <div className="events-container mt-5 mb-5">

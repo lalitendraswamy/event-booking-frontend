@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Navbar from '../shared/navbar/navbar';
+
 import Footer from '../shared/footer/eventsFooter';
 import './add-user.css'; 
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { addUserError, getUsers, postUser, User } from '../../redux/features/aut
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import EventNavbar from '../shared/navbar/navbar';
 
 const UserForm = () => {
   // const [isUserAlreadyExists,setIsUserExists] = useState(false)
@@ -55,7 +56,7 @@ const UserForm = () => {
 
   return (
     <div className='user-form-data'>
-      <Navbar/>
+     <EventNavbar />
       <h2>Add a User</h2>
     <Formik
       initialValues={initialValues}

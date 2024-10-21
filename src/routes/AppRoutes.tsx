@@ -18,9 +18,6 @@ import ProtectedRoute from './ProtectedRoute';
 import PaymentSuccess from '../components/shared/payments/PaymentSuccess';
 import PaymentFailed from '../components/shared/payments/PaymentFailed';
 
-
-
-
 const AppRoutes: React.FC = () => {
   return (
     <Routes>

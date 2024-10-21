@@ -6,7 +6,7 @@ import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import profileImg from "../../../assets/images/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp";
+import profileImg from "../../../assets/images/no-profile-image.webp";
 import './navbar.css';
 
 const EventNavbar = () => {
@@ -86,13 +86,13 @@ const EventNavbar = () => {
                                 <p className='order-text'>View all your bookings & purchases</p>
                             </div>
                         </div>
-                        <div className='orders-container'>
+                        <Link to="/contact-us" className='text-button-underline-none'><div className='orders-container'>
                             <BiSolidMessageSquareDetail className='order-icon' />
                             <div>
                                 <h5  onClick={() => navigate('/contact')} className='order-heading'>Help & Support</h5>
                                 <p className='order-text'>We will get back to you</p>
                             </div>
-                        </div>
+                        </div></Link>
                         <Link to="/favorite-event" className='text-button-underline-none'>
                             <div className='orders-container'>
                                 <GiSelfLove className='order-icon' />

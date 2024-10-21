@@ -44,17 +44,17 @@ const FavoriteEventCard = () => {
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3 }}
             >
-              <div className='favorite-card-item'>
-                <div className='w-60'>
+              <div className='favorite-card-item '>
+                <div className='w-60 bounceInLeft'>
                   <h3>{favoriteItem.event.eventName}</h3>
                   <p>{favoriteItem.event.description}</p>
                   <p>Location: {favoriteItem.event.location}</p>
                   <p>Rating: {favoriteItem.event.averageRating}</p>
                   <button className='book-tickets-btn' onClick={()=>handleRemoveFavItem(favoriteItem.eventId)}>Remove From Favorites</button>
                 </div>
-                <img src={favoriteItem.event.imageUrl} alt={favoriteItem.event.eventName} className="event-image" />
+                <img src={favoriteItem.event.imageUrl} alt={favoriteItem.event.eventName} className="favorite-event-image bounceInRight" />
               </div>
-
+             
             </motion.div>
           </div>
           ))
