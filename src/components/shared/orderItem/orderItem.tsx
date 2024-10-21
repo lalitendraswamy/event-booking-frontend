@@ -29,9 +29,9 @@ export default function OrderItem({order}:any) {
 
   return (
     <li className='order-item-card p-3'>
-        <div className='order-info'>
+        <div className='order-info '>
             <img src={imageUrl} />
-            <div className=' p-2' >
+            <div className='p-1' >
                 <h3>{eventName}</h3>
                 <h6>Location: {location}</h6>
                 <h6>Date: {formattedDateTime}</h6>
@@ -41,7 +41,7 @@ export default function OrderItem({order}:any) {
                 {order.status === "cancelled" ?
                   <span className='text-danger'>Ticket Cancelled</span>
                 :
-                <button onClick={()=>dispatch<any>(cancelOrderThunk(bookingId))} className='btn btn-danger' >Cancel</button>
+                <button onClick={()=>dispatch<any>(cancelOrderThunk(bookingId))} className='btn btn-danger ' >Cancel</button>
                 }
             </div>
         
