@@ -27,6 +27,7 @@ export default function LoginPage() {
 
   return (
     <div className="login-bg">
+      <h5>BLP EVENTS PRIVATE LIMITED</h5>
       <div className="login-card shadow">
         <div className="w-50">
           <img src={loginImg} alt="login-img" />
@@ -34,19 +35,25 @@ export default function LoginPage() {
         <div className="login-content p-5">
           <h4>Hello,</h4>
 
-          <h2 className="text-start">welcome!</h2>
-          <button onClick={handleLogin} >
+          <h2 className="text-start">welcome back!</h2>
+          
+          <button onClick={handleLogin} className="login-button" >
             <div className="login-btn-content">
+              
+              <div className="d-flex align-items-center justify-content-center">
+                <h3  >Login with </h3>
+              </div>
+
               <div className="d-flex align-items-center justify-content-center">
                 <img src={MicrosoftLogo} />
               </div>
-
-              <p >Log in with Microsoft</p>
+              
 
             </div>
           </button>
         </div>
       </div>
+      
     </div>
   );
 }

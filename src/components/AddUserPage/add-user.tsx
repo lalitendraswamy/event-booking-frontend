@@ -36,8 +36,8 @@ const UserForm = () => {
   const handleSubmit = (values:any) => {
     console.log('Form data:', values);
     dispatch<any>(postUser(values))
-    // alert("User added Successfully")
-    // navigate('/users')
+    alert("User added Successfully")
+    navigate('/users')
   };
 
   // const onChangeUsername = () =>{
