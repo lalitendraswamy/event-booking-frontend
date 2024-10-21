@@ -20,15 +20,15 @@ const EventPage = () => {
     useEffect(() => {
         dispatch<any>(getAllEvents());
     }, []);
+    
+        const navigate = useNavigate();
+        const [filteredEvents, setFilteredEvents] = useState(events);
 
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-    const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+    const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-    const navigate = useNavigate();
-    const [filteredEvents, setFilteredEvents] = useState(events);
 
     useEffect(() => {
         setFilteredEvents(events); // Update filteredEvents when events change
@@ -53,8 +53,8 @@ const EventPage = () => {
                     )}
                     
                     <div className="filtered-data-container">
-                        {filteredEvents.length > 0 ? 
-                            filteredEvents.map((item: any, index: any) => (
+                        {currentEvents.length > 0 ? 
+                            currentEvents.map((item: any, index: any) => (
                                 <EventCard item={item} key={index} />
                             )) 
                             : 
@@ -66,7 +66,7 @@ const EventPage = () => {
 
             <div className="pagination-controls">
                 {Array.from(
-                    { length: Math.ceil(events.length / eventsPerPage) },
+                    { length: Math.ceil(filteredEvents.length / eventsPerPage) },
                     (_, index) => (
                         <button
                             key={index}
