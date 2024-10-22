@@ -19,7 +19,7 @@ export interface User {
 export interface LoginUser{
     userId:string,
     username: string,
-    userImageUrl : string,
+    userImageUrl : string | null,
     role:string
 } 
 

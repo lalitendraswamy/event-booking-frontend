@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../shared/footer/eventsFooter';
 import './add-user.css'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { addUserError, getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import EventNavbar from '../shared/navbar/navbar';
@@ -34,20 +34,48 @@ const UserForm = () => {
   });
 
   const handleSubmit = (values:any) => {
+    const ifUserDontExists = users.filter((each:any)=> each.email === values.email);
+    if (!isUserAlreadyExists) {
+      toast.error('User already exists', {
+        position: "top-right",
+      });
+    }else{
+      toast.success("User added successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
     console.log('Form data:', values);
     dispatch<any>(postUser(values))
     
   };
 
+ 
 
-  useEffect(() => {
-    if (isUserAlreadyExists) {
-      toast.error('User already exists', {
-        position: "top-right",
-      });
-    }
-    dispatch(addUserError());
-  }, [isUserAlreadyExists,dispatch]);
+  // useEffect(() => {
+  //   if (isUserAlreadyExists) {
+  //     toast.error('User already exists', {
+  //       position: "top-right",
+  //     });
+  //   }
+  //   dispatch(addUserError());
+  // }, [isUserAlreadyExists,dispatch]);
+  
+  // const notify = () => {
+  //   toast.success("This is a success message!", {
+  //     position: "top-right",
+  //     autoClose: 5000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   });
+  // };
   
 
   return (
@@ -91,6 +119,7 @@ const UserForm = () => {
           </div>
 
           <button type="submit" className="user-form__button">Add User</button>
+          <ToastContainer />
           {/* <p>{isUserAlreadyExists ? "User Already Exists": "" }</p> */}
         </Form>
       )}

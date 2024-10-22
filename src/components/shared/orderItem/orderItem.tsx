@@ -4,7 +4,8 @@ import QRimg from '../../../assets/images/qr-img.png';
 import { cancelOrderThunk } from '../../../redux/features/authentication/OrderSlice';
 import { useDispatch } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
-import QRCode from 'react-qr-code';
+
+
 
 interface QRCodeGeneratorProps {
   bookingId: string;
@@ -79,6 +80,8 @@ export default function OrderItem({ order }: any) {
         <p>Please provide a booking ID to generate the QR code.</p>
       )} */}
           <img src={QRimg} alt="QR Code" />
+         
+      <p>Scan this QR code to view your booking details.</p>
           <h6>Booking ID</h6>
           <p className="text-center">
             <b>{bookingId.toUpperCase()}</b>
