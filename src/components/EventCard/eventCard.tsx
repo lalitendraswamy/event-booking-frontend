@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 import { EventService } from "../../services/event.service";
 import { getCookie } from "../../utils/cookieUtils";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import { getAllEvents } from "../../redux/features/authentication/EventSlice";
 import { Modal, Button } from "react-bootstrap";
 import "./eventCard.css"
 
-const convertDateTimeToNormal=(dateTime:string):any=>{
+const convertDateTimeToNormal = (dateTime: string): any => {
   const date = new Date(dateTime);
   const formatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -25,6 +25,7 @@ const convertDateTimeToNormal=(dateTime:string):any=>{
 
 export const EventCard = ({ item }: any) => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const service = new EventService();
   const dispatch = useDispatch();
 
@@ -51,6 +52,9 @@ export const EventCard = ({ item }: any) => {
     }
   };
 
+  // Check if the current path includes "/admin/events"
+  const isAdminPath = location.pathname.includes("/admin/events");
+
   return (
     <>
       <div className="filtered-item">
@@ -75,7 +79,7 @@ export const EventCard = ({ item }: any) => {
           <p>
             Price: <b className="ps-1"> &#8377;{item.ticketPrice}</b>
           </p>
-          {getCookie('role') === 'admin' && (
+          {isAdminPath && ( // Use isAdminPath to conditionally render buttons
             <>
               <button
                 onClick={() => navigate(`/edit-event/${item.eventId}`)}

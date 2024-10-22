@@ -17,6 +17,8 @@ import Userpage from '../components/UsersPage/Userpage';
 import ProtectedRoute from './ProtectedRoute';
 import PaymentSuccess from '../components/shared/payments/PaymentSuccess';
 import PaymentFailed from '../components/shared/payments/PaymentFailed';
+import AdminPage from '../components/AdminPage/AdminPage';
+import AdminEventPage from '../components/AdminEventsPage/AdminEventPage';
 
 
 const AppRoutes: React.FC = () => {
@@ -41,9 +43,11 @@ const AppRoutes: React.FC = () => {
 
         {/* admin routes */}
         <Route path="/edit-event/:id" element={<ProtectedRoute  role='admin' element={<EditEventPage />} />} />
-        <Route path="/users" element={<ProtectedRoute  role='admin'  element={<Userpage />} />} />
-        <Route path="/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
-        <Route path="/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
+        <Route path="/admin/users" element={<ProtectedRoute  role='admin'  element={<Userpage />} />} />
+        <Route path="/admin/events" element={<ProtectedRoute  role='admin'  element={<AdminEventPage />} />} />
+        <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
+        <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
+        <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<AdminPage/>} />} />
 
 
         {/* not found routes */}
