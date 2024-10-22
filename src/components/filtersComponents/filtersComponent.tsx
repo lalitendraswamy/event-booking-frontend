@@ -120,7 +120,12 @@ export const EventFilters = ({ events, setFilteredEvents }:any) => {
             </div>
             <div className="filter-item">
                 <label className="filter-item-label">Date</label>
-                <input type="date" value={selectedDate} onChange={handleDateChange} />
+                <input
+                type="date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                min={new Date().toISOString().split("T")[0]} // Sets the minimum date to today
+            />
             </div>
             <div className="filter-item">
                 <label className="filter-item-label">Categories</label>

@@ -7,8 +7,9 @@ import { getCookie } from "../../utils/cookieUtils";
 import { useDispatch } from "react-redux";
 import { getAllEvents } from "../../redux/features/authentication/EventSlice";
 import { Modal, Button } from "react-bootstrap";
+import "./eventCard.css"
 
-const convertDateTimeToNormal = (dateTime: string): any => {
+const convertDateTimeToNormal=(dateTime:string):any=>{
   const date = new Date(dateTime);
   const formatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',

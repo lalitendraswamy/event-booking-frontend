@@ -9,9 +9,10 @@ import "./events-page.css";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookieUtils";
+import Spinner from "../shared/spinner/spinner";
 
 const EventPage = () => {
-    const { events } = useSelector((s: any) => s.events);
+    const { events,loading } = useSelector((s: any) => s.events);
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -52,6 +53,7 @@ const EventPage = () => {
                         </button>
                     )}
                     
+                    {loading ? (Spinner()): (
                     <div className="filtered-data-container">
 
                         {currentEvents.length > 0 ? 
@@ -61,7 +63,7 @@ const EventPage = () => {
                             : 
                             <p  style={{"fontSize":"50px","color":"#0056B3"}}>No Events Available!</p>
                         }
-                    </div>
+                    </div>)}
                 </div>
             </div>
 

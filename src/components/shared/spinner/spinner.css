@@ -4,8 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-
+    background-color: transparent !important;
     h2 {
         font-size: 24px;
         color: #333;
@@ -22,11 +21,16 @@
     height: 50px;
     border: 3px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
-    border-top-color: #3498db;
+    border-top-color: #0056b3;
     animation: spin 1s ease-in-out infinite;
     margin-bottom: 20px;
+    background-color: transparent !important;
   }
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
  
+  .loading-icon{
+    font-size: 34px;
+    color:#0056b3;
+  }

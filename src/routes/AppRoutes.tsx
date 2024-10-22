@@ -21,8 +21,6 @@ import AdminPage from '../components/AdminPage/AdminPage';
 import AdminEventPage from '../components/AdminEventsPage/AdminEventPage';
 
 
-
-
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -41,7 +39,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/contact" element={<ProtectedRoute element={<ContactUs />} />} />
         <Route path="/success" element={<ProtectedRoute element={<PaymentSuccess />} />} />
         <Route path="/cancel" element={<ProtectedRoute element={<PaymentFailed />} />} />
-
+       
 
         {/* admin routes */}
         <Route path="/edit-event/:id" element={<ProtectedRoute  role='admin' element={<EditEventPage />} />} />

@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { getCookie } from "../../../utils/cookieUtils";
 import { loadStripe } from "@stripe/stripe-js";
-
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from "react-redux";
 import {  createOrder,  getOrders,  postOrder,} from "../../../redux/features/authentication/OrderSlice";
@@ -20,6 +19,8 @@ const MovieList = () => {
   const [count, setCount] = useState(1);
   const [eventInFav, setEventInFav] = useState(false);
   const { id } = useParams();
+  const [showPopup, setShowPopup] = useState(false);
+  const [showPopupNegetive, setShowPopupNegetive] = useState(false);
   const { events, eachEvent, favorites } = useSelector(
     (state: any) => state.events
   );
@@ -61,12 +62,29 @@ console.log("Each event",eachEvent)
 
   const increaseTicketsCount = () => {
     if (count < totalTickets) {
-      setCount(count + 1);
+      if (count >= 9) {
+        setShowPopup(true);
+        // Automatically close the popup after 4 seconds
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 4000);
+      } else {
+        setCount(count + 1);
+      }
     }
   };
 
   const decreaseTicketsCount = () => {
-    setCount(count > 1 ? count - 1 : 1);
+    if(count > 1){
+      setCount(count-1)
+    }else{
+      setCount(1)
+      setShowPopupNegetive(true);
+      setTimeout(() => {
+        setShowPopupNegetive(false);
+      }, 4000);
+    }
+    // setCount(count > 1 ? count - 1 : 1);
   };
 
   const handleAddFavorites = () => {
@@ -108,11 +126,6 @@ console.log("Each event",eachEvent)
     if(!result){
       console.log('result')
     }
-
-    // // dispatch(postOrder(orderDetails));
-    // dispatch<any>(createOrder(orderDetails));
-    // dispatch<any>(getOrders());
-    // navigate("/my-orders");
   };
 
   if (!eachEvent) {
@@ -170,18 +183,27 @@ console.log("Each event",eachEvent)
 
               <div className="fav-tic-container">
                 <div className="inc-des-count-container">
-                  <p onClick={increaseTicketsCount} className="plus">
-                    +
-                  </p>
-                  <span className="straight"></span>
-                  <p className="plus">{count}</p>
-                  <span className="straight"></span>
-                  <p onClick={decreaseTicketsCount} className="plus">
+                  <button onClick={decreaseTicketsCount} className={showPopupNegetive ? "disabled" : "plus"}>
                     -
-                  </p>
+                  </button>
+                  <span className="straight"></span>
+                  <p className="count-tickets">{count}</p>
+                  <span className="straight"></span>
+                  <button onClick={increaseTicketsCount} className={showPopup ? "disabled" : "plus"} >
+                    +
+                  </button>
                 </div>
               </div>
-
+              {showPopup && (
+                   <div className="popup bounce-in-up">
+                      <p>You can't increase the count more than 9!</p>
+                    </div>
+                   )}
+                   {showPopupNegetive && (
+                   <div className="popup bounce-in-up">
+                      <p>You can't Decrease the count less than 1!!</p>
+                    </div>
+                   )}
               <div>
                 <button className="book-tickets-btn" onClick={onTicketBooking}>
                   Book Tickets
@@ -194,22 +216,6 @@ console.log("Each event",eachEvent)
                 </button>) }
                
               </div>
-
-              
-              {/* {eachEvent.reviews ? (
-                
-                <ul>
-                  <strong>Reviews:</strong>
-                  {reviews.map((review: any) => (
-                    <li key={review.user} className="p-3">
-                      <strong>{review.user.username}:</strong> {review.review}{" "}
-                      (Rating: {review.userRating})
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>There are no reviews.</p>
-              )} */}
             </div>
           </div>
         </div>

@@ -16,7 +16,6 @@ interface EventFormValues {
   duration: number; // Changed to number (no undefined)
   totalTickets: number; // Changed to number (no undefined)
   location: string;
-  averageRating: number; // Changed to number (no undefined)
   organizerName: string;
   organizerImage: string;
   imageUrl: string;
@@ -31,7 +30,6 @@ const initialValues: EventFormValues = {
   duration: 0, // Initialized to 0 instead of undefined
   totalTickets: 0, // Initialized to 0 instead of undefined
   location: "",
-  averageRating: 0, // Initialized to 0 instead of undefined
   organizerName: "",
   organizerImage: "",
   imageUrl: "",
@@ -50,17 +48,26 @@ const validationSchema = Yup.object({
     .min(1, "Total Tickets must be at least 1")
     .required("Total Tickets are required"),
   location: Yup.string().required("Location is required"),
-  averageRating: Yup.number()
-    .min(0, "Average Rating must be at least 0")
-    .max(5, "Average Rating cannot exceed 5")
-    .required("Average Rating is required"),
+
   organizerName: Yup.string().required("Organizer Name is required"),
-  organizerImage: Yup.string()
-    .url("Invalid URL")
-    .required("Organizer Image URL is required"),
-  imageUrl: Yup.string()
-    .url("Invalid URL")
-    .required("Event Image URL is required"),
+ organizerImage: Yup.mixed()
+    .required("Organizer image is required")
+    .test("fileType", "Unsupported File Format", value => {
+      return (
+        value &&
+        value instanceof File &&
+        (["image/jpeg", "image/png", "image/gif", "image/bmp", "image/tiff"].includes(value.type))
+      );
+    }),
+    imageUrl: Yup.mixed()
+    .required("Organizer image is required")
+    .test("fileType", "Unsupported File Format", value => {
+      return (
+        value && 
+        value instanceof File && 
+        (["image/jpeg", "image/jpg", "image/png", "image/gif", "image/bmp", "image/tiff"].includes(value.type))
+      );
+    }),
   ticketPrice: Yup.number()
     .min(0, "Ticket Price must be greater than or equal to 0")
     .required("Ticket Price is required"),
@@ -329,3 +336,4 @@ const EventForm = () => {
 };
 
 export default EventForm;
+
