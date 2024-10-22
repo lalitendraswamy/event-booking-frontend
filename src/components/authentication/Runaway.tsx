@@ -23,14 +23,14 @@ export default function Runway() {
             console.log('code', code)
             // console.log("Before", !getCookie("token"))
             const response = await customAxios.post("/auth/callback", { code })
-            console.log("fffffffffff",response)
+            console.log("ffff",response)
             // console.log("After", !getCookie("token"))
            
             if(response.data.token){
             console.log("user data", response.data)
-            setCookie('token', response.data.token, 3)
-            setCookie('role', response.data.role, 3)
-            setCookie("userId",response.data.userId, 3);
+            setCookie('token', response.data.token)
+            setCookie('role', response.data.role)
+            setCookie("userId",response.data.userId);
             dispatch<any>(getLoginUser({
               userId: response.data.userId,
               username: response.data.username,

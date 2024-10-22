@@ -29,6 +29,7 @@ export const getOrders = createAsyncThunk(
             console.log("Get All Orders", response.data);
             return response.data
         }catch(e){
+
             console.log(e);
         }
     }

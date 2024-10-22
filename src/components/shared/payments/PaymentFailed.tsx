@@ -11,7 +11,7 @@ export default function PaymentFailed() {
    <h1 className='payment-fail-heading'>Payment Failed</h1>
    <p className='payment-fail-icon'>X</p>
    <img src={paymentFailed} alt="payment-fail" className='pay-fail-img'/>
-   <button onClick={() => navigate("/")} className='book-tickets-btn'>Go To My Orders</button>
+   <button onClick={() => navigate("/events")} className='book-tickets-btn'>Retry</button>
 </div>
 
 </div>
