@@ -5,9 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import {deleteFavorite, getFavorite, removeFavoriteItem} from "../../redux/features/authentication/EventSlice";
 import './favoriteEvent.css';
 import { useEffect } from 'react';
+import fav from '../../assets/images/favorite.gif'
+import { useNavigate } from 'react-router-dom';
 
 const FavoriteEventCard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const favoriteData = useSelector((state: any) => state.events.favorites);
 
   const handleRemoveFavItem = (eventId:any) =>{
@@ -58,7 +61,13 @@ const FavoriteEventCard = () => {
         }
       </div>
       :
-      <div className="fav-eve-page-no-fav" >No Favorites !</div>
+      <div className="fav-eve-page-no-fav" >
+          <img src={fav} className='me-5' alt='fav' style={{"width":"500px"}} />
+          <div className='m-2 text-center'>
+          <p className='text-danger' >No Favourites !!!</p>
+          <button className='btn btn-danger ' onClick={() => navigate("/events")}>Browse Events</button>
+          </div>
+      </div>
       }
       <EventsFooter />
     </>

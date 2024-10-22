@@ -1,26 +1,19 @@
-
-import Cookies from 'js-cookie';
-
-export const setCookie = (name: string, value: string, days?: number) => {
-  Cookies.set(name, value, { expires: days });
+export const setCookie = (name: string, value: string) => {
+  sessionStorage.setItem(name, value);
 };
 
 export const getCookie = (name: string) => {
-  return Cookies.get(name) || "";
+  return sessionStorage.getItem(name) || "";
 };
 
 export const removeCookie = (name: string) => {
-  Cookies.remove(name);
+  sessionStorage.removeItem(name);
 };
-
 
 export const isAdmin = () => {
-  return Cookies.get('role')==='admin';
+  return getCookie('role') === 'admin';
 };
 
-
 export const clearAllCookies = () => {
-  Object.keys(Cookies.get()).forEach((cookieName) => {
-    Cookies.remove(cookieName);
-  });
+  sessionStorage.clear();
 };

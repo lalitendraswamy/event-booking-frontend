@@ -55,12 +55,13 @@ const EventPage = () => {
                     
                     {loading ? (Spinner()): (
                     <div className="filtered-data-container">
+
                         {currentEvents.length > 0 ? 
                             currentEvents.map((item: any, index: any) => (
                                 <EventCard item={item} key={index} />
                             )) 
                             : 
-                            <p>No Events Available!</p>
+                            <p  style={{"fontSize":"50px","color":"#0056B3"}}>No Events Available!</p>
                         }
                     </div>)}
                 </div>
