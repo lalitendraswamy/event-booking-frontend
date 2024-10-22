@@ -13,7 +13,7 @@ import AdminNav from "../shared/adminNav/adminNav";
 import addUserImg from '../../assets/images/add-user.png'
 
 const UserForm = () => {
-  // const [isUserAlreadyExists,setIsUserExists] = useState(false)
+  // const [isUserAlreadyExists,setIsUserExists] = useState(false) 
   const initialValues = {
     username: "",
     email: "",
@@ -41,6 +41,18 @@ const UserForm = () => {
   });
 
   const handleSubmit = (values: any) => {
+    const ifUserDontExists = users.filter((each:any)=> each.email === values.email);
+    console.log(ifUserDontExists,"yes")
+    if (!isUserAlreadyExists) {
+      toast.success("User added successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
     console.log("Form data:", values);
     dispatch<any>(postUser(values));
   };

@@ -44,14 +44,7 @@ const EventPage = () => {
                     setFilteredEvents={setFilteredEvents} 
                 />
                 <div className="d-flex flex-column">
-                    {getCookie('role') === 'admin' && (
-                        <button 
-                            onClick={() => navigate('/add-event')} 
-                            className='add-event-btn d-flex justify-content-between align-items-center align-self-end'>
-                            <IoMdAddCircleOutline className='me-2' style={{ color: "whitesmoke", fontSize: "30px" }} />
-                            Add Event
-                        </button>
-                    )}
+                   
                     
                     {loading ? (Spinner()): (
                     <div className="filtered-data-container">

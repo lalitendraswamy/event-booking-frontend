@@ -223,26 +223,6 @@ const EventForm = () => {
                 </div>
           
                 <div className="col-md-6">
-                  <label className="event-label" htmlFor="averageRating">
-                    Average Rating
-                  </label>
-                  <Field
-                    className="event-input"
-                    type="number"
-                    id="averageRating"
-                    name="averageRating"
-                    step="0.1"
-                  />
-                  <ErrorMessage
-                    className="event-error"
-                    name="averageRating"
-                    component="div"
-                  />
-                </div>
-              </div>
-          
-              <div className="row">
-                <div className="col-md-6">
                   <label className="event-label" htmlFor="organizerName">
                     Organizer Name
                   </label>
@@ -258,7 +238,6 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-          
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="organizerImage">
                     Organizer Image URL
@@ -275,9 +254,7 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-              </div>
-          
-              <div className="row">
+
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="imageUrl">
                     Event Image URL
@@ -294,6 +271,13 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
+
+              </div>
+          
+           
+          
+              <div className="row">
+                
           
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="ticketPrice">
