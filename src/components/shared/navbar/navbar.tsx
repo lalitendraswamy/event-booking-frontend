@@ -22,10 +22,10 @@ const EventNavbar = () => {
         const azureLogoutUrl = `https://login.microsoftonline.com/${
             process.env.REACT_APP_TENANT_ID
           }/oauth2/v2.0/logout?post_logout_redirect_uri=${encodeURIComponent(
-            "http://localhost:3000/login" // Set the login page after logout
+            "http://localhost:3000/login" 
           )}`;
        
-          // Redirect to Azure AD logout URL
+     
           window.location.href = azureLogoutUrl;
     }
 
@@ -55,7 +55,7 @@ const EventNavbar = () => {
                 </div>
                 <Nav.Link onClick={handleShow}>
                     <img 
-                        src={loginUser.userImageUrl || profileImg} 
+                        src={loginUser.userImageUrl ?? profileImg} 
                         alt="Profile" 
                         className="profile-img-nav" 
                     />
@@ -69,7 +69,7 @@ const EventNavbar = () => {
                         <div className='profile-data'>
                         <div className='profile-container'>
                             <img 
-                                src={loginUser.userImageUrl || profileImg} 
+                                src={loginUser.userImageUrl ?? profileImg} 
                                 alt="Profile" 
                                 className="profile-img" 
                             />
