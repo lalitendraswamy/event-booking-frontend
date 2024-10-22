@@ -41,11 +41,12 @@ const EventNavbar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
-                        <Nav.Link  onClick={()=>navigate('/events')} style={{ color: getCookie('role')==='admin' ? "#FB8500" : "whitesmoke" }}                     >Events</Nav.Link>
+                        <Nav.Link  onClick={()=>navigate('/events')} style={{ color:  "whitesmoke" }}                     >Events</Nav.Link>
                         <Nav.Link  onClick={()=>navigate('/my-orders')} style={{color:"whitesmoke"}}>My Orders</Nav.Link>
                         <Nav.Link  onClick={()=>navigate('/contact')} style={{color:"whitesmoke"}}>Contact Us</Nav.Link>
                         
-                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/users')}  style={{color:"#FB8500"}}>Users</Nav.Link>)}
+                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/admin/users')}  style={{color:"whitesmoke"}}>Users</Nav.Link>)}
+                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/admin/users')}  style={{color:"whitesmoke"}}>Admin</Nav.Link>)}
                         
                         
                         
