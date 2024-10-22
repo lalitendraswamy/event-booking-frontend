@@ -53,7 +53,7 @@ const onDeleteUser= async (id:string)=>{
                         <td>{user.username}</td>
                         <td>{user.email}</td>
                         <td style={{"color":"#0056B3"}} >{user.role.toUpperCase()}</td>
-                        <td> <button className='user-delete-btn' disabled={ user.userId === getCookie('userId') } style={{ cursor: user.userId === getCookie('userId') ? 'not-allowed' : 'pointer' }} onClick={()=>onDeleteUser(user.userId)} ><RiDeleteBinFill style={{"color":"#FB8500", "fontSize":"30px",}} /></button> </td>
+                        <td> <button className='user-delete-btn' disabled={ user.userId === getCookie('userId') } style={{ cursor: user.userId === getCookie('userId') ? 'not-allowed' : 'pointer' }} onClick={()=>onDeleteUser(user.userId)} ><RiDeleteBinFill style={{"color":"#0056b3", "fontSize":"30px",}} /></button> </td>
                         
                     </tr>
                 ))}

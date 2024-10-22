@@ -101,11 +101,12 @@
 .inc-des-count-container{
    display: flex;
    justify-content: space-around;
+   /* align-items: center !important; */
    border: 1px solid #0056b3;
    border-radius: 4px;
    height: 45px;
    cursor: pointer;
-   padding: 5px;
+   /* padding: 5px; */
    width: 125px;
    margin-top: 8px;
    margin-bottom: 8px;
@@ -120,7 +121,22 @@
 .plus{
    color: #0056b3 !important;
    font-weight: bold;
+   margin-top: -4px !important;
+   border-style: none !important;
+   background-color: transparent !important;
+   text-align: center !important;
+   font-size: 30px !important;
+}
+
+.count-tickets{
+   color: #0056b3 !important;
    padding: 7px;
+   border-style: none !important;
+   background-color: transparent;
+   margin: 0px;
+   font-weight: 400;
+   padding: 0px;
+   font-size: 24px !important;
 }
 
 .book-tickets-btn {
@@ -149,4 +165,36 @@
    width: 50%;
    display: flex;
    justify-content: space-between;
+}
+
+.popup{
+  color: #333 !important;
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(1000px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bounce-in-up {
+  animation: bounceInUp 1s ease forwards;
+}
+
+.disabled {
+  color: gray; 
+  text-align: center !important;
+  font-weight: bold !important;
+  font-size: 34px !important;
+  pointer-events: none !important; 
+  opacity: 0.6; 
+   margin-top: -9px !important;
+   border-style: none !important;
+   background-color: transparent !important;
+   text-align: center !important;
 }

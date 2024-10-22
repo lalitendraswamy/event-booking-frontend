@@ -7,12 +7,11 @@ import UserTable from './UserTable';
 import { MdGroupAdd } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { ImSearch } from "react-icons/im";
-import './user-page.css';
 import Spinner from '../shared/spinner/spinner';
-import { getCookie } from '../../utils/cookieUtils';
+import './user-page.css';
 
 export default function Userpage() {
-    let { users } = useSelector((s: any) => s.users);
+    let { users,loading } = useSelector((s: any) => s.users);
    
 
     let [usersList, setUsersList] = useState(users);
@@ -46,7 +45,7 @@ export default function Userpage() {
     return (
         <div>
             <Navbar />
-            <div className='user-page'>
+            {loading ? (Spinner()):(<div className='user-page'>
                 <div className='user-page-top-card d-flex justify-content-between'>
                     <h3>Users List</h3>
                     <div className='user-search'>
@@ -58,7 +57,7 @@ export default function Userpage() {
                             onChange={handleSearch} 
                             placeholder="Search by name or email" 
                         />
-                        <button>  <ImSearch  style={{"color":"#FB8500","fontSize":"30px"}} />  </button>
+                        <button>  <ImSearch  style={{"color":"#0056b3","fontSize":"30px"}} />  </button>
                     </div>
                     <button 
                         onClick={() => navigate('/add-user')} 
@@ -75,7 +74,7 @@ export default function Userpage() {
                         <h3>No users found!</h3>
                     </div>
                 )}
-            </div>
+            </div>)}
             <Footer />
         </div>
     );

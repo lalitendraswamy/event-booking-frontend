@@ -36,6 +36,7 @@ export interface EventState {
     loading: boolean;
     error: string | null;
     favorites:Event[] ;
+    activeLink:string,
 }
 
 const initialState: EventState = {
@@ -43,7 +44,8 @@ const initialState: EventState = {
     eachEvent : [],
     loading: false,
     error: null,
-    favorites:[]
+    favorites:[],
+    activeLink:"/events",
 };
 
 
@@ -141,14 +143,20 @@ const eventSlice = createSlice({
         },
         removeFavoriteItem: (state, action) => {
             state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload);
+        },
+        activeNavBarPath:(state,action)=>{
+            state.activeLink = action.payload;
         }
         
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getAllEvents.pending, (state) => {
+                state.loading = true; // Set loading to true when the fetch starts
+            })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
-                state.loading = false;
                 state.events = action.payload;
+                state.loading = false;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
                 // console.log("added Event");
@@ -172,5 +180,5 @@ const eventSlice = createSlice({
     },
 });
 
-export const {filteredEvents,addFavoriteItem,removeFavoriteItem} = eventSlice.actions;
+export const {filteredEvents,addFavoriteItem,removeFavoriteItem,activeNavBarPath} = eventSlice.actions;
 export default eventSlice.reducer;

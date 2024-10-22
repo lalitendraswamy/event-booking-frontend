@@ -40,10 +40,6 @@ const UserForm = () => {
     navigate('/users')
   };
 
-  // const onChangeUsername = () =>{
-  //   dispatch(addUserError());
-  // }
-
   useEffect(() => {
     if (isUserAlreadyExists) {
       toast.error('User already exists', {

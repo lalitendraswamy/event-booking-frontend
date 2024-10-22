@@ -1,4 +1,5 @@
-import { FaFacebook, FaTwitter, FaLinkedin,FaRegCopyright } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaLinkedin,FaRegCopyright} from 'react-icons/fa';
+import { BsYoutube } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import {  FaInstagram } from 'react-icons/fa';
 import 'animate.css'; 
@@ -23,16 +24,16 @@ const EventsFooter = () => {
             <div>
         <motion.div className="contact-container-social-icons">
         <motion.a
-          href="https://facebook.com"
+          href="https://www.youtube.com/@G7CRCloudDivision/playlists"
           target="_blank"
           rel="noopener noreferrer"
           whileHover="hover"
           variants={socialIconVariants} 
         >
-          <FaFacebook size={30} />
+          <BsYoutube size={30} />
         </motion.a>
         <motion.a
-          href="https://twitter.com"
+          href="https://x.com/G7CRtech"
           target="_blank"
           rel="noopener noreferrer"
           whileHover="hover"
@@ -41,7 +42,7 @@ const EventsFooter = () => {
           <FaTwitter size={30} />
         </motion.a>
         <motion.a
-          href="https://instagram.com"
+          href="https://www.instagram.com/g7crtechnologies/"
           target="_blank"
           rel="noopener noreferrer"
           whileHover="hover"
@@ -50,7 +51,7 @@ const EventsFooter = () => {
           <FaInstagram size={30} />
         </motion.a>
         <motion.a
-          href="https://linkedin.com"
+          href="https://in.linkedin.com/company/g7cr-technologies"
           target="_blank"
           rel="noopener noreferrer"
           whileHover="hover"

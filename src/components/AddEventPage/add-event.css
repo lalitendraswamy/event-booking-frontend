@@ -67,3 +67,47 @@
     display: flex;
     justify-content: center;
 }
+
+/* .event-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-field {
+    margin-bottom: 15px;
+  }
+  
+  .event-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .event-input,
+  .event-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .event-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .event-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .event-error {
+    color: red;
+    font-size: 0.875em;
+  } */
+  

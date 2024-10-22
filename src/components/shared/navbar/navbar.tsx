@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { clearAllCookies,getCookie } from '../../../utils/cookieUtils';
 import { IoBagHandle } from "react-icons/io5";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { GiSelfLove } from "react-icons/gi";
 import { useNavigate, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import profileImg from "../../../assets/images/no-profile-image.webp";
+import {activeNavBarPath} from "../../../redux/features/authentication/EventSlice";
 import './navbar.css';
 
 const EventNavbar = () => {
@@ -29,23 +30,31 @@ const EventNavbar = () => {
           window.location.href = azureLogoutUrl;
     }
 
+    const {activeLink} = useSelector((state:any)=> state.events);
+    const dispatch = useDispatch();
+
+    const handleNavClick = (path:any) => {
+      dispatch<any>(activeNavBarPath(path)); 
+      navigate(path); 
+      console.log(activeLink)
+    };
+
+
     return (
         <>
             <Navbar expand="lg" id='navbar-container'>
                 <div className='d-flex'>
 
-                    <Navbar.Brand onClick={()=>navigate('/')} style={{"cursor":"pointer","color":"whitesmoke"}} className='logo-container' ><i>BLP_events</i></Navbar.Brand>
-                    
-
-                
+                    <Navbar.Brand onClick={()=>navigate('/')} 
+                    style={{"cursor":"pointer","color":"whitesmoke"}} className='logo-container' ><i>BLP_events</i></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto navbar-items" >
-                        <Nav.Link  onClick={()=>navigate('/events')} style={{ color: getCookie('role')==='admin' ? "#FB8500" : "whitesmoke" }}                     >Events</Nav.Link>
-                        <Nav.Link  onClick={()=>navigate('/my-orders')} style={{color:"whitesmoke"}}>My Orders</Nav.Link>
-                        <Nav.Link  onClick={()=>navigate('/contact')} style={{color:"whitesmoke"}}>Contact Us</Nav.Link>
+                        <Nav.Link  onClick={()=>handleNavClick('/events')} style={{color:"whitesmoke"}} className={activeLink === '/events' ? 'nav-link-active' : 'nav-link-item'}>Events</Nav.Link>
+                        <Nav.Link  onClick={()=>handleNavClick('/my-orders')} style={{color:"whitesmoke"}} className={activeLink === '/my-orders' ? 'nav-link-active' : 'nav-link-item'}>My Orders</Nav.Link>
+                        <Nav.Link  onClick={()=>handleNavClick('/contact')} style={{color:"whitesmoke"}} className={activeLink === '/contact' ? 'nav-link-active' : 'nav-link-item'}>Contact Us</Nav.Link>
                         
-                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>navigate('/users')}  style={{color:"#FB8500"}}>Users</Nav.Link>)}
+                        {getCookie('role')==='admin'&&(<Nav.Link  onClick={()=>handleNavClick('/users')} style={{color:"whitesmoke"}} className={activeLink === '/users' ? 'nav-link-active' : 'nav-link-item'}>Users</Nav.Link>)}
                         
                         
                         
@@ -55,7 +64,7 @@ const EventNavbar = () => {
                 </div>
                 <Nav.Link onClick={handleShow}>
                     <img 
-                        src={loginUser.userImageUrl || profileImg} 
+                        src={loginUser.userImageUrl && profileImg} 
                         alt="Profile" 
                         className="profile-img-nav" 
                     />
@@ -69,7 +78,7 @@ const EventNavbar = () => {
                         <div className='profile-data'>
                         <div className='profile-container'>
                             <img 
-                                src={loginUser.userImageUrl || profileImg} 
+                                src={loginUser.userImageUrl ?? profileImg} 
                                 alt="Profile" 
                                 className="profile-img" 
                             />
@@ -110,6 +119,7 @@ const EventNavbar = () => {
                 </div>
             </div>
         </>
+       
     );
 };
 

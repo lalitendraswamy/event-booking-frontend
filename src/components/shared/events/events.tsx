@@ -3,21 +3,16 @@ import Slider from 'react-slick';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllEvents } from '../../../redux/features/authentication/EventSlice';
-import 'animate.css'; // Add this line at the top of your file
+import Spinner from "../spinner/spinner";
+import 'animate.css'; 
 import './events.css';
-import { getUsers } from '../../../redux/features/authentication/UserSlice';
 
 
 const Events = () => {
     const sliderRef = useRef<Slider | null>(null); // Use a ref to hold the slider instance
     const dispatch = useDispatch();
-    const {events} = useSelector((state:any) => state.events);
+    const {events,loading} = useSelector((state:any) => state.events);
 
-   
-
-    console.log("events test",events)
-
-  
     useEffect(() => {
       dispatch<any>(getAllEvents());
       
@@ -58,22 +53,19 @@ const Events = () => {
         return () => clearInterval(interval); // Cleanup on unmount
     }, []);
 
-    if(events.length ===0){
-        return(
-            <div>
-                <h2>Noo Events</h2>
-            </div>
-        )
-    }
+    // if(events.length ===0){
+    //     return(
+    //         <div className='d-flex justify-content-center aligin-items-center'>
+    //             <h2 style={{color:"#0056b3"}}>No Events</h2>
+    //         </div>
+    //     )
+    // }
 
 
     return (
         <div className="events-container mt-5 mb-5">
-            <div className='prev-next-container'>
-                <button onClick={() => sliderRef.current?.slickPrev()} className="previous-btn">Previous</button>
-                <button onClick={() => sliderRef.current?.slickNext()} className="next-btn">Next</button>
-            </div>
-            <Slider {...settings} ref={sliderRef}>
+           
+            {/* {loading ? ():<Slider {...settings} ref={sliderRef}>
                 {events.map((event:any) => (
                     <Link to={`/events/${event.eventId}`} className='underline-none' key={event.eventId}>
                         <div className="events-item">
@@ -82,7 +74,44 @@ const Events = () => {
                         </div>
                     </Link>
                 ))}
-            </Slider>
+            </Slider>} */}
+            {loading ? (
+      Spinner() 
+    ) : (
+        <div>
+             <div className='prev-next-container'>
+                <button onClick={() => sliderRef.current?.slickPrev()} className="previous-btn">Previous</button>
+                <button onClick={() => sliderRef.current?.slickNext()} className="next-btn">Next</button>
+            </div>
+      {/* <Slider {...settings} ref={sliderRef}>
+        {events.length === 0 ? ( <div className='d-flex justify-content-center aligin-items-center'>
+                <h2 style={{color:"#0056b3"}}>No Events</h2>
+            </div>):({events.map((event: any) => (
+          <Link to={`/events/${event.eventId}`} className='underline-none' key={event.eventId}>
+            <div className="events-item">
+              <img src={event.imageUrl} alt={event.eventName} className='event-image' />
+              <h3 className='event-title-heading'>{event.eventName}</h3>
+            </div>
+          </Link>
+        ))})
+      </Slider> */}
+       <Slider {...settings} ref={sliderRef}>
+      {events.length === 0 ? (
+        <div className='d-flex justify-content-center align-items-center'>
+          <h2 style={{ color: "#0056b3" }}>No Events</h2>
+        </div>
+      ) : (
+        events.map((event: any) => (
+          <Link to={`/events/${event.eventId}`} className='underline-none' key={event.eventId}>
+            <div className="events-item">
+              <img src={event.imageUrl} alt={event.eventName} className='event-image' />
+              <h3 className='event-title-heading'>{event.eventName}</h3>
+            </div>
+          </Link>
+        ))
+      )}
+    </Slider>
+    </div>)}
         </div>
     );
 };
