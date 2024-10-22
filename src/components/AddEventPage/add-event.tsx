@@ -142,6 +142,7 @@ const EventForm = () => {
                     type="datetime-local"
                     id="eventDateTime"
                     name="eventDateTime"
+                    min={new Date().toISOString().split("T")[0]} 
                   />
                   <ErrorMessage
                     className="event-error"

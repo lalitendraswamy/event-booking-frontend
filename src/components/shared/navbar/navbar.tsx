@@ -102,7 +102,7 @@ const EventNavbar = () => {
         </div>
         <Nav.Link onClick={handleShow}>
           <img
-            src={loginUser.userImageUrl && profileImg}
+            src={loginUser.userImageUrl ?? profileImg}
             alt="Profile"
             className="profile-img-nav"
           />

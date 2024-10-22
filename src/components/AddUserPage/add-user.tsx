@@ -42,8 +42,11 @@ const UserForm = () => {
 
   const handleSubmit = (values: any) => {
     const ifUserDontExists = users.filter((each:any)=> each.email === values.email);
-    console.log(ifUserDontExists,"yes")
-    if (!isUserAlreadyExists) {
+    if (ifUserDontExists) {
+      toast.error('User already exists', {
+        position: "top-right",
+      });
+    }else{
       toast.success("User added successfully!", {
         position: "top-right",
         autoClose: 5000,
@@ -57,14 +60,14 @@ const UserForm = () => {
     dispatch<any>(postUser(values));
   };
 
-  useEffect(() => {
-    if (isUserAlreadyExists) {
-      toast.error("User already exists", {
-        position: "top-right",
-      });
-    }
-    dispatch(addUserError());
-  }, [isUserAlreadyExists, dispatch]);
+  // useEffect(() => {
+  //   if (isUserAlreadyExists) {
+  //     toast.error("User already exists", {
+  //       position: "top-right",
+  //     });
+  //   }
+  //   dispatch(addUserError());
+  // }, [isUserAlreadyExists, dispatch]);
 
   return (
     <div>

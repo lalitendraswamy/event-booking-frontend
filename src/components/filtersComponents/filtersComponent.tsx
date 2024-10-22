@@ -29,6 +29,7 @@ export const EventFilters = ({ events, setFilteredEvents }:any) => {
         setSelectedLocation(location);
         filterEvents(location, selectedPrice, selectedDate, selectedCategory);
     };
+    
 
     const handlePriceFilter = (price: any) => {
         setSelectedPrice(price);
