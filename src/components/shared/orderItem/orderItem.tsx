@@ -4,6 +4,11 @@ import QRimg from '../../../assets/images/qr-img.png';
 import { cancelOrderThunk } from '../../../redux/features/authentication/OrderSlice';
 import { useDispatch } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import QRCode from 'react-qr-code';
+
+interface QRCodeGeneratorProps {
+  bookingId: string;
+}
 
 const convertDateTimeToNormal = (dateTime: string) => {
   const date = new Date(dateTime);
@@ -64,6 +69,15 @@ export default function OrderItem({ order }: any) {
           </div>
         </div>
         <div className="order-ticket">
+        {/* {bookingId ? (
+          <>
+           <QRCode value={bookingId} size={256} />
+           <p>QR Code for Booking ID: {bookingId}</p>
+          </>
+      
+      ) : (
+        <p>Please provide a booking ID to generate the QR code.</p>
+      )} */}
           <img src={QRimg} alt="QR Code" />
           <h6>Booking ID</h6>
           <p className="text-center">

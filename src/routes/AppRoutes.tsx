@@ -18,6 +18,7 @@ import ProtectedRoute from './ProtectedRoute';
 import PaymentSuccess from '../components/shared/payments/PaymentSuccess';
 import PaymentFailed from '../components/shared/payments/PaymentFailed';
 
+
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -36,7 +37,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/contact" element={<ProtectedRoute element={<ContactUs />} />} />
         <Route path="/success" element={<ProtectedRoute element={<PaymentSuccess />} />} />
         <Route path="/cancel" element={<ProtectedRoute element={<PaymentFailed />} />} />
-
+       
 
         {/* admin routes */}
         <Route path="/edit-event/:id" element={<ProtectedRoute  role='admin' element={<EditEventPage />} />} />
