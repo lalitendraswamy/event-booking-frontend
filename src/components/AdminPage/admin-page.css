@@ -1,0 +1,49 @@
+.admin-bg{
+    background-color: #f2f2f2;
+    min-height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+.admin-nav{
+    width: 15%;
+    height: 40vh;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+
+    button{
+        background-color: transparent;
+        border-style: none;
+        border-bottom:1px solid #0056B3;
+        height: 25%;
+        display: flex;
+        align-items: center;
+        color: #0056B3;
+        font-weight: 600;
+        padding-left: 10px;
+
+    }
+
+    button.active{
+        background-color: #0056B3;
+        color: whitesmoke;
+        border-bottom:1px solid whitesmoke;
+        
+        
+    }
+    
+}
+
+
+.admin-content{
+    width: 83%;
+    min-height: 70vh;
+    background-color: white;
+    border-radius: 10px;
+}

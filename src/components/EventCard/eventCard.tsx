@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 import { EventService } from "../../services/event.service";
 import { getCookie } from "../../utils/cookieUtils";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import { getAllEvents } from "../../redux/features/authentication/EventSlice";
 import { Modal, Button } from "react-bootstrap";
 import "./eventCard.css"
 
-const convertDateTimeToNormal=(dateTime:string):any=>{
+const convertDateTimeToNormal = (dateTime: string): any => {
   const date = new Date(dateTime);
   const formatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -25,6 +25,7 @@ const convertDateTimeToNormal=(dateTime:string):any=>{
 
 export const EventCard = ({ item }: any) => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const service = new EventService();
   const dispatch = useDispatch();
 
@@ -47,9 +48,12 @@ export const EventCard = ({ item }: any) => {
       await service.deleteEvent(selectedEventId);
       dispatch<any>(getAllEvents());
       setShowModal(false);
-      navigate('/events');
+      navigate('/admin/events');
     }
   };
+
+  // Check if the current path includes "/admin/events"
+  const isAdminPath = location.pathname.includes("/admin/events");
 
   return (
     <>
@@ -62,20 +66,20 @@ export const EventCard = ({ item }: any) => {
         />
         <h5 className="mt-2">{item.eventName}</h5>
         <p>{convertDateTimeToNormal(item.eventDateTime)}</p>
-        <div className="d-flex justify-content-between">
-          <p className="bg-info bg-opacity-10 border border-info p-2 rounded">
-            {item.category}
-          </p>
-          <p className="bg-info bg-opacity-10 border border-info p-2 rounded">
+      
+        <p className="">
             {item.location}
           </p>
-        </div>
 
-        <div className="view-container">
-          <p>
-            Price: <b className="ps-1"> &#8377;{item.ticketPrice}</b>
+          <p className="">
+            {item.category}
           </p>
-          {getCookie('role') === 'admin' && (
+          
+     
+            <p> &#8377;{item.ticketPrice} onwards </p>
+        <div className="view-container">
+         
+          {isAdminPath && ( // Use isAdminPath to conditionally render buttons
             <>
               <button
                 onClick={() => navigate(`/edit-event/${item.eventId}`)}
@@ -120,5 +124,6 @@ export const EventCard = ({ item }: any) => {
         </Modal.Footer>
       </Modal>
     </>
+    
   );
 };

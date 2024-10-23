@@ -85,7 +85,7 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
                   onClick={() => handleShowModal(user.userId)}
                 >
                   <RiDeleteBinFill
-                    style={{ color: '#FB8500', fontSize: '30px' }}
+                    style={{ color: 'red', fontSize: '30px' }}
                   />
                 </button>
               </td>

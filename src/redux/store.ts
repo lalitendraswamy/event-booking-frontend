@@ -14,16 +14,16 @@ const persistConfig = {
     storage
 }
 
-const persistedUserSlice = persistReducer(persistConfig, userSlice)
+// const persistedUserSlice = persistReducer(persistConfig, userSlice)
 
 
 const store = configureStore({
     reducer: {
-        users: persistedUserSlice,
+        users: userSlice,
         events: eventSlice,
         orders: orderSlice,
     },
 }); 
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 export default store;

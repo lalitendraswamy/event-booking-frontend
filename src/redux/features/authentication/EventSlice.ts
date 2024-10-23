@@ -32,18 +32,20 @@ export interface Event {
 
 export interface EventState {
     events: Event[];
-    eachEvent: Event | []
+    eachEvent: Event | []|any;
     loading: boolean;
     error: string | null;
     favorites:Event[] ;
+    activeLink:string,
 }
 
 const initialState: EventState = {
     events: [],
-    eachEvent : [],
+    eachEvent : null,
     loading: false,
     error: null,
-    favorites:[]
+    favorites:[],
+    activeLink:"/events",
 };
 
 
@@ -118,6 +120,7 @@ export const getEventById = createAsyncThunk(
     async (id:string) => {
         try{
             const response = await customAxios.get(`/events/get/${id}`);
+            
             return response.data
 
         }catch(e){
@@ -141,21 +144,31 @@ const eventSlice = createSlice({
         },
         removeFavoriteItem: (state, action) => {
             state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload);
+        },
+        activeNavBarPath:(state,action)=>{
+            state.activeLink = action.payload;
+        },
+        resetEachEvent:(state)=>{
+            state.eachEvent=null;
         }
         
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getAllEvents.pending, (state) => {
+                state.loading = true; // Set loading to true when the fetch starts
+            })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
+                state.events = action.payload.data;
                 state.loading = false;
-                state.events = action.payload;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
                 // console.log("added Event");
-                state.events.push(action.payload);
+                state.events.push(action.payload.data);
             })
             .addCase(getEventById.fulfilled,(state,action) => {
-                    state.eachEvent = action.payload
+
+                    state.eachEvent = action.payload.data
             })
             .addCase(addFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Added")
@@ -163,7 +176,7 @@ const eventSlice = createSlice({
             })
             .addCase(getFavorite.fulfilled, (state,action) => {
                 // console.log("Action", action.payload)
-                state.favorites = action.payload
+                state.favorites = action.payload.data
             })
             .addCase(deleteFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Deleted");
@@ -172,5 +185,5 @@ const eventSlice = createSlice({
     },
 });
 
-export const {filteredEvents,addFavoriteItem,removeFavoriteItem} = eventSlice.actions;
+export const {filteredEvents,addFavoriteItem,removeFavoriteItem,activeNavBarPath,resetEachEvent} = eventSlice.actions;
 export default eventSlice.reducer;

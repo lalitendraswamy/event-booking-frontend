@@ -82,7 +82,7 @@ const orderSlice= createSlice({
             })
             .addCase(getOrders.fulfilled, (state,action) =>{
                 if(action.payload){
-                    state.orders = action.payload
+                    state.orders = action.payload.data
                 }
             })
             .addCase(deleteOrder.fulfilled, (state,action) =>{
