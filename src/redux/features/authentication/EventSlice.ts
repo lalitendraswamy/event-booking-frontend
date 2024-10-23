@@ -14,7 +14,7 @@ export interface Review{
 }
 
 export interface Event {
-    eventId: string,
+    eventId: any,
     eventName: string,
     category: string,
     description:string,
@@ -76,7 +76,8 @@ export const getAllEvents = createAsyncThunk(
 
 export const addFavorite = createAsyncThunk(
     "events/addFavorite",
-    async ({userId,eventId}:{userId:string,eventId:string}) =>{
+    async ({userId,eventId}:{userId:string,eventId:any}) =>{
+        console.log(userId,eventId)
         try{
             // console.log("Inside thunk favorite")
             const response = await customAxios.post(`/wishlist`, {userId,eventId});
@@ -136,6 +137,7 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             },
         addFavoriteItem:(state,action)=>{
+            // console.log(action.payload)
             let data:any = state.favorites.find(favorite => favorite.eventId === action.payload.eventId);
             if(!data){
             state.favorites.push(action.payload);

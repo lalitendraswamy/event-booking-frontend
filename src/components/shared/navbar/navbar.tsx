@@ -48,7 +48,7 @@ const EventNavbar = () => {
             style={{ cursor: "pointer", color: "whitesmoke" }}
             className="logo-container"
           >
-            <i>BLP_events</i>
+            <i>BLP Events</i>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

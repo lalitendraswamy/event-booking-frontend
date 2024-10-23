@@ -21,6 +21,7 @@ const MovieList = () => {
   const { id } = useParams();
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupNegetive, setShowPopupNegetive] = useState(false);
+  const [textOfNumberTickets,setTextOfNumberTickets] = useState('')
   const { events, eachEvent, favorites } = useSelector(
     (state: any) => state.events
   );
@@ -60,41 +61,50 @@ console.log("Each event",eachEvent)
   const month = dateObj.getMonth() + 1;
   const year = dateObj.getFullYear();
 
-  const increaseTicketsCount = () => {
-    if (count < totalTickets) {
-      if (count >= 9) {
-        setShowPopup(true);
-        // Automatically close the popup after 4 seconds
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 4000);
-      } else {
-        setCount(count + 1);
-      }
-    }
-  };
+  // const increaseTicketsCount = () => {
+  //   if (count < totalTickets) {
+  //     if (count >= 9) {
+  //       setShowPopup(true);
+  //       // Automatically close the popup after 4 seconds
+  //       setTimeout(() => {
+  //         setShowPopup(false);
+  //       }, 4000);
+  //     } else {
+  //       setCount(count + 1);
+  //     }
+  //   }
+  // };
 
-  const decreaseTicketsCount = () => {
-    if(count > 1){
-      setCount(count-1)
-    }else{
-      setCount(1)
-      setShowPopupNegetive(true);
-      setTimeout(() => {
-        setShowPopupNegetive(false);
-      }, 4000);
-    }
-    // setCount(count > 1 ? count - 1 : 1);
-  };
+  // const decreaseTicketsCount = () => {
+  //   if(count > 1){
+  //     setCount(count-1)
+  //   }else{
+  //     setCount(1)
+  //     setShowPopupNegetive(true);
+  //     setTimeout(() => {
+  //       setShowPopupNegetive(false);
+  //     }, 4000);
+  //   }
+  //   // setCount(count > 1 ? count - 1 : 1);
+  // };
 
   const handleAddFavorites = () => {
     setEventInFav(!eventInFav)
-    dispatch<any>(addFavorite({ userId, eventId }));
+    dispatch<any>(addFavorite({ userId, eventId:id }));
   };
 
   const onTicketBooking = async() => {
+    console.log(count)
+    
+    if (count >= 1 && count <= totalTickets) {
+      setCount(count);
+  } else if (count < 1) {
+      setCount(1); // Reset to 1 if less than 1
+  } else if (count > totalTickets) {
+      setCount(totalTickets); // Reset to totalTickets if greater
+  }
 
-
+    if(count <= totalTickets){
     const stripe= await loadStripe("pk_test_51Q8hB3Rq55caQ1GVNs8aridgq68od48i1WReyiMfSUfAabTzhs6YIgMnzzl1Ltxi9GjCcFlzB4YgqRY9hMbFROmW00ov315VSU");
 
     const orderDetails = {
@@ -126,6 +136,10 @@ console.log("Each event",eachEvent)
     if(!result){
       console.log('result')
     }
+  }else{
+    setTextOfNumberTickets(`Number of Total Tickets is ${totalTickets}`);
+    setShowPopup(true)
+  }
   };
 
   if (!eachEvent) {
@@ -181,7 +195,7 @@ console.log("Each event",eachEvent)
                 </span>
               </p>
 
-              <div className="fav-tic-container">
+              {/* <div className="fav-tic-container">
                 <div className="inc-des-count-container">
                   <button onClick={decreaseTicketsCount} className={showPopupNegetive ? "disabled" : "plus"}>
                     -
@@ -203,7 +217,22 @@ console.log("Each event",eachEvent)
                    <div className="popup bounce-in-up">
                       <p>You can't Decrease the count less than 1!!</p>
                     </div>
-                   )}
+                   )} */}  
+                  <div className="d-flex flex-column">
+                    <label htmlFor="tickets-count">Enter Number Of Tickets</label>
+                    <input 
+                type="number" 
+                onChange={(e:any)=>setCount(e.target.value)}
+                min="1" 
+                max={totalTickets} 
+                placeholder="Enter Number Tickets" 
+                id="tickets-count" 
+                className="number-of-tickets" 
+                value={count}
+            />
+                    {/* <input type="number" onChange={(e:any)=>setCount(e.target.value)}  min="1" max={totalTickets} placeholder="Enter Number Tickets" id="tickets-count" className="number-of-tickets"/> */}
+                  </div>
+                  {showPopup && <p className="bounce-in-up">{textOfNumberTickets}</p>}
               <div>
                 <button className="book-tickets-btn" onClick={onTicketBooking}>
                   Book Tickets

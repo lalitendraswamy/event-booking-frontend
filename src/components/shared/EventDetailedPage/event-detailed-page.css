@@ -184,6 +184,8 @@
 
 .bounce-in-up {
   animation: bounceInUp 1s ease forwards;
+  color: #333;
+  font-size: 20px;
 }
 
 .disabled {
@@ -197,4 +199,10 @@
    border-style: none !important;
    background-color: transparent !important;
    text-align: center !important;
+}
+
+.number-of-tickets{
+  width: 45%;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
