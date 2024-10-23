@@ -13,40 +13,44 @@ import AdminNav from "../shared/adminNav/adminNav";
 import addUserImg from '../../assets/images/add-user.png'
 
 const UserForm = () => {
-  // const [isUserAlreadyExists,setIsUserExists] = useState(false) 
   const initialValues = {
     username: "",
     email: "",
     userImageUrl: "",
     role: "user",
+    
   };
 
-  const { users, loginUser, isUserAlreadyExists } = useSelector(
+  const { isUserAlreadyExists, addUserResponse } = useSelector(
     (s: any) => s.users
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("Users in redux", users);
-  // console.log("Login User in redux",loginUser);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
     email: Yup.string()
       .email("Invalid email format")
+      .test("is-g7cr-domain", "Email must be from the G7CR domain", (value) => {
+        return value ? value.endsWith("@g7cr.com") : false;
+      })
       .required("Email is required"),
     userImageUrl: Yup.string().required("Image URL is required"),
     role: Yup.string()
-      .oneOf(["user", "admin"], "Role is required")
+      .oneOf(["user", "admin"], "Role must be either 'user' or 'admin'")
       .required("Role is required"),
   });
 
-  const handleSubmit = (values: any) => {
-    const ifUserDontExists = users.filter((each:any)=> each.email === values.email);
-    if (ifUserDontExists) {
-      toast.error('User already exists', {
-        position: "top-right",
-      });
-    }else{
+  const handleSubmit = (values: any, { resetForm }: { resetForm: () => void }) => {
+    dispatch<any>(postUser(values)).then(() => {
+      dispatch<any>(getUsers());
+      resetForm(); 
+    });
+  };
+  
+
+  useEffect(() => {
+    if (addUserResponse === 201) {
       toast.success("User added successfully!", {
         position: "top-right",
         autoClose: 5000,
@@ -55,19 +59,14 @@ const UserForm = () => {
         pauseOnHover: true,
         draggable: true,
       });
+     
+    } else if (isUserAlreadyExists) {
+      toast.error("User already exists", {
+        position: "top-right",
+      });
+      dispatch(addUserError()); // Reset the error state
     }
-    console.log("Form data:", values);
-    dispatch<any>(postUser(values));
-  };
-
-  // useEffect(() => {
-  //   if (isUserAlreadyExists) {
-  //     toast.error("User already exists", {
-  //       position: "top-right",
-  //     });
-  //   }
-  //   dispatch(addUserError());
-  // }, [isUserAlreadyExists, dispatch]);
+  }, [addUserResponse, isUserAlreadyExists, dispatch]);
 
   return (
     <div>

@@ -6,7 +6,7 @@ import "../AddEventPage/add-event.css";
 import { EventService } from "../../services/event.service";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEvents, getEventById } from "../../redux/features/authentication/EventSlice";
+import { getAllEvents, getEventById, resetEachEvent } from "../../redux/features/authentication/EventSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -55,35 +55,29 @@ const validationSchema = Yup.object({
 
 const EditEventPage = () => {
   const eventId = useParams().id;
+  const [initialValues, setInitialValues] = useState<any>(null);
+  const [isLoading,setIsLoading]=useState(true)
+
   const { eachEvent } = useSelector((state: any) => state.events);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [initialValues, setInitialValues] = useState<EventFormValues | null>(null);
+  if(eachEvent && isLoading){
+    console.log('each',eachEvent)
+    setInitialValues(eachEvent)
+    setIsLoading(false)
+  }
 
   useEffect(() => {
     dispatch<any>(getEventById(eventId!));
-  }, [dispatch, eventId]);
+    dispatch<any>(resetEachEvent());
 
-  useEffect(() => {
-    if (eachEvent) {
-      setInitialValues({
-        eventName: eachEvent.eventName,
-        description: eachEvent.description,
-        eventDateTime: eachEvent.eventDateTime,
-        duration: eachEvent.duration ? Number(eachEvent.duration) : undefined,
-        totalTickets: eachEvent.totalTickets ? Number(eachEvent.totalTickets) : undefined,
-        location: eachEvent.location,
-        averageRating: eachEvent.averageRating ? Number(eachEvent.averageRating) : undefined,
-        organizerName: eachEvent.organizerName,
-        organizerImage: eachEvent.organizerImage,
-        imageUrl: eachEvent.imageUrl,
-        ticketPrice: eachEvent.ticketPrice ? Number(eachEvent.ticketPrice) : undefined,
-      });
-    }
-  }, [eachEvent]);
+  }, [eventId!]);
+
+ 
 
   const updateEvent = async (values: EventFormValues) => {
+
     console.log("Form data:", values);
     console.log("id", eachEvent.eventId);
     const response = await service.updateEvent(eachEvent.eventId, values);
@@ -216,24 +210,7 @@ const EditEventPage = () => {
                 </div>
         
                 <div className="row">
-                  <div className="col-md-6">
-                    <label className="event-label" htmlFor="averageRating">
-                      Average Rating
-                    </label>
-                    <Field
-                      className="event-input"
-                      type="number"
-                      id="averageRating"
-                      name="averageRating"
-                      step="0.1"
-                    />
-                    <ErrorMessage
-                      className="event-error"
-                      name="averageRating"
-                      component="div"
-                    />
-                  </div>
-        
+                 
                   <div className="col-md-6">
                     <label className="event-label" htmlFor="organizerName">
                       Organizer Name
@@ -250,6 +227,25 @@ const EditEventPage = () => {
                       component="div"
                     />
                   </div>
+
+                  
+                  <div className="col-md-6">
+                    <label className="event-label" htmlFor="ticketPrice">
+                      Ticket Price
+                    </label>
+                    <Field
+                      className="event-input"
+                      type="number"
+                      id="ticketPrice"
+                      name="ticketPrice"
+                    />
+                    <ErrorMessage
+                      className="event-error"
+                      name="ticketPrice"
+                      component="div"
+                    />
+                  </div>
+
                 </div>
         
                 <div className="row">
@@ -288,28 +284,11 @@ const EditEventPage = () => {
                   </div>
                 </div>
         
-                <div className="row">
-                  <div className="col-md-6">
-                    <label className="event-label" htmlFor="ticketPrice">
-                      Ticket Price
-                    </label>
-                    <Field
-                      className="event-input"
-                      type="number"
-                      id="ticketPrice"
-                      name="ticketPrice"
-                    />
-                    <ErrorMessage
-                      className="event-error"
-                      name="ticketPrice"
-                      component="div"
-                    />
-                  </div>
-                </div>
-        
+                
+                
                 <div className="row">
                   <div className="col-12 text-center event-button-container">
-                    <button className="event-button" type="submit">
+                    <button className="event-button" onClick={()=>updateEvent} type="submit">
                       Update
                     </button>
                   </div>

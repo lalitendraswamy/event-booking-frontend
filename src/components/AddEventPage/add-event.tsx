@@ -5,9 +5,11 @@ import Footer from "../shared/footer/eventsFooter";
 import { useDispatch } from "react-redux";
 import { addEvent } from "../../redux/features/authentication/EventSlice";
 import "./add-event.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import AdminNav from "../shared/adminNav/adminNav";
-
+ 
 interface EventFormValues {
   eventName: string;
   description: string;
@@ -21,11 +23,11 @@ interface EventFormValues {
   imageUrl: string;
   ticketPrice: number; // Changed to number (no undefined)
 }
-
+ 
 const initialValues: EventFormValues = {
   eventName: "",
   description: "",
-  eventDateTime: "",
+  eventDateTime: new Date().toISOString().split("T")[0],
   category:"",
   duration: 0, // Initialized to 0 instead of undefined
   totalTickets: 0, // Initialized to 0 instead of undefined
@@ -36,10 +38,18 @@ const initialValues: EventFormValues = {
   ticketPrice: 0, // Initialized to 0 instead of undefined
 };
 
+const currentDateTime = new Date().toISOString();
+ 
 const validationSchema = Yup.object({
   eventName: Yup.string().required("Event Name is required"),
   description: Yup.string().required("Description is required"),
-  eventDateTime: Yup.string().required("Event Date and Time are required"),
+  eventDateTime: Yup.string()
+  .required("Event Date and Time are required")
+  .test('is-future', 'Event Date and Time must be in the future', function(value) {
+    const { allowPastDates } = this.parent; // Get the value of allowPastDates
+    if (allowPastDates) return true; // If past dates are allowed, skip validation
+    return value ? new Date(value) >= new Date(currentDateTime) : false;
+  }),
   category:Yup.string().required("category required"),
   duration: Yup.number()
     .min(0, "Duration must be greater than or equal to 0")
@@ -48,44 +58,38 @@ const validationSchema = Yup.object({
     .min(1, "Total Tickets must be at least 1")
     .required("Total Tickets are required"),
   location: Yup.string().required("Location is required"),
-
+ 
   organizerName: Yup.string().required("Organizer Name is required"),
  organizerImage: Yup.mixed()
-    .required("Organizer image is required")
-    .test("fileType", "Unsupported File Format", value => {
-      return (
-        value &&
-        value instanceof File &&
-        (["image/jpeg", "image/png", "image/gif", "image/bmp", "image/tiff"].includes(value.type))
-      );
-    }),
-    imageUrl: Yup.mixed()
-    .required("Organizer image is required")
-    .test("fileType", "Unsupported File Format", value => {
-      return (
-        value && 
-        value instanceof File && 
-        (["image/jpeg", "image/jpg", "image/png", "image/gif", "image/bmp", "image/tiff"].includes(value.type))
-      );
-    }),
+    .required("Organizer image is required"),
   ticketPrice: Yup.number()
     .min(0, "Ticket Price must be greater than or equal to 0")
     .required("Ticket Price is required"),
 });
-
+ 
 const EventForm = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate()
-
-  const handleSubmit = (values: any) => {
+ 
+  const handleSubmit = (values: any,{ resetForm }: { resetForm: () => void }) => {
     dispatch<any>(addEvent(values));
-    
-    console.log("Form data:", values);
-  };
+    toast.success("Event added successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
 
+   
+    console.log("Form data:", values);
+    resetForm();
+  };
+ 
   return (
  
-
+ 
       <div>
       <Navbar/>
       <div className='admin-bg p-3'>
@@ -131,7 +135,7 @@ const EventForm = () => {
                   />
                 </div>
               </div>
-          
+         
               <div className="row">
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="eventDateTime">
@@ -142,7 +146,7 @@ const EventForm = () => {
                     type="datetime-local"
                     id="eventDateTime"
                     name="eventDateTime"
-                    min={new Date().toISOString().split("T")[0]} 
+                    min={new Date().toISOString().split("T")[0]}
                   />
                   <ErrorMessage
                     className="event-error"
@@ -150,7 +154,7 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-          
+         
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="category">
                     Category
@@ -168,7 +172,7 @@ const EventForm = () => {
                   />
                 </div>
               </div>
-          
+         
               <div className="row">
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="duration">
@@ -186,7 +190,7 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-          
+         
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="totalTickets">
                     Total Tickets
@@ -204,7 +208,7 @@ const EventForm = () => {
                   />
                 </div>
               </div>
-          
+         
               <div className="row">
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="location">
@@ -222,7 +226,7 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-          
+         
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="organizerName">
                     Organizer Name
@@ -255,7 +259,7 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-
+ 
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="imageUrl">
                     Event Image URL
@@ -272,14 +276,14 @@ const EventForm = () => {
                     component="div"
                   />
                 </div>
-
+ 
               </div>
-          
+         
            
-          
+         
               <div className="row">
-                
-          
+               
+         
                 <div className="col-md-6">
                   <label className="event-label" htmlFor="ticketPrice">
                     Ticket Price
@@ -297,7 +301,7 @@ const EventForm = () => {
                   />
                 </div>
               </div>
-          
+         
               <div className="row">
                 <div className="col-md-12 text-center">
                   <button className="event-button" type="submit">
@@ -307,18 +311,18 @@ const EventForm = () => {
               </div>
             </div>
           </Form>
-          
+         
           )}
         </Formik>
       </div>
         </div>
       </div>
     <Footer/>
+    <ToastContainer/>
     </div>
-
+ 
    
   );
 };
-
+ 
 export default EventForm;
-

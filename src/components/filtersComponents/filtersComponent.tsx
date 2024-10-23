@@ -21,7 +21,7 @@ const locations = [
 export const EventFilters = ({ events, setFilteredEvents }:any) => {
     const [selectedLocation, setSelectedLocation] = useState("");
     const [selectedPrice, setSelectedPrice] = useState(null);
-    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [selectedCategory, setSelectedCategory] = useState("");
 
     const handleLocationChange = (e: any) => {
@@ -126,6 +126,7 @@ export const EventFilters = ({ events, setFilteredEvents }:any) => {
                 value={selectedDate}
                 onChange={handleDateChange}
                 min={new Date().toISOString().split("T")[0]} // Sets the minimum date to today
+               
             />
             </div>
             <div className="filter-item">

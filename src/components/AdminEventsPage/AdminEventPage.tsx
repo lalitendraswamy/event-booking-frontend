@@ -24,14 +24,14 @@ const EventPage = () => {
   }, []);
 
   const navigate = useNavigate();
-  const [filteredEvents, setFilteredEvents] = useState(events);
+  let [filteredEvents, setFilteredEvents] = useState(events);
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = filteredEvents.slice(
-    indexOfFirstEvent,
-    indexOfLastEvent
-  );
+  if(!filteredEvents){
+    filteredEvents=[]
+  }
+  const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 

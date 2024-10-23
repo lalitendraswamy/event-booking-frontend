@@ -35,8 +35,14 @@ const MovieList = () => {
 const userId=getCookie('userId');
 
   useEffect(() => {
+    console.log('edp')
     dispatch<any>(getEventById(id!));
   }, []);
+
+  
+  if (!eachEvent) {
+    return <h1>Loading....</h1>;
+  }
 
   const {
     eventId,
@@ -128,9 +134,7 @@ console.log("Each event",eachEvent)
     }
   };
 
-  if (!eachEvent) {
-    return <h1>Loading....</h1>;
-  }
+ 
 
   return (
     <div>

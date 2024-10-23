@@ -33,12 +33,21 @@ export class EventService{
     }
 
     getEventById=async(eventId:string)=>{
-        let response= await customAxios.delete(`/events/${eventId}`)
-        return response
+       
+            try{
+                const response = await customAxios.get(`/events/get/${eventId}`);
+                console.log('service', response.data)
+                return response.data
+    
+            }catch(e){
+                console.log(e)
+            }
+        
     }
 
 
     updateEvent=async(eventId:string,body:any)=>{
+        console.log('upeve trigg',{eventId,body})
         let response= await customAxios.put(`/events/update/${eventId}`, body)
         return response
     }

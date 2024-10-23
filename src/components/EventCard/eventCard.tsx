@@ -48,7 +48,7 @@ export const EventCard = ({ item }: any) => {
       await service.deleteEvent(selectedEventId);
       dispatch<any>(getAllEvents());
       setShowModal(false);
-      navigate('/events');
+      navigate('/admin/events');
     }
   };
 
@@ -66,19 +66,19 @@ export const EventCard = ({ item }: any) => {
         />
         <h5 className="mt-2">{item.eventName}</h5>
         <p>{convertDateTimeToNormal(item.eventDateTime)}</p>
-        <div className="d-flex justify-content-between">
-          <p className="bg-info bg-opacity-10 border border-info p-2 rounded">
-            {item.category}
-          </p>
-          <p className="bg-info bg-opacity-10 border border-info p-2 rounded">
+      
+        <p className="">
             {item.location}
           </p>
-        </div>
 
-        <div className="view-container">
-          <p>
-            Price: <b className="ps-1"> &#8377;{item.ticketPrice}</b>
+          <p className="">
+            {item.category}
           </p>
+          
+     
+            <p> &#8377;{item.ticketPrice} onwards </p>
+        <div className="view-container">
+         
           {isAdminPath && ( // Use isAdminPath to conditionally render buttons
             <>
               <button
@@ -124,5 +124,6 @@ export const EventCard = ({ item }: any) => {
         </Modal.Footer>
       </Modal>
     </>
+    
   );
 };
