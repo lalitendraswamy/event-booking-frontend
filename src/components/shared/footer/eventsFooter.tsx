@@ -18,7 +18,7 @@ const EventsFooter = () => {
         <div className="social-icons-container">
             <div className='logo-footer-container w-100'>
                 <hr className='horizontal-line'/>
-                    <h1 className='logo-container'>BLP events</h1>
+                    <h1 className='logo-container'>BLP Events</h1>
                 <hr className='horizontal-line'/>
             </div>
             <div>

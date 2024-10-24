@@ -27,7 +27,7 @@ interface EventFormValues {
 const initialValues: EventFormValues = {
   eventName: "",
   description: "",
-  eventDateTime: new Date().toISOString().split("T")[0],
+  eventDateTime:"",
   category:"",
   duration: 0, // Initialized to 0 instead of undefined
   totalTickets: 0, // Initialized to 0 instead of undefined
@@ -38,8 +38,8 @@ const initialValues: EventFormValues = {
   ticketPrice: 0, // Initialized to 0 instead of undefined
 };
 
-const currentDateTime = new Date().toISOString();
- 
+const minDate = new Date().toISOString();
+
 const validationSchema = Yup.object({
   eventName: Yup.string().required("Event Name is required"),
   description: Yup.string().required("Description is required"),
@@ -146,7 +146,7 @@ const EventForm = () => {
                     type="datetime-local"
                     id="eventDateTime"
                     name="eventDateTime"
-                    min={new Date().toISOString().split("T")[0]}
+                   
                   />
                   <ErrorMessage
                     className="event-error"
@@ -324,5 +324,7 @@ const EventForm = () => {
    
   );
 };
- 
+
 export default EventForm;
+
+
