@@ -13,12 +13,12 @@ export interface User {
     role: string;
 }
 
-export interface LoginUser {
-    userId: string;
-    username: string;
-    userImageUrl: string;
-    role: string;
-}
+export interface LoginUser{
+    userId:string,
+    username: string,
+    userImageUrl : string | null,
+    role:string
+} 
 
 export interface UserState {
     users: User[] | any;
