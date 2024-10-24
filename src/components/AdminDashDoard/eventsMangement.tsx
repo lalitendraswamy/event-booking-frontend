@@ -4,61 +4,22 @@ import * as Yup from 'yup';
 import { MdEdit, MdDelete, MdAdd } from 'react-icons/md';
 import EventNavbar from '../shared/navbar/navbar';
 import EventsFooter from '../shared/footer/eventsFooter';
-import { Modal, Button } from 'react-bootstrap';
-import "./eventsManegement.css"
-
-interface Event {
-    id: string;
-    eventName: string;
-    description: string;
-    eventDateTime: string;
-    category: string;
-    duration: string;
-    totalTickets: number;
-    location: string;
-    organizerName: string;
-    organizerImage: File | null;
-    imageUrl: string;
-    ticketPrice: number;
-}
+import { Modal } from 'react-bootstrap';
+import { FiSearch } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllEvents, getEventById, addEvent, deleteEvent, updateEvent } from "../../redux/features/authentication/EventSlice";
+import 'react-toastify/dist/ReactToastify.css';
+import "./eventsManegement.css";
 
 const EventManagement: React.FC = () => {
-    const [events, setEvents] = useState<Event[]>([]);
-    const [editIndex, setEditIndex] = useState<number | null>(null);
+    const [editIndex, setEditIndex] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState<string>('');
-    // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [showModal, setShowModal] = useState(false);
-
-  // Toggle modal visibility
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
-
-  // Handle cancel confirmation
-  const handleCancelOrder = () => {
-    // dispatch<any>(cancelOrderThunk(bookingId));
-    setShowModal(false); // Close the modal after cancel action
-  };
-
-    useEffect(() => {
-        const defaultEvents = [
-            {
-                id: '1',
-                eventName: 'Concert',
-                description: 'Live concert featuring popular bands.',
-                eventDateTime: '2024-10-30T20:00',
-                category: 'Music',
-                duration: '3 hours',
-                totalTickets: 500,
-                location: 'City Arena',
-                organizerName: 'Event Org',
-                organizerImage: null,
-                imageUrl: 'https://example.com/concert.jpg',
-                ticketPrice: 50,
-            },
-            // Add more default events if needed
-        ];
-        setEvents(defaultEvents);
-    }, []);
+    const { eachEvent, events } = useSelector((state: any) => state.events);
+    const dispatch = useDispatch();
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
     const validationSchema = Yup.object().shape({
         eventName: Yup.string().required("Event Name is required"),
@@ -69,126 +30,169 @@ const EventManagement: React.FC = () => {
         totalTickets: Yup.number().required("Total Tickets is required").positive().integer(),
         location: Yup.string().required("Location is required"),
         organizerName: Yup.string().required("Organizer Name is required"),
-        organizerImage: Yup.mixed().required("Organizer Image is required"),
+        // organizerImage: Yup.mixed().required("Organizer Image is required"),
+        organizerImage: Yup.string().url("Invalid URL format").required("Image URL is required"),
         imageUrl: Yup.string().url("Invalid URL format").required("Image URL is required"),
         ticketPrice: Yup.number().required("Ticket Price is required").positive(),
     });
 
     const handleSubmit = (values: any) => {
-        const newEvent = { ...values, id: (events.length + 1).toString() };
-        if (editIndex !== null) {
-            const updatedEvents = [...events];
-            updatedEvents[editIndex] = { ...newEvent, id: updatedEvents[editIndex].id }; // Preserve ID
-            setEvents(updatedEvents);
+        const eventIsThere = events.filter((event: any) => event.eventId === values.editIndex);
+        if (eventIsThere === true || editIndex !== null) {
+            dispatch<any>(updateEvent({ eventId: editIndex, values: values }));
+            toast.info("Event updated successfully!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         } else {
-            setEvents([...events, newEvent]);
+            dispatch<any>(addEvent(values));
+            toast.success("Event added successfully!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
         resetForm();
+        setShowModal(false);
     };
 
-    const handleEdit = (index: number) => {
+    const handleEdit = (index: string) => {
         setEditIndex(index);
-        setShowModal(true); // Open modal for editing
+        dispatch<any>(getEventById(index)).then(() => {
+            setShowModal(true);
+        });
     };
 
-    const handleDelete = (index: number) => {
-        const updatedEvents = events.filter((_, i) => i !== index);
-        setEvents(updatedEvents);
+    const handleDelete = async (index: string) => {
+
+        await dispatch<any>(deleteEvent(index));
+        toast.error("Event deleted successfully!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+
     };
 
     const resetForm = () => {
         setEditIndex(null);
-        // setIsModalOpen(false); // Close modal
     };
 
-    const filteredEvents = events.filter(event => 
+    const filteredEvents = events.filter((event: any) =>
         event.eventName.includes(searchTerm) || event.description.includes(searchTerm)
     );
+
+    // useEffect(() => {
+
+    // }, [dispatch, handleDelete, handleSubmit, handleEdit]);
+
+    useEffect(() => {
+        dispatch<any>(getAllEvents());
+    }, []);
 
     return (
         <div>
             <EventNavbar />
-        <div className="event-management-container h-100">
-            <h2>Event Management</h2>
-            <input 
-                type="text" 
-                className="search-input" 
-                placeholder="Search by Event Name or Description" 
-                value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} 
-            />
-            <button className="btn btn-primary" onClick={handleShowModal}>
-                <MdAdd /> Add Event
-            </button>
+            <div className="event-management-container h-100">
+                <div className='search-add-container mb-2'>
+                    <div className="search-container">
+                        <FiSearch className="search-icon" />
+                        <input
+                            type="text"
+                            className="search-input"
+                            placeholder="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                    <button className="book-tickets-btn ms-2" onClick={handleShowModal}>
+                        <MdAdd /> Add Event
+                    </button>
 
-            <Modal show={showModal} onHide={handleCloseModal} className='confirmation-popup' centered>
-        <Modal.Header className="modal-header-custom" closeButton>
-          <Modal.Title>Cancel Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="modal-body-custom">
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <Formik
-                            initialValues={{
-                                eventName: editIndex !== null ? events[editIndex].eventName : '',
-                                description: editIndex !== null ? events[editIndex].description : '',
-                                eventDateTime: editIndex !== null ? events[editIndex].eventDateTime : '',
-                                category: editIndex !== null ? events[editIndex].category : '',
-                                duration: editIndex !== null ? events[editIndex].duration : '',
-                                totalTickets: editIndex !== null ? events[editIndex].totalTickets : 0,
-                                location: editIndex !== null ? events[editIndex].location : '',
-                                organizerName: editIndex !== null ? events[editIndex].organizerName : '',
-                                organizerImage: null,
-                                imageUrl: editIndex !== null ? events[editIndex].imageUrl : '',
-                                ticketPrice: editIndex !== null ? events[editIndex].ticketPrice : 0,
-                            }}
-                            validationSchema={validationSchema}
-                            onSubmit={handleSubmit}
-                        >
-                            {({ setFieldValue }) => (
-                                <Form>
-                                    <h3>{editIndex !== null ? 'Edit Event' : 'Add Event'}</h3>
-                                    <div>
-                                        <label>Event Name</label>
-                                        <Field name="eventName" />
-                                        <ErrorMessage name="eventName" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Description</label>
-                                        <Field name="description" />
-                                        <ErrorMessage name="description" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Event Date & Time</label>
-                                        <Field type="datetime-local" name="eventDateTime" />
-                                        <ErrorMessage name="eventDateTime" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Category</label>
-                                        <Field name="category" />
-                                        <ErrorMessage name="category" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Duration</label>
-                                        <Field name="duration" />
-                                        <ErrorMessage name="duration" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Total Tickets</label>
-                                        <Field type="number" name="totalTickets" />
-                                        <ErrorMessage name="totalTickets" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Location</label>
-                                        <Field name="location" />
-                                        <ErrorMessage name="location" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Organizer Name</label>
-                                        <Field name="organizerName" />
-                                        <ErrorMessage name="organizerName" component="div" className="error" />
-                                    </div>
-                                    <div>
+                </div>
+                <Modal show={showModal} onHide={handleCloseModal} className='confirmation-popup popup-container w-100' centered>
+                    <Modal.Header className="modal-header-custom w-200" closeButton>
+                        <Modal.Title style={{ color: "#0056b3" }}>{editIndex !== null ? 'Edit Event' : 'Add Event'}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="modal-body-custom">
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <Formik
+                                    initialValues={{
+                                        eventName: editIndex !== null ? eachEvent.eventName : '',
+                                        description: editIndex !== null ? eachEvent.description : '',
+                                        eventDateTime: editIndex !== null ? eachEvent.eventDateTime : '',
+                                        category: editIndex !== null ? eachEvent.category : '',
+                                        duration: editIndex !== null ? eachEvent.duration : '',
+                                        totalTickets: editIndex !== null ? eachEvent.totalTickets : 0,
+                                        location: editIndex !== null ? eachEvent.location : '',
+                                        organizerName: editIndex !== null ? eachEvent.organizerName : '',
+                                        organizerImage: null,
+                                        imageUrl: editIndex !== null ? eachEvent.imageUrl : '',
+                                        ticketPrice: editIndex !== null ? eachEvent.ticketPrice : 0,
+                                    }}
+                                    validationSchema={validationSchema}
+                                    onSubmit={handleSubmit}
+                                >
+                                    {({ setFieldValue }) => (
+                                        <Form>
+
+                                            <div className='event-input-conatiner'>
+                                                <label>Event Name</label>
+                                                <Field name="eventName" />
+                                                <ErrorMessage name="eventName" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Description</label>
+                                                <Field as="textarea" name="description" />
+                                                <ErrorMessage name="description" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Event Date & Time</label>
+                                                <Field type="datetime-local" name="eventDateTime" min={new Date().toISOString().slice(0, 16)} />
+                                                <ErrorMessage name="eventDateTime" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Category</label>
+                                                <Field name="category" />
+                                                <ErrorMessage name="category" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Duration</label>
+                                                <Field name="duration" />
+                                                <ErrorMessage name="duration" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Total Tickets</label>
+                                                <Field type="number" name="totalTickets" />
+                                                <ErrorMessage name="totalTickets" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Location</label>
+                                                <Field name="location" />
+                                                <ErrorMessage name="location" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Organizer Name</label>
+                                                <Field name="organizerName" />
+                                                <ErrorMessage name="organizerName" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Organizer Image</label>
+                                                <Field name="organizerImage" />
+                                                <ErrorMessage name="organizerImage" component="div" className="error" />
+                                            </div>
+                                            {/* <div className='event-input-conatiner'>
                                         <label>Organizer Image</label>
                                         <input
                                             type="file"
@@ -199,56 +203,63 @@ const EventManagement: React.FC = () => {
                                             }}
                                         />
                                         <ErrorMessage name="organizerImage" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Image URL</label>
-                                        <Field name="imageUrl" />
-                                        <ErrorMessage name="imageUrl" component="div" className="error" />
-                                    </div>
-                                    <div>
-                                        <label>Ticket Price</label>
-                                        <Field type="number" name="ticketPrice" />
-                                        <ErrorMessage name="ticketPrice" component="div" className="error" />
-                                    </div>
-                                    <button type="submit">{editIndex !== null ? 'Update Event' : 'Add Event'}</button>
-                                    <button type="button" onClick={resetForm}>Cancel</button>
-                                </Form>
-                            )}
-                        </Formik>
-                    </div>
-                </div>
-
-                </Modal.Body>
-        <Modal.Footer className="modal-footer-custom">
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button className="btn-custom-confirm" onClick={handleCancelOrder}>
-            Confirm Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-            <h3>Event List</h3>
-            <ul>
-                {filteredEvents.map((event, index) => (
-                    <li key={event.id}>
-                        <div>
-                            {event.eventName} - {event.description} - {event.eventDateTime}
-                            <div className="button-group">
-                                <button className='btn btn-primary' onClick={()=>handleEdit(index)}>
-                                    <MdEdit />
-                                </button>
-                                <button className='btn btn-danger' onClick={() => handleDelete(index)}>
-                                    <MdDelete />
-                                </button>
+                                    </div> */}
+                                            <div className='event-input-conatiner'>
+                                                <label>Image URL</label>
+                                                <Field name="imageUrl" />
+                                                <ErrorMessage name="imageUrl" component="div" className="error" />
+                                            </div>
+                                            <div className='event-input-conatiner'>
+                                                <label>Ticket Price</label>
+                                                <Field type="number" name="ticketPrice" />
+                                                <ErrorMessage name="ticketPrice" component="div" className="error" />
+                                            </div>
+                                            <button className="book-tickets-btn ms-2" type="submit">{editIndex !== null ? 'Update Event' : 'Add Event'}</button>
+                                            <button type="button" onClick={resetForm} className="book-tickets-btn ms-2">Cancel</button>
+                                        </Form>
+                                    )}
+                                </Formik>
                             </div>
                         </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-        <EventsFooter />
+
+                    </Modal.Body>
+                </Modal>
+
+                <h3>Event List</h3>
+                {/* {loading ? (
+      Spinner() 
+    ) : ( */}
+                <div className='w-100 wid'>
+                    {events.length === 0 ? (
+                        <div className='d-flex justify-content-center align-items-center '>
+                            <h2 style={{ color: "#0056b3" }}>No Events</h2>
+                        </div>
+                    ) : (
+                        <>
+                            {filteredEvents.map((event: any) => (
+                                <div key={event.eventId} className='events-data-container'>
+                                    <div className='events'>
+                                        <div className='event-data-container-admin'>
+                                            <h1 className='event-data-container-heading'>{event.eventName}</h1>
+                                            <p className='event-data-container-description'>{event.category}</p>
+                                            <p className='event-data-container-description'>{event.location}</p>
+                                        </div>
+                                        <div className="button-group">
+                                            <button className='btn btn-primary' onClick={() => handleEdit(event.eventId)}>
+                                                <MdEdit />
+                                            </button>
+                                            <button className='btn btn-danger' onClick={() => handleDelete(event.eventId)}>
+                                                <MdDelete />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr className='hr-line' />
+                                </div>
+                            ))}
+                        </>)}</div>
+                <ToastContainer />
+            </div>
+            <EventsFooter />
         </div>
     );
 };

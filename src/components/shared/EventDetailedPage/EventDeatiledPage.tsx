@@ -48,7 +48,7 @@ const userId=getCookie('userId');
     ticketPrice,
     eventName,
     location,
-        description,
+    description,
         category,
     } = eachEvent;
 console.log("Each event",eachEvent)
@@ -96,13 +96,13 @@ console.log("Each event",eachEvent)
   const onTicketBooking = async() => {
     console.log(count)
     
-    if (count >= 1 && count <= totalTickets) {
-      setCount(count);
-  } else if (count < 1) {
-      setCount(1); // Reset to 1 if less than 1
-  } else if (count > totalTickets) {
-      setCount(totalTickets); // Reset to totalTickets if greater
-  }
+  //   if (count >= 1 && count <= totalTickets) {
+  //     setCount(count);
+  // } else if (count < 1) {
+  //     setCount(1); // Reset to 1 if less than 1
+  // } else if (count > totalTickets) {
+  //     setCount(totalTickets); // Reset to totalTickets if greater
+  // }
 
     if(count <= totalTickets){
     const stripe= await loadStripe("pk_test_51Q8hB3Rq55caQ1GVNs8aridgq68od48i1WReyiMfSUfAabTzhs6YIgMnzzl1Ltxi9GjCcFlzB4YgqRY9hMbFROmW00ov315VSU");
@@ -117,6 +117,8 @@ console.log("Each event",eachEvent)
       category,
       userId,
     };
+
+    console.log(orderDetails,"ordersp")
 
     const body = {
       ticketPrice: orderDetails.ticketPrice,
@@ -139,6 +141,7 @@ console.log("Each event",eachEvent)
   }else{
     setTextOfNumberTickets(`Number of Total Tickets is ${totalTickets}`);
     setShowPopup(true)
+    setCount(totalTickets)
   }
   };
 

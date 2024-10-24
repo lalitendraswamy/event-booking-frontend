@@ -73,7 +73,7 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
               </td>
               <td>{user.username}</td>
               <td>{user.email}</td>
-              <td style={{ color: '#0056B3' }}>{user.role.toUpperCase()}</td>
+              <td style={{ color: '#0056B3' }}>{user.role}</td>
               <td>
                 <button
                   className="user-delete-btn"

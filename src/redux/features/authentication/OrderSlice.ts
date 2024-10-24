@@ -27,7 +27,7 @@ export const getOrders = createAsyncThunk(
         try{
             const response = await customAxios.get(`/ticket-booking/${userId}`);
             console.log("Get All Orders", response.data);
-            return response.data
+            return response.data;
         }catch(e){
 
             console.log(e);
@@ -35,17 +35,17 @@ export const getOrders = createAsyncThunk(
     }
 )
 
-export const deleteOrder = createAsyncThunk(
-    "order/delete",
-    async(id:string) => {
-        try{
-            const response = await customAxios.delete(`/ticket-booking/${id}`);
-            return id;
-        }catch(e){
-            console.log(e)
-        }
-    }
-)
+// export const deleteOrder = createAsyncThunk(
+//     "order/delete",
+//     async(id:string) => {
+//         try{
+//             const response = await customAxios.delete(`/ticket-booking/${id}`);
+//             return id;
+//         }catch(e){
+//             console.log(e)
+//         }
+//     }
+// )
 
 export const cancelOrderThunk = createAsyncThunk(
     "order/cancel",
@@ -82,13 +82,13 @@ const orderSlice= createSlice({
             })
             .addCase(getOrders.fulfilled, (state,action) =>{
                 if(action.payload){
-                    state.orders = action.payload
+                    state.orders = action.payload.data;
                 }
             })
-            .addCase(deleteOrder.fulfilled, (state,action) =>{
-                console.log("Deleted Order");
-                state.orders= state.orders.filter((order :any)=> order.bookingId!==action.payload)
-            })
+            // .addCase(deleteOrder.fulfilled, (state,action) =>{
+            //     console.log("Deleted Order");
+            //     state.orders= state.orders.filter((order :any)=> order.bookingId!==action.payload)
+            // })
             .addCase(cancelOrderThunk.fulfilled, (state,action) => {
                 console.log("Cncelled Order");
                 state.orders= state.orders.map((order :any)=>{ 

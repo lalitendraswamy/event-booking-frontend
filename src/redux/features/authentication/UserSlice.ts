@@ -96,11 +96,11 @@ const userSlice = createSlice({
             })
             .addCase(getUsers.fulfilled, (state, action:any) => {
                 state.loading = false;
-                state.users = action.payload;
+                state.users = action.payload.data;
             })
-            .addCase(postUser.pending, (state,action) =>{
-                state.isUserAlreadyExists = false
-            })
+            // .addCase(postUser.pending, (state,action) =>{
+            //     state.isUserAlreadyExists = false
+            // })
             .addCase(postUser.fulfilled,(state,action) => {
                 if(action.payload){
                     state.isUserAlreadyExists = false
