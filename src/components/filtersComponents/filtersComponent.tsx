@@ -18,83 +18,52 @@ const locations = [
     "Karnataka",
   ];
 
-export const EventFilters = ({ events, setFilteredEvents }:any) => {
+export const EventFilters = ({ events, setFilteredEvents,setFilters }:any) => {
     const [selectedLocation, setSelectedLocation] = useState("");
     const [selectedPrice, setSelectedPrice] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
     const [selectedCategory, setSelectedCategory] = useState("");
 
-    const handleLocationChange = (e: any) => {
+    const updateFiltersState = (newFilters: any) => {
+        setFilters((prevFilters: any) => ({
+          ...prevFilters,
+          ...newFilters,
+        }));
+      };
+    
+      const handleLocationChange = (e: any) => {
         const location = e.target.value;
         setSelectedLocation(location);
-        filterEvents(location, selectedPrice, selectedDate, selectedCategory);
-    };
+        updateFiltersState({ location });
+      };
     
-
-    const handlePriceFilter = (price: any) => {
+      const handlePriceFilter = (price: any) => {
         setSelectedPrice(price);
-        filterEvents(selectedLocation, price, selectedDate, selectedCategory);
-    };
-
-    const handleDateChange = (e: any) => {
+        updateFiltersState({ minTicketPrice: 0, maxTicketPrice: 0 });
+        if (price === "0-500") updateFiltersState({ minTicketPrice: 0, maxTicketPrice: 500 });
+        if (price === "501-2000") updateFiltersState({ minTicketPrice: 501, maxTicketPrice: 2000 });
+        if (price === "Above 2000") updateFiltersState({ minTicketPrice: 2001, maxTicketPrice: Infinity });
+      };
+    
+      const handleDateChange = (e: any) => {
         const date = e.target.value;
-        console.log(date);
         setSelectedDate(date);
-        filterEvents(selectedLocation, selectedPrice, date, selectedCategory);
-    };
-
-    const handleCategoryFilter = (category: any) => {
+        updateFiltersState({ date });
+      };
+    
+      const handleCategoryFilter = (category: any) => {
         setSelectedCategory(category);
-        filterEvents(selectedLocation, selectedPrice, selectedDate, category);
-    };
-
-    const filterEvents = (location: any, price: any, date: any, category: any) => {
-        let filtered = events;
-
-        if (location) {
-            filtered = filtered.filter((event: any) => event.location.includes(location));
-        }
-        if (price) {
-            if (price === "Free") {
-                filtered = filtered.filter(
-                  (event: any) => event.ticketPrice === "Free"
-                );
-              } else if (price === "0-500") {
-                filtered = filtered.filter(
-                  (event: any) => parseFloat(event.ticketPrice) <= 500
-                );
-              } else if (price === "501-2000") {
-                filtered = filtered.filter((event: any) => {
-                  const eventPrice = parseFloat(event.ticketPrice);
-                  return eventPrice > 500 && eventPrice <= 2000;
-                });
-              } else if (price === "Above 2000") {
-                filtered = filtered.filter(
-                  (event: any) => parseFloat(event.ticketPrice) > 2000
-                );
-              }
-        }
-        if (date) {
-            const selectedDate = new Date(date);
-        filtered = filtered.filter((event: any) => {
-            const eventDate = new Date(event.eventDateTime);
-            return eventDate >= selectedDate; // Filter events from the selected date onwards
-        });
-        }
-        if (category) {
-            filtered = filtered.filter((event: any) => event.category === category);
-        }
-
-        setFilteredEvents(filtered);
-    };
-
-    const onRemoveFilters = () => {
+        updateFiltersState({ category });
+      };
+    
+      const onRemoveFilters = () => {
         setSelectedLocation("");
         setSelectedPrice(null);
         setSelectedDate("");
         setSelectedCategory("");
-        setFilteredEvents(events); // Reset to all events
-    };
+        setFilters({ location: "", category: "", limit: 6, minTicketPrice: 0, maxTicketPrice: 0 });
+        setFilteredEvents(events);
+      };
 
     return (
         <div className="filters-container d-flex flex-column">

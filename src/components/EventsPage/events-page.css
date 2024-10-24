@@ -58,8 +58,14 @@
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
+    min-height: 80vh;
 }
 
+.no-events-available{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 
 .filtered-item img {

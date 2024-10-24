@@ -81,8 +81,10 @@ const orderSlice= createSlice({
                 console.log("Order Created");
             })
             .addCase(getOrders.fulfilled, (state,action) =>{
-                if(action.payload){
+                if(action.payload && action.payload.statusCode==200){
                     state.orders = action.payload.data
+                }else{
+                    state.orders=[];
                 }
             })
             .addCase(deleteOrder.fulfilled, (state,action) =>{

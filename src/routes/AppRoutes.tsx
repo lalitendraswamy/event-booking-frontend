@@ -48,6 +48,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
         <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
         <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<AdminPage/>} />} />
+       
 
 
         {/* not found routes */}

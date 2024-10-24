@@ -13,8 +13,9 @@ import "./navbar.css";
 const EventNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const userImage  = getCookie("userImg")
   const { loginUser } = useSelector((state: any) => state.users);
-  console.log('loginuser',loginUser)
+
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
   const handleLogout = () => {
@@ -102,7 +103,7 @@ const EventNavbar = () => {
         </div>
         <Nav.Link onClick={handleShow}>
           <img
-            src={loginUser.userImageUrl ?? profileImg}
+            src={userImage ?? profileImg}
             alt="Profile"
             className="profile-img-nav"
           />
@@ -116,7 +117,7 @@ const EventNavbar = () => {
             <div className="profile-data">
               <div className="profile-container">
                 <img
-                  src={loginUser.userImageUrl ?? profileImg}
+                  src={userImage ?? profileImg}
                   alt="Profile"
                   className="profile-img"
                 />

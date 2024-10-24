@@ -54,8 +54,8 @@ export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await EventsService.getAllEvents();
-            return response;
+            const response = await customAxios.get('/events/filters');
+            return response.data;
         }catch(error){
             console.log(error);
         }
@@ -94,9 +94,10 @@ export const getFavorite = createAsyncThunk(
     async () =>{
         try{
             const response = await customAxios.get("/wishlist");
+            
             return response.data
         }catch(e){
-            console.log(e)
+            console.log('whichlist err',e)
         }
     }
 )
@@ -159,7 +160,8 @@ const eventSlice = createSlice({
                 state.loading = true; // Set loading to true when the fetch starts
             })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
-                state.events = action.payload.data;
+                state.events = action.payload.data.events;
+                console.log('state.events',state.events)
                 state.loading = false;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
@@ -176,7 +178,7 @@ const eventSlice = createSlice({
             })
             .addCase(getFavorite.fulfilled, (state,action) => {
                 // console.log("Action", action.payload)
-                state.favorites = action.payload.data
+                state.favorites = action.payload
             })
             .addCase(deleteFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Deleted");
