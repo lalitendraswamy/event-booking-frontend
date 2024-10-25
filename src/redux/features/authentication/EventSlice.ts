@@ -96,11 +96,11 @@ export const addFavorite = createAsyncThunk(
 
 export const getFavorite = createAsyncThunk(
     "events/getFavorite",
-    async () =>{
+    async (userId:string) =>{
         try{
-            const response = await customAxios.get("/wishlist");
-            
-            return response.data
+            const response = await customAxios.get(`/wishlist/${userId}`);
+            console.log(response);
+             return response.data
         }catch(e){
             console.log('whichlist err',e)
         }
@@ -109,9 +109,10 @@ export const getFavorite = createAsyncThunk(
 
 export const deleteFavorite = createAsyncThunk(
     "events/deleteFavorite",
-    async (eventId:string) =>{
+    async (wishlistId:string) =>{
         try{
-            const response = await customAxios.delete(`/wishlist/${eventId}`);
+            console.log("removed with wid ", wishlistId)
+            const response = await customAxios.delete(`/wishlist/${wishlistId}`);
             console.log("Removed Favorite", response);
             return response;
         }catch(e){
@@ -126,6 +127,7 @@ export const getEventById = createAsyncThunk(
     async (id:string) => {
         try{
             const response = await customAxios.get(`/events/get/${id}`);
+           
             return response.data;
 
         }catch(e){
@@ -146,7 +148,9 @@ export const deleteEvent = createAsyncThunk("events/deleteEventById", async(id:s
 export const updateEvent = createAsyncThunk("events/updateEventById", async(values:any)=>{
 
     try{
+        console.log("values",values)
         const response = await customAxios.put(`/events/update/${values.eventId}`,values.values);
+        console.log("res gei",response)
         return {eventId:values.eventId,...values.values};
     }catch(e){
         console.log(e)
@@ -203,7 +207,7 @@ const eventSlice = createSlice({
             })
             .addCase(getFavorite.fulfilled, (state,action) => {
                 console.log("Action", action.payload)
-                state.favorites = action.payload?.data;
+                state.favorites = action.payload.statusCode===200? action.payload.data : [];
             })
             .addCase(deleteFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Deleted");
@@ -215,7 +219,7 @@ const eventSlice = createSlice({
             })
             .addCase(updateEvent.fulfilled, (state,action) => {
                 console.log("Event updated",action.payload);
-                state.events = state.events.filter((event)=> event.eventId !== action.payload.eventId )
+                state.events = state.events.filter((event)=> event.eventId !== action.payload.eventId );
                 state.events.push(action.payload);
             })
     },

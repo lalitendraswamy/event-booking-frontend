@@ -53,13 +53,6 @@ const Events = () => {
         return () => clearInterval(interval); // Cleanup on unmount
     }, []);
 
-    // if(events.length ===0){
-    //     return(
-    //         <div className='d-flex justify-content-center aligin-items-center'>
-    //             <h2 style={{color:"#0056b3"}}>No Events</h2>
-    //         </div>
-    //     )
-    // }
 
 
     return (

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "@mui/material";
 
 const locations = [
     "City Park, Mumbai",
@@ -21,7 +22,7 @@ const locations = [
 export const EventFilters = ({ events, setFilteredEvents,setFilters }:any) => {
     const [selectedLocation, setSelectedLocation] = useState("");
     const [selectedPrice, setSelectedPrice] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
+    const [selectedDate, setSelectedDate] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
 
     const updateFiltersState = (newFilters: any) => {
@@ -61,14 +62,20 @@ export const EventFilters = ({ events, setFilteredEvents,setFilters }:any) => {
         setSelectedPrice(null);
         setSelectedDate("");
         setSelectedCategory("");
-        setFilters({ location: "", category: "", limit: 6, minTicketPrice: 0, maxTicketPrice: 0 });
+        setFilters({ location: "", category: "", limit: 6, minTicketPrice: 0, maxTicketPrice: 0,date:"" ,page:1});
         setFilteredEvents(events);
       };
 
     return (
         <div className="filters-container d-flex flex-column">
-            <h3 className="heading-filters-data">Filters</h3>
-            <div className="filter-item">
+            <div className="d-flex justify-content-between">
+                <h3 className="heading-filters-data">Filters</h3>
+            <label className="filter-item-label">
+                    <button type="button" onClick={onRemoveFilters}>Remove Filters</button>
+                </label>
+            </div>
+            
+            <div className="filter-item filter-item-location">
                 <label className="filter-item-label">Location</label>
                 <select value={selectedLocation} onChange={handleLocationChange} className="filter-item-select">
                     {locations.map((location) => (
@@ -94,8 +101,7 @@ export const EventFilters = ({ events, setFilteredEvents,setFilters }:any) => {
                 type="date"
                 value={selectedDate}
                 onChange={handleDateChange}
-                min={new Date().toISOString().split("T")[0]} // Sets the minimum date to today
-               
+                            
             />
             </div>
             <div className="filter-item">
@@ -110,11 +116,7 @@ export const EventFilters = ({ events, setFilteredEvents,setFilters }:any) => {
                     </button>
                 ))}
             </div>
-            <div className="filter-item">
-                <label className="filter-item-label">
-                    <button type="button" onClick={onRemoveFilters}>Remove Filters</button>
-                </label>
-            </div>
+            
         </div>
     );
 };

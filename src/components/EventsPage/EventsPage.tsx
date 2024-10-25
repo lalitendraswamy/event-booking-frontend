@@ -7,6 +7,8 @@ import { EventCard } from "../EventCard/eventCard";
 import "./events-page.css";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../shared/spinner/spinner";
+import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext } from "react-icons/gr";
 
 const EventPage = () => {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const EventPage = () => {
     minTicketPrice: 0,
     maxTicketPrice: 0,
     page: 1, // Start with the first page
+    date:""
   });
   const service = new EventService();
   
@@ -75,11 +78,12 @@ const EventPage = () => {
       {/* Pagination */}
       {totalPages && (<div className="pagination-controls d-flex justify-content-center">
         <button
-          className="page-btn"
+          className=""
+          style={{"border":"none","backgroundColor":"transparent"}}
           disabled={filters.page === 1}
           onClick={() => handlePageChange(filters.page - 1)}
         >
-          Previous
+          <GrFormPrevious/>
         </button>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -91,11 +95,12 @@ const EventPage = () => {
           </button>
         ))}
         <button
-          className="page-btn"
+          className=""
+          style={{"border":"none","backgroundColor":"transparent"}}
           disabled={filters.page === totalPages}
           onClick={() => handlePageChange(filters.page + 1)}
         >
-          Next
+          <GrFormNext/>
         </button>
       </div>)}
       

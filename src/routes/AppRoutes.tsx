@@ -46,7 +46,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/edit-event/:id" element={<ProtectedRoute  role='admin' element={<EditEventPage />} />} />
         <Route path="/admin/users" element={<ProtectedRoute  role='admin'  element={<Userpage />} />} />
         <Route path="/admin/events" element={<ProtectedRoute  role='admin'  element={<AdminEventPage />} />} />
-        <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventManagement />} />} />
+        <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
         <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
         <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<AdminPage/>} />} />
         <Route path="/admin/userManegement" element={<ProtectedRoute  role='admin'  element={<AdminDashDoard/>} />} />

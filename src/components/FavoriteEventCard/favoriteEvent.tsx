@@ -14,21 +14,21 @@ import { PaymentService } from "../../services/paymentService";
 const FavoriteEventCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const userId=getCookie('userId');
   const favoriteData = useSelector((state: any) => state.events.favorites);
   const paymentService= new PaymentService();
   const { eachEvent} = useSelector(
     (state: any) => state.events
   );
-  const handleRemoveFavItem = (eventId:any) =>{
-       dispatch<any>(deleteFavorite(eventId));
+  const handleRemoveFavItem = (wishlistId:any) =>{
+       dispatch<any>(deleteFavorite(wishlistId));
       //  dispatch(removeFavoriteItem(eventId))
-      dispatch<any>(getFavorite())
+      dispatch<any>(getFavorite(userId))
       //  dispatch<any>(getFavorite()); 
   }
 
   useEffect(() =>{
-    dispatch<any>(getFavorite());
+    dispatch<any>(getFavorite(userId));
   },[])
 
   const {
@@ -42,10 +42,10 @@ const FavoriteEventCard = () => {
     location,
         description,
         category,
-    } = eachEvent;
+    } = eachEvent ||{};
 
   const onTicketBooking = async() => {
-    const userId=getCookie('userId');
+    
 
     const stripe= await loadStripe("pk_test_51Q8hB3Rq55caQ1GVNs8aridgq68od48i1WReyiMfSUfAabTzhs6YIgMnzzl1Ltxi9GjCcFlzB4YgqRY9hMbFROmW00ov315VSU");
 
@@ -111,7 +111,7 @@ const FavoriteEventCard = () => {
                   <button className="book-tickets-btn" onClick={onTicketBooking}>
                   Book Tickets
                 </button>
-                  <button className='book-tickets-btn' onClick={()=>handleRemoveFavItem(favoriteItem.eventId)}>Remove</button>
+                  <button className='book-tickets-btn' onClick={()=>handleRemoveFavItem(favoriteItem.wishListId)}>Remove</button>
                 </div>
                 <img src={favoriteItem.event.imageUrl} alt={favoriteItem.event.eventName} className="favorite-event-image bounceInRight" />
               </div>

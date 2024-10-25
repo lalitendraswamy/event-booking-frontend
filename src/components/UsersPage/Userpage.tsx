@@ -8,9 +8,9 @@ import { MdGroupAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { ImSearch } from "react-icons/im";
 import "./user-page.css";
-import Spinner from "../shared/spinner/spinner";
 import { getCookie } from "../../utils/cookieUtils";
 import AdminNav from "../shared/adminNav/adminNav";
+import { ToastContainer,toast } from "react-toastify";
 
 export default function Userpage() {
   let { users } = useSelector((s: any) => s.users);
@@ -21,6 +21,13 @@ export default function Userpage() {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const callToast=()=>{
+    toast.success("User deleted successfully", {
+      position: "top-right",
+    });
+
+  }
 
   useEffect(() => {
     dispatch<any>(getUsers());
@@ -43,8 +50,6 @@ export default function Userpage() {
   };
 
   return (
-    
-        
      
         <div>
           <Navbar />
@@ -73,7 +78,7 @@ export default function Userpage() {
                 </div>
 
                 {usersList.length > 0 ? (
-                  <UserTable users={usersList} /> // Pass the filtered users
+                  <UserTable users={usersList} callToast={callToast} /> // Pass the filtered users
                 ) : (
                   <div
                     className="users-not-found"
@@ -86,6 +91,7 @@ export default function Userpage() {
             </div>
           </div>
           <Footer />
+          <ToastContainer/>
         </div>
       
   );

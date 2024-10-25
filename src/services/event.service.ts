@@ -8,9 +8,10 @@ export class EventService{
     }
 
 
-    getAllEvents = async({location,category,limit,minTicketPrice,page}:any)=>{
+    getAllEvents = async({location,category,limit,minTicketPrice,page,date}:any)=>{
         try{
-            const response = await customAxios.get(`/events/filters/?location=${location}&category=${category}&limit=${limit}&minTicketPrice=${minTicketPrice}&page=${page}`);
+          
+            const response = await customAxios.get(`/events/filters/?location=${location}&category=${category}&limit=${limit}&minTicketPrice=${minTicketPrice}&page=${page}&eventDateTime=${date}`);
            console.log(response.data)
             return response.data.data;
         }catch(error){
@@ -20,7 +21,9 @@ export class EventService{
 
     addEvent = async(eventData:any)=>{
         try{
+            console.log("event post data",eventData)
             const response = await customAxios.post('/events/add',eventData);
+            console.log("event post data res",response)
             return response.data;
         }catch(err){
             return err;
@@ -37,7 +40,7 @@ export class EventService{
        
             try{
                 const response = await customAxios.get(`/events/get/${eventId}`);
-                console.log('service', response.data)
+                
                 return response.data
     
             }catch(e){
