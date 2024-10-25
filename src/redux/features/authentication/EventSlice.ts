@@ -48,14 +48,26 @@ const initialState: EventState = {
     activeLink:"/events",
 };
 
-
+// export const getAllEvents = createAsyncThunk(
+//     'events/getAllEvents',
+//     async () => {
+//         try{
+//            const response = await EventsService.getAllEvents();
+//            return response.data;
+//         }catch(error){
+//             console.log(error);
+//         }
+//     }
+// );
 
 export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-           const response = await EventsService.getAllEvents();
-           return response.data;
+            const response = await customAxios.get('/events/filters');
+            return response.data;
+        //    const response = await EventsService.getAllEvents();
+        //    return response.data;
         }catch(error){
             console.log(error);
         }
@@ -176,10 +188,10 @@ const eventSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllEvents.pending, (state) => {
-                state.loading = true; // Set loading to true when the fetch starts
+                state.loading = true; 
             })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
-                state.events = action.payload;
+                state.events = action.payload.data.events;
                 state.loading = false;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {

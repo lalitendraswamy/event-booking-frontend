@@ -3,19 +3,27 @@ import axios from "axios";
 
 export class EventService{
     
-    constructor(){
-
-    }
-
-
-    getAllEvents = async()=>{
+   
+    getAllEvents = async({location,category,limit,minTicketPrice,page,date}:any)=>{
         try{
-            const response = await customAxios.get('/events');
-            return response.data;
+         
+            const response = await customAxios.get(`/events/filters/?location=${location}&category=${category}&limit=${limit}&minTicketPrice=${minTicketPrice}&page=${page}&eventDateTime=${date}`);
+           console.log(response.data)
+            return response.data.data;
         }catch(error){
             return error;
         }
     }
+ 
+
+    // getAllEvents = async()=>{
+    //     try{
+    //         const response = await customAxios.get("/events");
+    //         return response.data;
+    //     }catch(error){
+    //         return error;
+    //     }
+    // }
 
     addEvent = async(eventData:any)=>{
         try{

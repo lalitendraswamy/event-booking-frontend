@@ -19,6 +19,8 @@ import AdminPage from '../components/AdminPage/AdminPage';
 import AdminEventPage from '../components/AdminEventsPage/AdminEventPage';
 import AdminDashDoard from "../components/AdminDashDoard/adminDashDoard";
 import EventManagement from '../components/AdminDashDoard/eventsMangement';
+// import { EventCard } from '../components/shared/metrial-mui/navbarMui';
+import EventDetail from "../components/shared/metrial-mui/navbarMui";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -27,6 +29,7 @@ const AppRoutes: React.FC = () => {
         {/* authentication routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/runway" element={<Runway/>} />
+        <Route path="/nav" element={<EventDetail />} />
 
         {/* user routes */}
         <Route path="/" element={<ProtectedRoute element={<Home />} />} />
