@@ -10,7 +10,7 @@ import profileImg from "../../../assets/images/no-profile-image.webp";
 import { activeNavBarPath } from "../../../redux/features/authentication/EventSlice";
 import "./navbar.css";
 
-const EventNavbar = () => {
+ const EventNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { loginUser } = useSelector((state: any) => state.users);
@@ -40,6 +40,7 @@ const EventNavbar = () => {
      
           window.location.href = azureLogoutUrl;
     }
+  }
 
   const { activeLink } = useSelector((state: any) => state.events);
   const dispatch = useDispatch();
