@@ -7,7 +7,7 @@ import {  createOrder,  getOrders,  postOrder,} from "../../../redux/features/au
 import {  addFavorite,  getEventById,  getFavorite,} from "../../../redux/features/authentication/EventSlice";
 import { PaymentService } from "../../../services/paymentService";
 import "./event-detailed-page.css";
-
+import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react";
 
 import Navbar from "../navbar/navbar";
@@ -97,6 +97,14 @@ console.log("Each event",eachEvent)
   const handleAddFavorites = () => {
     setEventInFav(!eventInFav)
     dispatch<any>(addFavorite({ userId, eventId:id }));
+    toast.success("Event added Favorites successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+  });
   };
 
   const onTicketBooking = async() => {
@@ -159,17 +167,18 @@ console.log("Each event",eachEvent)
       {eachEvent ? (
         <div className="movies-list">
           <div className="event-container-item">
-            <div>
+           
               <img
                 src={imageUrl}
-                alt={eventName}
-                width="100"
-                className="event-image mb-2"
+                alt={eventName}   
+                 width="25%"
+                 height="60%"
+                className="event-image-id mb-2"
               />
-            </div>
+          
             <div className="event-data-container">
               <h3 className="mb-3">{eventName}</h3>
-              <p className="event-proper">
+              {/* <p className="event-proper">
                 Description:{" "}
                 <span className="event-proper-inner-item">{description}</span>
               </p>
@@ -179,7 +188,17 @@ console.log("Each event",eachEvent)
                 <span className="event-proper-inner-item">
                   {eachEvent.category}
                 </span>
-              </p>
+              </p> */}
+              <p className="event-proper">
+    Description:{" "}
+    <span className="event-proper-inner-item">{description}</span>
+</p>
+
+<p className="event-proper">
+    Category:{" "}
+    <span className="event-proper-inner-item">{eachEvent.category}</span>
+</p>
+
               <p className="event-proper pr-1">
                 Release Date: {" "}
                 <span className="event-proper-inner-item">{`${day}/ ${month} / ${year}`}</span>
@@ -192,8 +211,6 @@ console.log("Each event",eachEvent)
                 Available Tickets:{" "}
                 <span className="event-proper-inner-item">{totalTickets}</span>
               </p>
-              
-
               <p className="event-proper">
                 Price:{" "}
                 <span className="event-proper-inner-item">
@@ -258,7 +275,7 @@ console.log("Each event",eachEvent)
       ) : (
         <h1>Loading....</h1>
       )}
-
+       <ToastContainer />
       <Footer />
     </div>
   );

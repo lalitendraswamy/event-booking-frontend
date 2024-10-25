@@ -150,8 +150,23 @@
 
 .event-input-conatiner{
     margin: 6px !important;
-
+    display: flex;
+    
     label{
-        margin-right: 8px !important;
+        /* margin-right: px !important; */
+        width: 140px !important;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
 }
+
+.event-input-add{
+    width: 280px !important;
+}
+
+
+
+
+
+  

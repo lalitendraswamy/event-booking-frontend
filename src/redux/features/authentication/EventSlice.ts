@@ -48,7 +48,17 @@ const initialState: EventState = {
     activeLink:"/events",
 };
 
-
+// export const getAllEvents = createAsyncThunk(
+//     'events/getAllEvents',
+//     async () => {
+//         try{
+//            const response = await EventsService.getAllEvents();
+//            return response.data;
+//         }catch(error){
+//             console.log(error);
+//         }
+//     }
+// );
 
 export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
@@ -186,7 +196,7 @@ const eventSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllEvents.pending, (state) => {
-                state.loading = true; // Set loading to true when the fetch starts
+                state.loading = true; 
             })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
                 state.events = action.payload.data.events;

@@ -18,6 +18,16 @@ export class EventService{
             return error;
         }
     }
+ 
+
+    // getAllEvents = async()=>{
+    //     try{
+    //         const response = await customAxios.get("/events");
+    //         return response.data;
+    //     }catch(error){
+    //         return error;
+    //     }
+    // }
 
     addEvent = async(eventData:any)=>{
         try{

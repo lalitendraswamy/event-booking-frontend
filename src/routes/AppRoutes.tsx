@@ -9,8 +9,6 @@ import EventsPage from "../components/EventsPage/EventsPage";
 import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 import UserForm from "../components/AddUserPage/add-user";
-import EventForm from '../components/AddEventPage/add-event';
-import EditEventPage from '../components/EditEventPage/EditEventPage';
 import ContactUs from "../components/ContactUsPage/contact-us";
 import FavoriteEventCard from "../components/FavoriteEventCard/favoriteEvent";
 import Userpage from '../components/UsersPage/Userpage';
@@ -21,6 +19,8 @@ import AdminPage from '../components/AdminPage/AdminPage';
 import AdminEventPage from '../components/AdminEventsPage/AdminEventPage';
 import AdminDashDoard from "../components/AdminDashDoard/adminDashDoard";
 import EventManagement from '../components/AdminDashDoard/eventsMangement';
+// import { EventCard } from '../components/shared/metrial-mui/navbarMui';
+import EventDetail from "../components/shared/metrial-mui/navbarMui";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -29,6 +29,7 @@ const AppRoutes: React.FC = () => {
         {/* authentication routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/runway" element={<Runway/>} />
+        <Route path="/nav" element={<EventDetail />} />
 
         {/* user routes */}
         <Route path="/" element={<ProtectedRoute element={<Home />} />} />
@@ -43,7 +44,6 @@ const AppRoutes: React.FC = () => {
        
 
         {/* admin routes */}
-        <Route path="/edit-event/:id" element={<ProtectedRoute  role='admin' element={<EditEventPage />} />} />
         <Route path="/admin/users" element={<ProtectedRoute  role='admin'  element={<Userpage />} />} />
         <Route path="/admin/events" element={<ProtectedRoute  role='admin'  element={<AdminEventPage />} />} />
         <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
