@@ -54,12 +54,17 @@
 }
 
 .filtered-data-container {
-    width: 75vw;
-    padding: 10px;
+    width: 70vw;
     display: flex;
     flex-wrap: wrap;
+    min-height: 80vh;
 }
 
+.no-events-available{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 
 .filtered-item img {
@@ -70,6 +75,28 @@
     width: 100%;
     height: auto;
 }
+
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    color: #0056b3;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.filter-item-location{
+    select {
+        border: 1px solid #ccc;
+        
+        border-radius: 4px;
+        font-size: 16px;
+        color: #0056b3;  /* Change this for different background */
+        cursor: pointer; /* Change cursor on hover */
+    }
+
+    
+}
+
 
 .view-container {
     display: flex;

@@ -19,7 +19,8 @@ import PaymentSuccess from '../components/shared/payments/PaymentSuccess';
 import PaymentFailed from '../components/shared/payments/PaymentFailed';
 import AdminPage from '../components/AdminPage/AdminPage';
 import AdminEventPage from '../components/AdminEventsPage/AdminEventPage';
-
+import AdminDashDoard from "../components/AdminDashDoard/adminDashDoard";
+import EventManagement from '../components/AdminDashDoard/eventsMangement';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -48,6 +49,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
         <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
         <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<AdminPage/>} />} />
+        <Route path="/admin/userManegement" element={<ProtectedRoute  role='admin'  element={<AdminDashDoard/>} />} />
 
 
         {/* not found routes */}

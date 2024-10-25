@@ -1,0 +1,44 @@
+.admin-nav {
+    width: 15%;
+    height: 40vh;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add slight shadow for better separation */
+    border-radius: 8px;
+    overflow: hidden; /* Remove overflow if the button content overflows */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.admin-nav button {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #0056B3;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    color: #0056B3;
+    font-weight: 600;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-nav button.active {
+    background-color: #0056B3;
+    color: whitesmoke;
+    border-bottom: 1px solid whitesmoke;
+}
+
+
+
+.admin-nav button svg {
+    margin-right: 12px; /* Consistent spacing for icons */
+    transition: color 0.3s, transform 0.3s; /* Smooth color and icon size transitions */
+}
+
+.admin-nav button.active svg,
+.admin-nav button:hover svg {
+    color: whitesmoke; /* White color for icons on hover or active */
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}

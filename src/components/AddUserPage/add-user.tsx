@@ -1,16 +1,21 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import Navbar from "../shared/navbar/navbar";
-import Footer from "../shared/footer/eventsFooter";
-import "./add-user.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import {  addUserError,  getUsers,  postUser,  User,} from "../../redux/features/authentication/UserSlice";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../shared/footer/eventsFooter';
+import './add-user.css'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { addUserError, getUsers, postUser, User } from '../../redux/features/authentication/UserSlice';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import EventNavbar from '../shared/navbar/navbar';
+
 import AdminNav from "../shared/adminNav/adminNav";
 import addUserImg from '../../assets/images/add-user.png'
+import Navbar from '../shared/navbar/navbar';
+
 
 const UserForm = () => {
   const initialValues = {

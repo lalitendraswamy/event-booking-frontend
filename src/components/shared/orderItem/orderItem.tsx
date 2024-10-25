@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import './order-item.css';
-import QRimg from '../../../assets/images/qr-img.png';
-import { cancelOrderThunk } from '../../../redux/features/authentication/OrderSlice';
-import { useDispatch } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
-import QRCode from 'react-qr-code';
+import React, { useState } from "react";
+import "./order-item.css";
+import QRCode from "react-qr-code"; // Import QRCode component
+import { cancelOrderThunk } from "../../../redux/features/authentication/OrderSlice";
+import { useDispatch } from "react-redux";
+import { Modal, Button } from "react-bootstrap";
 
 interface QRCodeGeneratorProps {
   bookingId: string;
@@ -12,21 +11,22 @@ interface QRCodeGeneratorProps {
 
 const convertDateTimeToNormal = (dateTime: string) => {
   const date = new Date(dateTime);
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: true,
   });
   return formatter.format(date);
 };
 
-export default function OrderItem({ order }: any) {
+export default function OrderItem({ order, callToast }: any) {
   const dispatch = useDispatch();
   const { bookingId, numberOfTickets } = order;
-  const { eventName, imageUrl, location, eventDateTime, ticketPrice } = order.event;
+  const { eventName, imageUrl, location, eventDateTime, ticketPrice } =
+    order.event;
   const formattedDateTime = convertDateTimeToNormal(eventDateTime);
 
   // State for showing/hiding confirmation modal
@@ -40,6 +40,7 @@ export default function OrderItem({ order }: any) {
   const handleCancelOrder = () => {
     dispatch<any>(cancelOrderThunk(bookingId));
     setShowModal(false); // Close the modal after cancel action
+    callToast();
   };
 
   return (
@@ -54,12 +55,12 @@ export default function OrderItem({ order }: any) {
             <h6>Ticket Price: &#8377; {ticketPrice}</h6>
             <h6>Quantity: {numberOfTickets}</h6>
             <h6>
-              Amount Paid:{' '}
-              <b style={{ color: '#0056B3' }}>
+              Amount Paid:{" "}
+              <b style={{ color: "#0056B3" }}>
                 &#8377; {ticketPrice * numberOfTickets}
               </b>
             </h6>
-            {order.status === 'cancelled' ? (
+            {order.status === "cancelled" ? (
               <span className="text-danger">Ticket Cancelled</span>
             ) : (
               <button onClick={handleShowModal} className="btn btn-danger">
@@ -69,25 +70,21 @@ export default function OrderItem({ order }: any) {
           </div>
         </div>
         <div className="order-ticket">
-        {/* {bookingId ? (
-          <>
-           <QRCode value={bookingId} size={256} />
-           <p>QR Code for Booking ID: {bookingId}</p>
-          </>
-      
-      ) : (
-        <p>Please provide a booking ID to generate the QR code.</p>
-      )} */}
-          <img src={QRimg} alt="QR Code" />
-          <h6>Booking ID</h6>
-          <p className="text-center">
+          <QRCode value={bookingId} size={150} />
+
+          <p className="text-center mt-2">
             <b>{bookingId.toUpperCase()}</b>
           </p>
         </div>
       </li>
 
       {/* Confirmation Modal */}
-      <Modal show={showModal} onHide={handleCloseModal} className='confirmation-popup' centered>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        className="confirmation-popup"
+        centered
+      >
         <Modal.Header className="modal-header-custom" closeButton>
           <Modal.Title>Cancel Confirmation</Modal.Title>
         </Modal.Header>

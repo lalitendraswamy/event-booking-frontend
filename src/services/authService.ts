@@ -1,4 +1,5 @@
 import axios from 'axios'
+import customAxios from '../components/authentication/customAxios';
  
 export class AuthService{
     // apiUrl:String|undefined
@@ -18,8 +19,13 @@ export class AuthService{
     }
  
     exhangeCodeWithToken = async(code:string) =>{
-        let respone = await axios.post("http://localhost:5000/auth/callback", { code });
-        return respone.data
+        let response = await axios.post("http://localhost:5000/auth/callback", { code });
+        return response.data
     }
- 
+    
+    findUserByEmail=async(email:string)=>{
+        let response= await customAxios.get(`/users/email/${email}`);
+        return response.data
+    }
+
 }

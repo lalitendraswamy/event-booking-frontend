@@ -76,7 +76,7 @@ export const EventCard = ({ item }: any) => {
           </p>
           
      
-            <p> &#8377;{item.ticketPrice} onwards </p>
+            <p className="text-end d-block" > &#8377;{item.ticketPrice} onwards </p>
         <div className="view-container">
          
           {isAdminPath && ( // Use isAdminPath to conditionally render buttons

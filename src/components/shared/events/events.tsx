@@ -22,7 +22,7 @@ const Events = () => {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         responsive: [
             {
@@ -53,13 +53,6 @@ const Events = () => {
         return () => clearInterval(interval); // Cleanup on unmount
     }, []);
 
-    // if(events.length ===0){
-    //     return(
-    //         <div className='d-flex justify-content-center aligin-items-center'>
-    //             <h2 style={{color:"#0056b3"}}>No Events</h2>
-    //         </div>
-    //     )
-    // }
 
 
     return (

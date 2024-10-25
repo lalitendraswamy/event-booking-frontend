@@ -14,7 +14,7 @@ export interface Review{
 }
 
 export interface Event {
-    eventId: string,
+    eventId: any,
     eventName: string,
     category: string,
     description:string,
@@ -54,8 +54,10 @@ export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await EventsService.getAllEvents();
-            return response;
+            const response = await customAxios.get('/events/filters');
+            return response.data;
+        //    const response = await EventsService.getAllEvents();
+        //    return response.data;
         }catch(error){
             console.log(error);
         }
@@ -66,7 +68,9 @@ export const getAllEvents = createAsyncThunk(
     'events/addEvent',
     async (eventData:any) => {
         try{
+           
             const response = await EventsService.addEvent(eventData);
+            console.log("addevent",eventData,response)
             return response;
         }catch(err){
             console.log(err);
@@ -76,12 +80,13 @@ export const getAllEvents = createAsyncThunk(
 
 export const addFavorite = createAsyncThunk(
     "events/addFavorite",
-    async ({userId,eventId}:{userId:string,eventId:string}) =>{
+    async ({userId,eventId}:{userId:string,eventId:any}) =>{
+        console.log(userId,eventId)
         try{
             // console.log("Inside thunk favorite")
             const response = await customAxios.post(`/wishlist`, {userId,eventId});
-            //    console.log("Favorite",response.data)
-            return response.data
+               console.log("Favorite",response)
+            return response;
         }catch(e){
             // console.log("Error in add Favorite")
             console.log(e);
@@ -91,23 +96,25 @@ export const addFavorite = createAsyncThunk(
 
 export const getFavorite = createAsyncThunk(
     "events/getFavorite",
-    async () =>{
+    async (userId:string) =>{
         try{
-            const response = await customAxios.get("/wishlist");
-            return response.data
+            const response = await customAxios.get(`/wishlist/${userId}`);
+            console.log(response);
+             return response.data
         }catch(e){
-            console.log(e)
+            console.log('whichlist err',e)
         }
     }
 )
 
 export const deleteFavorite = createAsyncThunk(
     "events/deleteFavorite",
-    async (eventId:string) =>{
+    async (wishlistId:string) =>{
         try{
-            const response = await customAxios.delete(`/wishlist/${eventId}`);
+            console.log("removed with wid ", wishlistId)
+            const response = await customAxios.delete(`/wishlist/${wishlistId}`);
             console.log("Removed Favorite", response);
-            return response.data
+            return response;
         }catch(e){
             console.log(e)
         }
@@ -120,14 +127,36 @@ export const getEventById = createAsyncThunk(
     async (id:string) => {
         try{
             const response = await customAxios.get(`/events/get/${id}`);
-            
-            return response.data
+           
+            return response.data;
 
         }catch(e){
             console.log(e)
         }
     }
 )
+
+export const deleteEvent = createAsyncThunk("events/deleteEventById", async(id:string)=>{
+    try{
+        const response = await customAxios.delete(`/events/remove/${id}`);
+        return {res:response.data,eventId:id};
+    }catch(e){
+        console.log(e)
+    }
+})
+
+export const updateEvent = createAsyncThunk("events/updateEventById", async(values:any)=>{
+
+    try{
+        console.log("values",values)
+        const response = await customAxios.put(`/events/update/${values.eventId}`,values.values);
+        console.log("res gei",response)
+        return {eventId:values.eventId,...values.values};
+    }catch(e){
+        console.log(e)
+    }
+})
+
 
 const eventSlice = createSlice({
     name: 'events',
@@ -137,6 +166,7 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             },
         addFavoriteItem:(state,action)=>{
+            // console.log(action.payload)
             let data:any = state.favorites.find(favorite => favorite.eventId === action.payload.eventId);
             if(!data){
             state.favorites.push(action.payload);
@@ -159,7 +189,8 @@ const eventSlice = createSlice({
                 state.loading = true; // Set loading to true when the fetch starts
             })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
-                state.events = action.payload.data;
+                state.events = action.payload.data.events;
+                console.log('state.events',state.events)
                 state.loading = false;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
@@ -175,12 +206,21 @@ const eventSlice = createSlice({
                 // state.favorites.push(action.payload)
             })
             .addCase(getFavorite.fulfilled, (state,action) => {
-                // console.log("Action", action.payload)
-                state.favorites = action.payload.data
+                console.log("Action", action.payload)
+                state.favorites = action.payload.statusCode===200? action.payload.data : [];
             })
             .addCase(deleteFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Deleted");
                 // state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload.eventId);
+            })
+            .addCase(deleteEvent.fulfilled, (state,action) => {
+                console.log("Event Deleted",action.payload?.eventId);
+                state.events = state.events.filter(favorite => favorite.eventId !== action.payload?.eventId);
+            })
+            .addCase(updateEvent.fulfilled, (state,action) => {
+                console.log("Event updated",action.payload);
+                state.events = state.events.filter((event)=> event.eventId !== action.payload.eventId );
+                state.events.push(action.payload);
             })
     },
 });

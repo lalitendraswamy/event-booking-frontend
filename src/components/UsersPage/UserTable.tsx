@@ -4,6 +4,7 @@ import { UserService } from '../../services/user-service';
 import { useDispatch } from 'react-redux';
 import { deleteUser } from '../../redux/features/authentication/UserSlice';
 import { getCookie } from '../../utils/cookieUtils';
+import noUserImg from '../../assets/images/no-profile-image.webp'
 import { Modal, Button } from 'react-bootstrap';
 
 interface User {
@@ -16,11 +17,12 @@ interface User {
 
 interface UserTableProps {
   users: User[];
+  callToast: () => void;
 }
 
 const service = new UserService();
 
-const UserTable: React.FC<UserTableProps> = ({ users }) => {
+const UserTable: React.FC<UserTableProps> = ({ users,callToast }) => {
   const dispatch = useDispatch();
 
   // State for showing/hiding confirmation modal
@@ -42,6 +44,7 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
     if (selectedUserId) {
       dispatch<any>(deleteUser(selectedUserId));
       setShowModal(false);
+      callToast();
     }
   };
 
@@ -61,15 +64,13 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
           {users.map((user) => (
             <tr key={user.userId}>
               <td>
-                {user.userImageUrl ? (
+                
                   <img
-                    src={user.userImageUrl}
+                    src={ user.userImageUrl!==null && user.userImageUrl.includes('https')? user.userImageUrl : noUserImg}
                     alt={user.username}
                     className="user-image"
                   />
-                ) : (
-                  'No Image'
-                )}
+               
               </td>
               <td>{user.username}</td>
               <td>{user.email}</td>
