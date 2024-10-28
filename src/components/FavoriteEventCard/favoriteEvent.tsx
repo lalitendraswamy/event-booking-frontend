@@ -80,8 +80,6 @@ const FavoriteEventCard = () => {
     }
   };
 
-  console.log("Faavvv",favoriteData)
-
   return (
     <>
       <EventNavbar />

@@ -156,6 +156,7 @@ export const updateEvent = createAsyncThunk("events/updateEventById", async(valu
 
     try{
         const response = await customAxios.put(`/events/update/${values.eventId}`,values.values);
+        console.log({eventId:values.eventId,...values.values},"upppppp")
         return {eventId:values.eventId,...values.values};
     }catch(e){
         console.log(e)

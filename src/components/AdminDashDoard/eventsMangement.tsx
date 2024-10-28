@@ -46,7 +46,7 @@ const EventManagement: React.FC = () => {
 
     const handleSubmit = (values: any) => {
         const eventIsThere = events.filter((event: any) => event.eventId === values.editIndex);
-        if (eventIsThere || editIndex !== null) {
+        if (eventIsThere.length > 0  && editIndex !== null) {
             dispatch<any>(updateEvent({ eventId: editIndex, values: values }));
             toast.info("Event updated successfully!", {
                 position: "top-right",
@@ -81,7 +81,7 @@ const EventManagement: React.FC = () => {
     const [filters, setFilters] = useState({
         location: "",
         category: "",
-        limit: 6, // Limit of events per page
+        limit: 5, // Limit of events per page
         minTicketPrice: 0,
         maxTicketPrice: 0,
         page: 1, // Start with the first page
@@ -135,7 +135,6 @@ const EventManagement: React.FC = () => {
 
     const handleDelete: any = async (eventId: string) => {
         console.log(`Deleting event with ID: ${eventId}`);
-        setShowPopup(false);
         await dispatch<any>(deleteEvent(eventId));
         toast.error("Event deleted successfully!", {
             position: "top-right",
@@ -145,6 +144,7 @@ const EventManagement: React.FC = () => {
             pauseOnHover: true,
             draggable: true,
         });
+        setShowPopup(false);
     };
 
 
@@ -202,14 +202,13 @@ const EventManagement: React.FC = () => {
             const data = await service.getAllEvents(filters);
             if(data){
                 setEvents(data.events||[]);
-                // events = data.events;
                 setEventsCount(data.totalItems);
                 console.log(data,"events count")
             }else{
                 setEvents([]);
-                // events = [];
                 setEventsCount(0);
             }
+            dispatch<any>(getAllEvents());
            
           } catch (error) {
             console.error("Error fetching events:", error);
@@ -229,7 +228,9 @@ const EventManagement: React.FC = () => {
                     <div>
 
                         <div className="event-management-container h-100">
-                            <div className='search-add-container mb-2'>
+                            <div className='search-add-container mb-5'>
+                            <h3>Events</h3>
+                            <div className='d-flex'>
                                 <div className="search-container">
                                     <FiSearch className="search-icon" />
                                     <input
@@ -243,7 +244,7 @@ const EventManagement: React.FC = () => {
                                 <button className="book-tickets-btn ms-2" onClick={handleShowModal}>
                                     <MdAdd /> Add Event
                                 </button>
-
+                            </div>
                             </div>
                             <Modal show={showModal} onHide={handleCloseModal} className='confirmation-popup popup-container w-100' centered>
                                 <Modal.Header className="modal-header-custom" closeButton>
@@ -350,7 +351,7 @@ const EventManagement: React.FC = () => {
                                 </Modal.Body>
                             </Modal>
 
-                            <h3>Event List</h3>
+                           
                             {/* {loading ? (
       Spinner() 
     ) : ( */}
@@ -372,11 +373,11 @@ const EventManagement: React.FC = () => {
                                                       
                                                     </div>
                                                     <div className="button-group">
-                                                        <button className='btn btn-primary' onClick={() => handleEdit(event.eventId)}>
+                                                        <button className='btn btn-primary edit' onClick={() => handleEdit(event.eventId)}>
                                                             <MdEdit />
                                                         </button>
                                                         <button
-                                                            className='btn btn-danger'
+                                                            className='btn btn-danger delete'
                                                             onClick={() => setShowPopup(true)}
                                                         >
                                                             <MdDelete />

@@ -64,7 +64,7 @@
 }
 
 .event-management-container .error {
-    color: red;
+    color: rgb(245, 42, 6);
     font-size: 0.8em;
 }
 
@@ -76,7 +76,7 @@
 .search-add-container{
     display: flex;
     width: 100%;
-    justify-content: flex-end !important;
+    justify-content: space-between !important;
     align-items: flex-end !important;
 }
 
@@ -165,8 +165,13 @@
     width: 280px !important;
 }
 
-
-
-
-
+.edit:hover{
+   background-color: blue;
+}
+.delete{
+    background-color: transparent;
+}
+.delete:hover{
+    background-color: #f50538;
+}
   
