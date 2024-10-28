@@ -1,25 +1,27 @@
-.user-form-data{
- 
-   min-height: 100%;
-   width: 100%;
 
-   h2{
-    text-align: center;
-    color: #0056b3;
-    margin-top: 30px;
-   }
-   
+.add-user-bg{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+
+  img{
+    height: 300px;
+    width: 300px;
+    margin-left: 30px;
+  }
+
 }
 
 .user-form {
-    max-width: 400px;
-    margin: 0 auto;
+    width: 35vw;
+   
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
     margin-top: 30px;
-    margin-bottom: 30px;
+   
     
   }
   
@@ -70,4 +72,6 @@
   .user-form__button:hover {
     background-color: #0056b3;
   }
+  
+
   

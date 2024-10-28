@@ -16,12 +16,12 @@
 
 .event-image{
     height: 380px;
-    width: 250px;
+    width: 300px !important;
 }
 
 /* events.css */
 .events-container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     text-align: center;
 

@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
-
 import './contact-us.css';
 import EventNavbar from '../shared/navbar/navbar';
 import EventsFooter from '../shared/footer/eventsFooter';
@@ -74,44 +73,6 @@ const ContactUs: React.FC = () => {
             <p className='contact-us-email'>Contact: <span>+91 99988887771</span></p>
         </div>
        
-      <motion.div className="contact-container-social-icons">
-        <motion.a
-          href="https://facebook.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover="hover"
-          variants={socialIconVariants} 
-        >
-          <FaFacebook size={30} />
-        </motion.a>
-        <motion.a
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover="hover"
-          variants={socialIconVariants}
-        >
-          <FaTwitter size={30} />
-        </motion.a>
-        <motion.a
-          href="https://instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover="hover"
-          variants={socialIconVariants}
-        >
-          <FaInstagram size={30} />
-        </motion.a>
-        <motion.a
-          href="https://linkedin.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover="hover"
-          variants={socialIconVariants}
-        >
-          <FaLinkedin size={30} />
-        </motion.a>
-      </motion.div>
 
       <motion.p
         className="contact-container-description"

@@ -41,9 +41,9 @@
     overflow: hidden
 }
 
-.sidebar::-webkit-scrollbar {
+/* .sidebar::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .sidebar.show {
     right: 0; /* Slide in when shown */
@@ -120,4 +120,14 @@
 
 .text-button-underline-none{
     text-decoration: none;
+}
+
+.nav-link-active{
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    /* text-decoration: underline !important; */
+}
+
+.nav-link-item{
+    color: #fff !important;
 }

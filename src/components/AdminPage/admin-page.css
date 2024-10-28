@@ -1,0 +1,18 @@
+.admin-bg{
+    background-color: #f2f2f2;
+    min-height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+
+
+
+.admin-content{
+    width: 83%;
+    min-height: 70vh;
+    background-color: white;
+    border-radius: 10px;
+}

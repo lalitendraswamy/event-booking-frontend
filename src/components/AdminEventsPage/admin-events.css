@@ -1,4 +1,4 @@
-.event-page-container {
+/* .event-page-container {
     display: flex;
     justify-content: center;
     min-height: 80vh;
@@ -9,14 +9,13 @@
 .filters-container {
     display: flex;
     flex-direction: column;
-    width: 25vw;
-    padding: 10px;
+    width: 200px; 
     margin-right: 20px; 
     border-right: 1px solid #0056b3; 
 }
 
 .filter-item {
-    margin-bottom: 20px; 
+    margin-bottom: 15px; 
     color: #0056b3;
 }
 
@@ -27,12 +26,14 @@
     font-weight: 400;
 }
 
-.filter-item-label button {
-    border-style: none;
-    background-color: #0056b3;
-    color: white;
-    border-radius: 4px;
-    padding: 7px;
+.filter-item-select {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
 .price-button,
@@ -54,59 +55,24 @@
 }
 
 .filtered-data-container {
-    width: 70vw;
+    width: 75vw;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
-    min-height: 80vh;
-}
-
-.no-events-available{
-    width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
 
-.filtered-item img {
-    height: 47vh;
-}
 
 .filtered-item-img {
     width: 100%;
     height: auto;
 }
 
-input[type="date"] {
-    padding: 10px;
-    border: 1px solid #cccccc;
-    color: #0056b3;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.filter-item-location{
-    select {
-        border: 1px solid #ccc;
-        
-        border-radius: 4px;
-        font-size: 16px;
-        color: #0056b3;  /* Change this for different background */
-        cursor: pointer; /* Change cursor on hover */
-    }
-
-    
-}
-
-
 .view-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
-}
-
-.view-container p {
-    color: #0056b3;
 }
 
 .btn {
@@ -116,16 +82,6 @@ input[type="date"] {
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.filter-item-select {
-    width: 80%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s;
 }
 
 .heading-filters-data {
@@ -141,10 +97,6 @@ input[type="date"] {
     border: 1px solid #0056b3;
     background-color: transparent;
     cursor: pointer;
-}
-
-.admin-event-card-button .order-icon {
-    color: #FB8500;
 }
 
 .pagination-controls {
@@ -178,4 +130,4 @@ input[type="date"] {
     color: whitesmoke;
     font-weight: 500;
     border-radius: 4px;
-}
+} */

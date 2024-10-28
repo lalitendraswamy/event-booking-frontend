@@ -1,0 +1,565 @@
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
+import EventNavbar from "../shared/navbar/navbar";
+import EventsFooter from "../shared/footer/eventsFooter";
+import { Modal, Button } from "react-bootstrap";
+import { FiSearch } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import {  getAllEvents,  getEventById,  addEvent,  deleteEvent,  updateEvent,} from "../../redux/features/authentication/EventSlice";
+import "react-toastify/dist/ReactToastify.css";
+import "./eventsManegement.css";
+
+import { EventService } from "../../services/event.service";
+import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext } from "react-icons/gr";
+
+const EventManagement: React.FC = () => {
+  const [editIndex, setEditIndex] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [showModal, setShowModal] = useState(false);
+
+  let { eachEvent } = useSelector((state: any) => state.events);
+  let [events, setEvents] = useState([]);
+  const [eventsCount, setEventsCount] = useState(0);
+  
+
+  const dispatch = useDispatch();
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const validationSchema = Yup.object().shape({
+    eventName: Yup.string().required("Event Name is required"),
+    description: Yup.string().required("Description is required"),
+    eventDateTime: Yup.string().required("Event Date and Time is required"),
+    category: Yup.string().required("Category is required"),
+    duration: Yup.string().required("Duration is required"),
+    totalTickets: Yup.number()
+      .required("Total Tickets is required")
+      .positive()
+      .integer(),
+    location: Yup.string().required("Location is required"),
+    organizerName: Yup.string().required("Organizer Name is required"),
+    // organizerImage: Yup.mixed().required("Organizer Image is required"),
+    organizerImage: Yup.string()
+      .url("Invalid URL format")
+      .required("Image URL is required"),
+    imageUrl: Yup.string()
+      .url("Invalid URL format")
+      .required("Image URL is required"),
+    ticketPrice: Yup.number().required("Ticket Price is required").positive(),
+  });
+
+  const handleSubmit = (values: any) => {
+    const eventIsThere = events.filter(
+      (event: any) => event.eventId === values.editIndex
+    );
+      values={...values,duration:values.duration.toString(),ticketPrice:values.ticketPrice.toString(),totalTickets:values.totalTickets.toString()}
+    if (editIndex === null) { dispatch<any>(addEvent(values));
+      fetchEvents();
+      toast.success("Event added successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      }); } else {
+           
+        dispatch<any>(updateEvent({ eventId: editIndex, values: values }));
+
+        fetchEvents();
+        toast.info("Event updated successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+     
+    }
+    resetForm();
+  
+   
+    setShowModal(false);
+  };
+
+  const handleEdit = (index: string) => {
+    setEditIndex(index);
+    dispatch<any>(getEventById(index)).then(() => {
+      setShowModal(true);
+    });
+  };
+
+  const handleDeleteBtn=async(index:string)=>{
+    await setEditIndex(index);
+    setShowPopup(true)
+  }
+
+  const [filters, setFilters] = useState({
+    location: "",
+    category: "",
+    limit: 6, // Limit of events per page
+    minTicketPrice: 0,
+    maxTicketPrice: 0,
+    page: 1, // Start with the first page
+    date: "",
+  });
+
+  const service = new EventService();
+
+  const totalPages = Math.ceil(eventsCount / filters.limit);
+
+
+  const handlePageChange = (newPage: number) => {
+    setFilters({ ...filters, page: newPage });
+  };
+
+  const resetForm = () => {
+    setEditIndex(null);
+    eachEvent = {
+      eventName: "",
+      description: "",
+      eventDateTime: "",
+      category: "",
+      duration: "",
+      totalTickets: 0,
+      location: "",
+      organizerName: "",
+      organizerImage: null,
+      imageUrl: "",
+      ticketPrice: 0,
+    };
+  };
+
+  const filteredEvents = events.filter(
+    (event: any) =>
+      event.eventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleDelete: any = async (eventId: string) => {
+  
+    setShowPopup(false);
+    await dispatch<any>(deleteEvent(editIndex));
+    fetchEvents();
+    toast.error("Event deleted successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
+
+
+  const overlayStyle: any = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const popupStyle: any = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    background: "white",
+    border: "1px solid #ccc",
+    padding: "20px",
+    borderRadius: "5px",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+  };
+
+
+
+  const fetchEvents = async () => {
+    try {
+      const data = await service.getAllEvents(filters);
+      if (data) {
+       
+        setEvents(data.events || []);
+        // events = data.events;
+        setEventsCount(data.totalItems);
+       
+      } else {
+        setEvents([]);
+        // events = [];
+        setEventsCount(0);
+      }
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    }
+  };
+
+  useEffect(() => {
+    
+    fetchEvents();
+  }, [filters,dispatch]);
+
+  return (
+    <div>
+      <div className="event-management-container h-100">
+        <div className="search-add-container mb-5">
+        <h3>Events</h3>
+        <div className="d-flex" >
+       
+          <div className="search-container">
+            <FiSearch className="search-icon" />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <button className="book-tickets-btn ms-2" onClick={handleShowModal}>
+            <MdAdd /> Add Event
+          </button>
+          </div>
+        </div>
+        <Modal
+          show={showModal}
+          onHide={handleCloseModal}
+          className="confirmation-popup popup-container w-100"
+          centered
+        >
+          <Modal.Header className="modal-header-custom" closeButton>
+            <Modal.Title style={{ color: "#0056b3" }}>
+              {editIndex !== null ? "Edit Event" : "Add Event"}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body
+            className="modal-body-custom"
+            style={{ borderRadius: "none" }}
+          >
+            <div className="modal-overlay p-0">
+              <div className="modal-content p-3 m-0">
+                <Formik
+                  initialValues={{
+                    eventName: editIndex !== null && eachEvent ? eachEvent.eventName : "",
+                    description:
+                      editIndex !== null && eachEvent  ? eachEvent.description : "",
+                    eventDateTime:
+                      editIndex !== null && eachEvent  ? eachEvent.eventDateTime : "",
+                    category: editIndex !== null && eachEvent  ? eachEvent.category : "",
+                    duration: editIndex !== null && eachEvent  ? eachEvent.duration : "",
+                    totalTickets:
+                      editIndex !== null && eachEvent  ? eachEvent.totalTickets : 0,
+                    location: editIndex !== null && eachEvent  ? eachEvent.location : "",
+                    organizerName:
+                      editIndex !== null && eachEvent  ? eachEvent.organizerName : "",
+                    organizerImage: null,
+                    imageUrl: editIndex !== null && eachEvent  ? eachEvent.imageUrl : "",
+                    ticketPrice: editIndex !== null && eachEvent  ? eachEvent.ticketPrice : 0,
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {({ setFieldValue }) => (
+                    <Form>
+                      <div className="event-input-conatiner">
+                        <label>Event Name</label>
+                        <Field name="eventName" className="event-input-add" />
+                        <ErrorMessage
+                          name="eventName"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Description</label>
+                        <Field
+                          as="textarea"
+                          name="description"
+                          className="event-input-add"
+                        />
+                        <ErrorMessage
+                          name="description"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Event Date & Time</label>
+                        <Field
+                          type="datetime-local"
+                          name="eventDateTime"
+                          min={new Date().toISOString().slice(0, 16)}
+                          className="event-input-add"
+                        />
+                        <ErrorMessage
+                          name="eventDateTime"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Category</label>
+                        <Field name="category" className="event-input-add" />
+                        <ErrorMessage
+                          name="category"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Duration</label>
+                        <Field name="duration" className="event-input-add" />
+                        <ErrorMessage
+                          name="duration"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Total Tickets</label>
+                        <Field
+                          type="number"
+                          name="totalTickets"
+                          className="event-input-add"
+                        />
+                        <ErrorMessage
+                          name="totalTickets"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Location</label>
+                        <Field name="location" className="event-input-add" />
+                        <ErrorMessage
+                          name="location"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Organizer Name</label>
+                        <Field
+                          name="organizerName"
+                          className="event-input-add"
+                        />
+                        <ErrorMessage
+                          name="organizerName"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Organizer Image</label>
+                        <Field
+                          name="organizerImage"
+                          className="event-input-add"
+                        />
+                        <ErrorMessage
+                          name="organizerImage"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      {/* <div className='event-input-conatiner'>
+                                        <label>Organizer Image</label>
+                                        <input
+                                            type="file"
+                                            onChange={(event) => {
+                                                if (event.currentTarget.files) {
+                                                    setFieldValue("organizerImage", event.currentTarget.files[0]);
+                                                }
+                                            }}
+                                        />
+                                        <ErrorMessage name="organizerImage" component="div" className="error" />
+                                    </div> */}
+                      <div className="event-input-conatiner">
+                        <label>Image URL</label>
+                        <Field name="imageUrl" className="event-input-add" />
+                        <ErrorMessage
+                          name="imageUrl"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="event-input-conatiner">
+                        <label>Ticket Price</label>
+                        <Field
+                          type="number"
+                          name="ticketPrice"
+                          className="event-input-add"
+                        />
+                        <ErrorMessage
+                          name="ticketPrice"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <button className="book-tickets-btn ms-2" type="submit">
+                        {editIndex !== null ? "Update Event" : "Add Event"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={resetForm}
+                        className="book-tickets-btn ms-2"
+                      >
+                        Cancel
+                      </button>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+       
+        {/* {loading ? (
+      Spinner() 
+    ) : ( */}
+        <div className="w-100 wid">
+          {events.length === 0 ? (
+            <div className="d-flex justify-content-center align-items-center ">
+              <h2 style={{ color: "#0056b3" }}>No Events</h2>
+            </div>
+          ) : (
+            <>
+              {filteredEvents.map((event: any) => (
+                <div key={event.eventId} className="events-data-container">
+                  <div className="events">
+                    <div className="event-data-container-admin">
+                      <h1 className="event-data-container-heading">
+                        {event.eventName}
+                      </h1>
+                      <p className="event-data-container-description">
+                        {event.category}
+                      </p>
+                      <p className="event-data-container-description">
+                        {event.location}
+                      </p>
+                    </div>
+                    <div className="button-group">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => handleEdit(event.eventId)}
+                      >
+                        <MdEdit />
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDeleteBtn(event.eventId)}
+                      >
+                        <MdDelete />
+                      </button>
+
+                      {showPopup && (
+                        <div style={overlayStyle}>
+                          <div style={popupStyle}>
+                            <p>Are you sure you want to delete this event?</p>
+                            <button
+                              className="btn btn-primary"
+                              onClick={() => handleDelete(event.eventId)}
+                            >
+                              Yes
+                            </button>
+                            <button
+                              className="btn btn-primary"
+                              onClick={() => setShowPopup(false)}
+                            >
+                              No
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                      {/* <button
+                                                className='btn btn-danger'
+                                                onClick={() => {
+                                                    const confirmed = window.confirm("Are you sure you want to delete this event?");
+                                                    if (confirmed) {
+                                                        handleDelete(event.eventId);
+                                                    }
+                                                }}
+                                            >
+                                                <MdDelete />
+                                            </button> */}
+                      {/* <button className='btn btn-danger' onClick={() => handleDelete(event.eventId)}>
+                                                <MdDelete />
+                                            </button> */}
+
+                      {/* <Modal show={showModalDelete} onHide={handleCloseModalDelete} className='confirmation-popup' centered>
+                        <Modal.Header className="modal-header-custom" closeButton>
+                          <Modal.Title>Cancel Confirmation</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="modal-body-custom">
+                          <p>Are you sure you want to cancel this Event ?</p>
+                        </Modal.Body>
+                        <Modal.Footer className="modal-footer-custom">
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                            Close
+                          </Button>
+                          <Button className="btn-custom-confirm" onClick={handleCancelEvent(event.eventId)}>
+                            Confirm
+                          </Button>
+                        </Modal.Footer>
+                      </Modal> */}
+                    </div>
+                  </div>
+                  {/* <div>
+                                                            <p >{event.description}</p>
+                                                        </div> */}
+                  <hr className="hr-line" />
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+        {true && (
+          <div className="pagination-controls d-flex justify-content-center">
+            <button
+              className=""
+              style={{ border: "none", backgroundColor: "transparent" }}
+              disabled={filters.page === 1}
+              onClick={() => handlePageChange(filters.page - 1)}
+            >
+              <GrFormPrevious />
+            </button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`page-btn ${
+                  filters.page === index + 1 ? "active" : ""
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className=""
+              style={{ border: "none", backgroundColor: "transparent" }}
+              disabled={filters.page === totalPages}
+              onClick={() => handlePageChange(filters.page + 1)}
+            >
+              <GrFormNext />
+            </button>
+          </div>
+        )}
+
+        <ToastContainer />
+      </div>
+    </div>
+  );
+};
+
+export default EventManagement;

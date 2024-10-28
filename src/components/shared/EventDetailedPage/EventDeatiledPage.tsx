@@ -1,14 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { getCookie } from "../../../utils/cookieUtils";
 import { loadStripe } from "@stripe/stripe-js";
-
 import { GiSelfLove } from "react-icons/gi";
 import { useSelector, useDispatch } from "react-redux";
 import {  createOrder,  getOrders,  postOrder,} from "../../../redux/features/authentication/OrderSlice";
 import {  addFavorite,  getEventById,  getFavorite,} from "../../../redux/features/authentication/EventSlice";
 import { PaymentService } from "../../../services/paymentService";
 import "./event-detailed-page.css";
-
+import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react";
 
 import Navbar from "../navbar/navbar";
@@ -20,6 +19,9 @@ const MovieList = () => {
   const [count, setCount] = useState(1);
   const [eventInFav, setEventInFav] = useState(false);
   const { id } = useParams();
+  const [showPopup, setShowPopup] = useState(false);
+  const [showPopupNegetive, setShowPopupNegetive] = useState(false);
+  const [textOfNumberTickets,setTextOfNumberTickets] = useState('')
   const { events, eachEvent, favorites } = useSelector(
     (state: any) => state.events
   );
@@ -34,8 +36,14 @@ const MovieList = () => {
 const userId=getCookie('userId');
 
   useEffect(() => {
+    console.log('edp')
     dispatch<any>(getEventById(id!));
   }, []);
+
+  
+  if (!eachEvent) {
+    return <h1>Loading....</h1>;
+  }
 
   const {
     eventId,
@@ -46,7 +54,7 @@ const userId=getCookie('userId');
     ticketPrice,
     eventName,
     location,
-        description,
+    description,
         category,
     } = eachEvent;
 console.log("Each event",eachEvent)
@@ -59,24 +67,58 @@ console.log("Each event",eachEvent)
   const month = dateObj.getMonth() + 1;
   const year = dateObj.getFullYear();
 
-  const increaseTicketsCount = () => {
-    if (count < totalTickets) {
-      setCount(count + 1);
-    }
-  };
+  // const increaseTicketsCount = () => {
+  //   if (count < totalTickets) {
+  //     if (count >= 9) {
+  //       setShowPopup(true);
+  //       // Automatically close the popup after 4 seconds
+  //       setTimeout(() => {
+  //         setShowPopup(false);
+  //       }, 4000);
+  //     } else {
+  //       setCount(count + 1);
+  //     }
+  //   }
+  // };
 
-  const decreaseTicketsCount = () => {
-    setCount(count > 1 ? count - 1 : 1);
-  };
+  // const decreaseTicketsCount = () => {
+  //   if(count > 1){
+  //     setCount(count-1)
+  //   }else{
+  //     setCount(1)
+  //     setShowPopupNegetive(true);
+  //     setTimeout(() => {
+  //       setShowPopupNegetive(false);
+  //     }, 4000);
+  //   }
+  //   // setCount(count > 1 ? count - 1 : 1);
+  // };
 
   const handleAddFavorites = () => {
     setEventInFav(!eventInFav)
-    dispatch<any>(addFavorite({ userId, eventId }));
+    dispatch<any>(addFavorite({ userId, eventId:id }));
+    toast.success("Event added Favorites successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+  });
   };
 
   const onTicketBooking = async() => {
+    console.log(count)
+    
+  //   if (count >= 1 && count <= totalTickets) {
+  //     setCount(count);
+  // } else if (count < 1) {
+  //     setCount(1); // Reset to 1 if less than 1
+  // } else if (count > totalTickets) {
+  //     setCount(totalTickets); // Reset to totalTickets if greater
+  // }
 
-
+    if(count <= totalTickets){
     const stripe= await loadStripe("pk_test_51Q8hB3Rq55caQ1GVNs8aridgq68od48i1WReyiMfSUfAabTzhs6YIgMnzzl1Ltxi9GjCcFlzB4YgqRY9hMbFROmW00ov315VSU");
 
     const orderDetails = {
@@ -89,6 +131,8 @@ console.log("Each event",eachEvent)
       category,
       userId,
     };
+
+    console.log(orderDetails,"ordersp")
 
     const body = {
       ticketPrice: orderDetails.ticketPrice,
@@ -108,16 +152,14 @@ console.log("Each event",eachEvent)
     if(!result){
       console.log('result')
     }
-
-    // // dispatch(postOrder(orderDetails));
-    // dispatch<any>(createOrder(orderDetails));
-    // dispatch<any>(getOrders());
-    // navigate("/my-orders");
+  }else{
+    setTextOfNumberTickets(`Number of Total Tickets is ${totalTickets}`);
+    setShowPopup(true)
+    setCount(totalTickets)
+  }
   };
 
-  if (!eachEvent) {
-    return <h1>Loading....</h1>;
-  }
+ 
 
   return (
     <div>
@@ -125,17 +167,18 @@ console.log("Each event",eachEvent)
       {eachEvent ? (
         <div className="movies-list">
           <div className="event-container-item">
-            <div>
+           
               <img
                 src={imageUrl}
-                alt={eventName}
-                width="100"
-                className="event-image mb-2"
+                alt={eventName}   
+                 width="25%"
+                 height="60%"
+                className="event-image-id mb-2"
               />
-            </div>
+          
             <div className="event-data-container">
               <h3 className="mb-3">{eventName}</h3>
-              <p className="event-proper">
+              {/* <p className="event-proper">
                 Description:{" "}
                 <span className="event-proper-inner-item">{description}</span>
               </p>
@@ -145,7 +188,17 @@ console.log("Each event",eachEvent)
                 <span className="event-proper-inner-item">
                   {eachEvent.category}
                 </span>
-              </p>
+              </p> */}
+              <p className="event-proper">
+    Description:{" "}
+    <span className="event-proper-inner-item">{description}</span>
+</p>
+
+<p className="event-proper">
+    Category:{" "}
+    <span className="event-proper-inner-item">{eachEvent.category}</span>
+</p>
+
               <p className="event-proper pr-1">
                 Release Date: {" "}
                 <span className="event-proper-inner-item">{`${day}/ ${month} / ${year}`}</span>
@@ -158,8 +211,6 @@ console.log("Each event",eachEvent)
                 Available Tickets:{" "}
                 <span className="event-proper-inner-item">{totalTickets}</span>
               </p>
-              
-
               <p className="event-proper">
                 Price:{" "}
                 <span className="event-proper-inner-item">
@@ -168,20 +219,44 @@ console.log("Each event",eachEvent)
                 </span>
               </p>
 
-              <div className="fav-tic-container">
+              {/* <div className="fav-tic-container">
                 <div className="inc-des-count-container">
-                  <p onClick={increaseTicketsCount} className="plus">
-                    +
-                  </p>
-                  <span className="straight"></span>
-                  <p className="plus">{count}</p>
-                  <span className="straight"></span>
-                  <p onClick={decreaseTicketsCount} className="plus">
+                  <button onClick={decreaseTicketsCount} className={showPopupNegetive ? "disabled" : "plus"}>
                     -
-                  </p>
+                  </button>
+                  <span className="straight"></span>
+                  <p className="count-tickets">{count}</p>
+                  <span className="straight"></span>
+                  <button onClick={increaseTicketsCount} className={showPopup ? "disabled" : "plus"} >
+                    +
+                  </button>
                 </div>
               </div>
-
+              {showPopup && (
+                   <div className="popup bounce-in-up">
+                      <p>You can't increase the count more than 9!</p>
+                    </div>
+                   )}
+                   {showPopupNegetive && (
+                   <div className="popup bounce-in-up">
+                      <p>You can't Decrease the count less than 1!!</p>
+                    </div>
+                   )} */}  
+                  <div className="d-flex flex-column">
+                    <label htmlFor="tickets-count">Enter Number Of Tickets</label>
+                    <input 
+                type="number" 
+                onChange={(e:any)=>setCount(e.target.value)}
+                min="1" 
+                max={totalTickets} 
+                placeholder="Enter Number Tickets" 
+                id="tickets-count" 
+                className="number-of-tickets" 
+                value={count}
+            />
+                    {/* <input type="number" onChange={(e:any)=>setCount(e.target.value)}  min="1" max={totalTickets} placeholder="Enter Number Tickets" id="tickets-count" className="number-of-tickets"/> */}
+                  </div>
+                  {showPopup && <p className="bounce-in-up">{textOfNumberTickets}</p>}
               <div>
                 <button className="book-tickets-btn" onClick={onTicketBooking}>
                   Book Tickets
@@ -194,29 +269,13 @@ console.log("Each event",eachEvent)
                 </button>) }
                
               </div>
-
-              
-              {/* {eachEvent.reviews ? (
-                
-                <ul>
-                  <strong>Reviews:</strong>
-                  {reviews.map((review: any) => (
-                    <li key={review.user} className="p-3">
-                      <strong>{review.user.username}:</strong> {review.review}{" "}
-                      (Rating: {review.userRating})
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>There are no reviews.</p>
-              )} */}
             </div>
           </div>
         </div>
       ) : (
         <h1>Loading....</h1>
       )}
-
+       <ToastContainer />
       <Footer />
     </div>
   );

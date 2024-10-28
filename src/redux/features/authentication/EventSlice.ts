@@ -14,7 +14,7 @@ export interface Review{
 }
 
 export interface Event {
-    eventId: string,
+    eventId: any,
     eventName: string,
     category: string,
     description:string,
@@ -32,28 +32,42 @@ export interface Event {
 
 export interface EventState {
     events: Event[];
-    eachEvent: Event | []
+    eachEvent: Event | []|any;
     loading: boolean;
     error: string | null;
     favorites:Event[] ;
+    activeLink:string,
 }
 
 const initialState: EventState = {
     events: [],
-    eachEvent : [],
+    eachEvent : null,
     loading: false,
     error: null,
-    favorites:[]
+    favorites:[],
+    activeLink:"/events",
 };
 
-
+// export const getAllEvents = createAsyncThunk(
+//     'events/getAllEvents',
+//     async () => {
+//         try{
+//            const response = await EventsService.getAllEvents();
+//            return response.data;
+//         }catch(error){
+//             console.log(error);
+//         }
+//     }
+// );
 
 export const getAllEvents = createAsyncThunk(
     'events/getAllEvents',
     async () => {
         try{
-            const response = await EventsService.getAllEvents();
-            return response;
+            const response = await customAxios.get('/events/filters');
+            return response.data;
+        //    const response = await EventsService.getAllEvents();
+        //    return response.data;
         }catch(error){
             console.log(error);
         }
@@ -64,7 +78,9 @@ export const getAllEvents = createAsyncThunk(
     'events/addEvent',
     async (eventData:any) => {
         try{
+           
             const response = await EventsService.addEvent(eventData);
+            console.log("addevent",eventData,response)
             return response;
         }catch(err){
             console.log(err);
@@ -74,12 +90,13 @@ export const getAllEvents = createAsyncThunk(
 
 export const addFavorite = createAsyncThunk(
     "events/addFavorite",
-    async ({userId,eventId}:{userId:string,eventId:string}) =>{
+    async ({userId,eventId}:{userId:string,eventId:any}) =>{
+        console.log(userId,eventId)
         try{
             // console.log("Inside thunk favorite")
             const response = await customAxios.post(`/wishlist`, {userId,eventId});
-            //    console.log("Favorite",response.data)
-            return response.data
+               console.log("Favorite",response)
+            return response;
         }catch(e){
             // console.log("Error in add Favorite")
             console.log(e);
@@ -89,23 +106,25 @@ export const addFavorite = createAsyncThunk(
 
 export const getFavorite = createAsyncThunk(
     "events/getFavorite",
-    async () =>{
+    async (userId:string) =>{
         try{
-            const response = await customAxios.get("/wishlist");
-            return response.data
+            const response = await customAxios.get(`/wishlist/${userId}`);
+            console.log(response);
+             return response.data
         }catch(e){
-            console.log(e)
+            console.log('whichlist err',e)
         }
     }
 )
 
 export const deleteFavorite = createAsyncThunk(
     "events/deleteFavorite",
-    async (eventId:string) =>{
+    async (wishlistId:string) =>{
         try{
-            const response = await customAxios.delete(`/wishlist/${eventId}`);
+            console.log("removed with wid ", wishlistId)
+            const response = await customAxios.delete(`/wishlist/${wishlistId}`);
             console.log("Removed Favorite", response);
-            return response.data
+            return response;
         }catch(e){
             console.log(e)
         }
@@ -118,13 +137,36 @@ export const getEventById = createAsyncThunk(
     async (id:string) => {
         try{
             const response = await customAxios.get(`/events/get/${id}`);
-            return response.data
+           
+            return response.data;
 
         }catch(e){
             console.log(e)
         }
     }
 )
+
+export const deleteEvent = createAsyncThunk("events/deleteEventById", async(id:string|null)=>{
+    try{
+        const response = await customAxios.delete(`/events/remove/${id}`);
+        return {res:response.data,eventId:id};
+    }catch(e){
+        console.log(e)
+    }
+})
+
+export const updateEvent = createAsyncThunk("events/updateEventById", async(values:any)=>{
+
+    try{
+        console.log("values",values)
+        const response = await customAxios.put(`/events/update/${values.eventId}`,values.values);
+        console.log("res gei",response)
+        return {eventId:values.eventId,...values.values};
+    }catch(e){
+        console.log(e)
+    }
+})
+
 
 const eventSlice = createSlice({
     name: 'events',
@@ -134,6 +176,7 @@ const eventSlice = createSlice({
                 state.events = action.payload;
             },
         addFavoriteItem:(state,action)=>{
+            // console.log(action.payload)
             let data:any = state.favorites.find(favorite => favorite.eventId === action.payload.eventId);
             if(!data){
             state.favorites.push(action.payload);
@@ -141,36 +184,56 @@ const eventSlice = createSlice({
         },
         removeFavoriteItem: (state, action) => {
             state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload);
+        },
+        activeNavBarPath:(state,action)=>{
+            state.activeLink = action.payload;
+        },
+        resetEachEvent:(state)=>{
+            state.eachEvent=null;
         }
         
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getAllEvents.pending, (state) => {
+                state.loading = true; 
+            })
             .addCase(getAllEvents.fulfilled, (state, action:any) => {
+                state.events = action.payload.data.events;
+                console.log('state.events',state.events)
                 state.loading = false;
-                state.events = action.payload;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
-                // console.log("added Event");
-                state.events.push(action.payload);
+                console.log("added Event");
+                state.events.push(action.payload.data);
             })
             .addCase(getEventById.fulfilled,(state,action) => {
-                    state.eachEvent = action.payload
+
+                    state.eachEvent = action.payload.data
             })
             .addCase(addFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Added")
                 // state.favorites.push(action.payload)
             })
             .addCase(getFavorite.fulfilled, (state,action) => {
-                // console.log("Action", action.payload)
-                state.favorites = action.payload
+                console.log("Action", action.payload)
+                state.favorites = action.payload.statusCode===200? action.payload.data : [];
             })
             .addCase(deleteFavorite.fulfilled, (state,action) => {
                 console.log("Favorite Event Deleted");
                 // state.favorites = state.favorites.filter(favorite => favorite.eventId !== action.payload.eventId);
             })
+            .addCase(deleteEvent.fulfilled, (state,action) => {
+                console.log("Event Deleted",action.payload?.eventId);
+                state.events = state.events.filter(favorite => favorite.eventId !== action.payload?.eventId);
+            })
+            .addCase(updateEvent.fulfilled, (state,action) => {
+                console.log("Event updated",action.payload);
+                state.events = state.events.filter((event)=> event.eventId !== action.payload.eventId );
+                state.events.push(action.payload);
+            })
     },
 });
 
-export const {filteredEvents,addFavoriteItem,removeFavoriteItem} = eventSlice.actions;
+export const {filteredEvents,addFavoriteItem,removeFavoriteItem,activeNavBarPath,resetEachEvent} = eventSlice.actions;
 export default eventSlice.reducer;

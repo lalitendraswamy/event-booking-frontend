@@ -9,17 +9,19 @@ import EventsPage from "../components/EventsPage/EventsPage";
 import PageNotFound from '../error-pages/PageNotFound';
 import MyOrdersPage from '../components/MyOrdersPage/MyOrdersPage';
 import UserForm from "../components/AddUserPage/add-user";
-import EventForm from '../components/AddEventPage/add-event';
-import EditEventPage from '../components/EditEventPage/EditEventPage';
 import ContactUs from "../components/ContactUsPage/contact-us";
 import FavoriteEventCard from "../components/FavoriteEventCard/favoriteEvent";
 import Userpage from '../components/UsersPage/Userpage';
 import ProtectedRoute from './ProtectedRoute';
 import PaymentSuccess from '../components/shared/payments/PaymentSuccess';
 import PaymentFailed from '../components/shared/payments/PaymentFailed';
-
-
-
+import AdminPage from '../components/AdminPage/AdminPage';
+import AdminEventPage from '../components/AdminEventsPage/AdminEventPage';
+import AdminDashDoard from "../components/AdminDashDoard/adminDashDoard";
+import EventManagement from '../components/AdminDashDoard/eventsMangement';
+// import { EventCard } from '../components/shared/metrial-mui/navbarMui';
+import EventDetail from "../components/shared/metrial-mui/navbarMui";
+import EventForm from '../components/AdminEventsPage/AdminEventPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -28,6 +30,7 @@ const AppRoutes: React.FC = () => {
         {/* authentication routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/runway" element={<Runway/>} />
+        <Route path="/nav" element={<EventDetail />} />
 
         {/* user routes */}
         <Route path="/" element={<ProtectedRoute element={<Home />} />} />
@@ -39,13 +42,15 @@ const AppRoutes: React.FC = () => {
         <Route path="/contact" element={<ProtectedRoute element={<ContactUs />} />} />
         <Route path="/success" element={<ProtectedRoute element={<PaymentSuccess />} />} />
         <Route path="/cancel" element={<ProtectedRoute element={<PaymentFailed />} />} />
-
+       
 
         {/* admin routes */}
-        <Route path="/edit-event/:id" element={<ProtectedRoute  role='admin' element={<EditEventPage />} />} />
-        <Route path="/users" element={<ProtectedRoute  role='admin'  element={<Userpage />} />} />
-        <Route path="/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
-        <Route path="/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
+        <Route path="/admin/users" element={<ProtectedRoute  role='admin'  element={<Userpage />} />} />
+        <Route path="/admin/events" element={<ProtectedRoute  role='admin'  element={<AdminEventPage />} />} />
+        <Route path="/admin/add-event" element={<ProtectedRoute  role='admin'  element={<EventForm />} />} />
+        <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<UserForm />} />} />
+        <Route path="/admin/add-user" element={<ProtectedRoute  role='admin'  element={<AdminPage/>} />} />
+        <Route path="/admin/userManegement" element={<ProtectedRoute  role='admin'  element={<AdminDashDoard/>} />} />
 
 
         {/* not found routes */}
