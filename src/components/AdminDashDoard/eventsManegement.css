@@ -1,15 +1,16 @@
 .event-management-container {
-    height: 100vh !important;
+    height: 100vh;
     display: flex;
-    flex-direction: column !important;
+    flex-direction: column ;
     /* justify-content: center;
     align-items: center; */
     text-align: center;
-    min-height: 80vh !important;
+    min-height: 80vh ;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: transparent;
     padding: 20px;
+    width: 100%;
 }
 
 .event-management-container h2, 
@@ -76,8 +77,9 @@
 .search-add-container{
     display: flex;
     width: 100%;
-    justify-content: flex-end !important;
-    align-items: flex-end !important;
+    justify-content: space-between;
+    align-items: flex-end;
+
 }
 
 

@@ -146,7 +146,7 @@ export const getEventById = createAsyncThunk(
     }
 )
 
-export const deleteEvent = createAsyncThunk("events/deleteEventById", async(id:string)=>{
+export const deleteEvent = createAsyncThunk("events/deleteEventById", async(id:string|null)=>{
     try{
         const response = await customAxios.delete(`/events/remove/${id}`);
         return {res:response.data,eventId:id};
@@ -204,7 +204,7 @@ const eventSlice = createSlice({
                 state.loading = false;
             })
             .addCase(addEvent.fulfilled, (state, action:any) => {
-                // console.log("added Event");
+                console.log("added Event");
                 state.events.push(action.payload.data);
             })
             .addCase(getEventById.fulfilled,(state,action) => {

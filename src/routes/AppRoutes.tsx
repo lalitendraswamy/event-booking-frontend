@@ -21,6 +21,7 @@ import AdminDashDoard from "../components/AdminDashDoard/adminDashDoard";
 import EventManagement from '../components/AdminDashDoard/eventsMangement';
 // import { EventCard } from '../components/shared/metrial-mui/navbarMui';
 import EventDetail from "../components/shared/metrial-mui/navbarMui";
+import EventForm from '../components/AdminEventsPage/AdminEventPage';
 
 const AppRoutes: React.FC = () => {
   return (
